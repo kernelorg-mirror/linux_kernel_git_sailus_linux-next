@@ -1392,8 +1392,7 @@ static int ov8858_s_stream(struct v4l2_subdev *sd, int on)
 		}
 	} else {
 		ov8858_stop_stream(ov8858);
-		pm_runtime_mark_last_busy(&client->dev);
-		__pm_runtime_put_autosuspend(&client->dev);
+		pm_runtime_put_autosuspend(&client->dev);
 	}
 
 unlock_and_return:
@@ -1541,7 +1540,7 @@ static int ov8858_set_ctrl(struct v4l2_ctrl *ctrl)
 	struct v4l2_subdev_state *state;
 	u16 digi_gain;
 	s64 max_exp;
-	int ret;
+	int ret, pm_status;
 
 	/*
 	 * The control handler and the subdev state use the same mutex and the
@@ -1564,7 +1563,8 @@ static int ov8858_set_ctrl(struct v4l2_ctrl *ctrl)
 		break;
 	}
 
-	if (!pm_runtime_get_if_in_use(&client->dev))
+	pm_status = pm_runtime_get_if_active(&client->dev);
+	if (!pm_status)
 		return 0;
 
 	switch (ctrl->id) {
@@ -1604,7 +1604,8 @@ static int ov8858_set_ctrl(struct v4l2_ctrl *ctrl)
 		break;
 	}
 
-	pm_runtime_put(&client->dev);
+	if (pm_status > 0)
+		pm_runtime_put_autosuspend(&client->dev);
 
 	return ret;
 }
@@ -1952,8 +1953,7 @@ static int ov8858_probe(struct i2c_client *client)
 		goto err_power_off;
 	}
 
-	pm_runtime_mark_last_busy(dev);
-	__pm_runtime_put_autosuspend(dev);
+	pm_runtime_put_autosuspend(dev);
 
 	return 0;
 
