@@ -284,7 +284,7 @@ static void panfrost_mmu_flush_range(struct panfrost_device *pfdev,
 	if (pm_runtime_active(pfdev->dev))
 		mmu_hw_do_operation(pfdev, mmu, iova, size, AS_COMMAND_FLUSH_PT);
 
-	pm_runtime_put_autosuspend(pfdev->dev);
+	__pm_runtime_put_autosuspend(pfdev->dev);
 }
 
 static int mmu_map_sg(struct panfrost_device *pfdev, struct panfrost_mmu *mmu,
@@ -557,7 +557,7 @@ static void panfrost_mmu_release_ctx(struct kref *kref)
 		pm_runtime_get_noresume(pfdev->dev);
 		if (pm_runtime_active(pfdev->dev))
 			panfrost_mmu_disable(pfdev, mmu->as);
-		pm_runtime_put_autosuspend(pfdev->dev);
+		__pm_runtime_put_autosuspend(pfdev->dev);
 
 		clear_bit(mmu->as, &pfdev->as_alloc_mask);
 		clear_bit(mmu->as, &pfdev->as_in_use_mask);

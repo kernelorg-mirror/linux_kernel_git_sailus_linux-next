@@ -469,7 +469,7 @@ static void panfrost_job_handle_err(struct panfrost_device *pfdev,
 	if (signal_fence)
 		dma_fence_signal_locked(job->done_fence);
 
-	pm_runtime_put_autosuspend(pfdev->dev);
+	__pm_runtime_put_autosuspend(pfdev->dev);
 
 	if (panfrost_exception_needs_reset(pfdev, js_status)) {
 		atomic_set(&pfdev->reset.pending, 1);
@@ -488,7 +488,7 @@ static void panfrost_job_handle_done(struct panfrost_device *pfdev,
 	panfrost_devfreq_record_idle(&pfdev->pfdevfreq);
 
 	dma_fence_signal_locked(job->done_fence);
-	pm_runtime_put_autosuspend(pfdev->dev);
+	__pm_runtime_put_autosuspend(pfdev->dev);
 }
 
 static void panfrost_job_handle_irq(struct panfrost_device *pfdev, u32 status)
