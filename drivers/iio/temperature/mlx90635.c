@@ -750,7 +750,7 @@ static int mlx90635_read_raw(struct iio_dev *indio_dev,
 
 mlx90635_read_raw_pm:
 	pm_runtime_mark_last_busy(&data->client->dev);
-	pm_runtime_put_autosuspend(&data->client->dev);
+	__pm_runtime_put_autosuspend(&data->client->dev);
 	return ret;
 }
 
@@ -1023,7 +1023,7 @@ static int mlx90635_probe(struct i2c_client *client)
 
 	pm_runtime_set_autosuspend_delay(&client->dev, MLX90635_SLEEP_DELAY_MS);
 	pm_runtime_use_autosuspend(&client->dev);
-	pm_runtime_put_autosuspend(&client->dev);
+	__pm_runtime_put_autosuspend(&client->dev);
 
 	return devm_iio_device_register(&client->dev, indio_dev);
 }

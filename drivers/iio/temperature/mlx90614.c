@@ -212,7 +212,7 @@ static int mlx90614_power_get(struct mlx90614_data *data, bool startup)
 		if (time_before(now, data->ready_timestamp) &&
 		    msleep_interruptible(jiffies_to_msecs(
 				data->ready_timestamp - now)) != 0) {
-			pm_runtime_put_autosuspend(&data->client->dev);
+			__pm_runtime_put_autosuspend(&data->client->dev);
 			return -EINTR;
 		}
 	}
@@ -226,7 +226,7 @@ static void mlx90614_power_put(struct mlx90614_data *data)
 		return;
 
 	pm_runtime_mark_last_busy(&data->client->dev);
-	pm_runtime_put_autosuspend(&data->client->dev);
+	__pm_runtime_put_autosuspend(&data->client->dev);
 }
 #else
 static inline int mlx90614_power_get(struct mlx90614_data *data, bool startup)
