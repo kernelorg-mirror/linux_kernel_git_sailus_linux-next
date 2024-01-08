@@ -2096,7 +2096,7 @@ static void amdgpu_get_secondary_funcs(struct amdgpu_device *adev)
 		if (p) {
 			pm_runtime_get_sync(&p->dev);
 			pm_runtime_mark_last_busy(&p->dev);
-			pm_runtime_put_autosuspend(&p->dev);
+			__pm_runtime_put_autosuspend(&p->dev);
 			pci_dev_put(p);
 		}
 	}
@@ -2287,7 +2287,7 @@ retry_init:
 		pm_runtime_allow(ddev->dev);
 
 		pm_runtime_mark_last_busy(ddev->dev);
-		pm_runtime_put_autosuspend(ddev->dev);
+		__pm_runtime_put_autosuspend(ddev->dev);
 
 		pci_wake_from_d3(pdev, TRUE);
 
@@ -2775,7 +2775,7 @@ long amdgpu_drm_ioctl(struct file *filp,
 
 	pm_runtime_mark_last_busy(dev->dev);
 out:
-	pm_runtime_put_autosuspend(dev->dev);
+	__pm_runtime_put_autosuspend(dev->dev);
 	return ret;
 }
 

@@ -71,7 +71,7 @@ static int amdgpu_dma_buf_attach(struct dma_buf *dmabuf,
 	return 0;
 
 out:
-	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+	__pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
 	trace_amdgpu_runpm_reference_dumps(0, __func__);
 	return r;
 }
@@ -92,7 +92,7 @@ static void amdgpu_dma_buf_detach(struct dma_buf *dmabuf,
 	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
 
 	pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
-	pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+	__pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
 	trace_amdgpu_runpm_reference_dumps(0, __func__);
 }
 

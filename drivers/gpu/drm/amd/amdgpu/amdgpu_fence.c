@@ -310,7 +310,7 @@ bool amdgpu_fence_process(struct amdgpu_ring *ring)
 		dma_fence_signal(fence);
 		dma_fence_put(fence);
 		pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
-		pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+		__pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
 		trace_amdgpu_runpm_reference_dumps(0, __func__);
 	} while (last_seq != seq);
 
@@ -952,7 +952,7 @@ static int gpu_recover_get(void *data, u64 *val)
 
 	r = pm_runtime_get_sync(dev->dev);
 	if (r < 0) {
-		pm_runtime_put_autosuspend(dev->dev);
+		__pm_runtime_put_autosuspend(dev->dev);
 		return 0;
 	}
 
@@ -962,7 +962,7 @@ static int gpu_recover_get(void *data, u64 *val)
 	*val = atomic_read(&adev->reset_domain->reset_res);
 
 	pm_runtime_mark_last_busy(dev->dev);
-	pm_runtime_put_autosuspend(dev->dev);
+	__pm_runtime_put_autosuspend(dev->dev);
 
 	return 0;
 }

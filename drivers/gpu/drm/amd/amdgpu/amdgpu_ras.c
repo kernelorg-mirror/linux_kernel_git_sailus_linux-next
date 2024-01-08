@@ -2777,7 +2777,7 @@ static void amdgpu_ras_counte_dw(struct work_struct *work)
 
 	pm_runtime_mark_last_busy(dev->dev);
 Out:
-	pm_runtime_put_autosuspend(dev->dev);
+	__pm_runtime_put_autosuspend(dev->dev);
 }
 
 static void amdgpu_ras_query_poison_mode(struct amdgpu_device *adev)

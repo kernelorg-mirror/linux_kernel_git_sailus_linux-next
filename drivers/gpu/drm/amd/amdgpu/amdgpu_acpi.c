@@ -493,7 +493,7 @@ static int amdgpu_atif_handler(struct amdgpu_device *adev,
 				/* Just fire off a uevent and let userspace tell us what to do */
 				drm_helper_hpd_irq_event(adev_to_drm(adev));
 				pm_runtime_mark_last_busy(adev_to_drm(adev)->dev);
-				pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
+				__pm_runtime_put_autosuspend(adev_to_drm(adev)->dev);
 			}
 		}
 		/* TODO: check other events */

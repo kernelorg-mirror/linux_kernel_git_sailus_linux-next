@@ -1392,7 +1392,7 @@ error_pasid:
 out_suspend:
 	pm_runtime_mark_last_busy(dev->dev);
 pm_put:
-	pm_runtime_put_autosuspend(dev->dev);
+	__pm_runtime_put_autosuspend(dev->dev);
 
 	return r;
 }
@@ -1459,7 +1459,7 @@ void amdgpu_driver_postclose_kms(struct drm_device *dev,
 	file_priv->driver_priv = NULL;
 
 	pm_runtime_mark_last_busy(dev->dev);
-	pm_runtime_put_autosuspend(dev->dev);
+	__pm_runtime_put_autosuspend(dev->dev);
 }
 
 
