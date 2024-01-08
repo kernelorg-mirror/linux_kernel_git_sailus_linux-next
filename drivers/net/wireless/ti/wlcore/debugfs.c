@@ -64,7 +64,7 @@ void wl1271_debugfs_update_stats(struct wl1271 *wl)
 	}
 
 	pm_runtime_mark_last_busy(wl->dev);
-	pm_runtime_put_autosuspend(wl->dev);
+	__pm_runtime_put_autosuspend(wl->dev);
 
 out:
 	mutex_unlock(&wl->mutex);
@@ -114,7 +114,7 @@ static void chip_op_handler(struct wl1271 *wl, unsigned long value,
 	chip_op(wl);
 
 	pm_runtime_mark_last_busy(wl->dev);
-	pm_runtime_put_autosuspend(wl->dev);
+	__pm_runtime_put_autosuspend(wl->dev);
 }
 
 #define WL12XX_CONF_DEBUGFS(param, conf_sub_struct,			\
@@ -288,7 +288,7 @@ static ssize_t dynamic_ps_timeout_write(struct file *file,
 	}
 
 	pm_runtime_mark_last_busy(wl->dev);
-	pm_runtime_put_autosuspend(wl->dev);
+	__pm_runtime_put_autosuspend(wl->dev);
 
 out:
 	mutex_unlock(&wl->mutex);
@@ -358,7 +358,7 @@ static ssize_t forced_ps_write(struct file *file,
 	}
 
 	pm_runtime_mark_last_busy(wl->dev);
-	pm_runtime_put_autosuspend(wl->dev);
+	__pm_runtime_put_autosuspend(wl->dev);
 
 out:
 	mutex_unlock(&wl->mutex);
@@ -831,7 +831,7 @@ static ssize_t rx_streaming_interval_write(struct file *file,
 	}
 
 	pm_runtime_mark_last_busy(wl->dev);
-	pm_runtime_put_autosuspend(wl->dev);
+	__pm_runtime_put_autosuspend(wl->dev);
 out:
 	mutex_unlock(&wl->mutex);
 	return count;
@@ -887,7 +887,7 @@ static ssize_t rx_streaming_always_write(struct file *file,
 	}
 
 	pm_runtime_mark_last_busy(wl->dev);
-	pm_runtime_put_autosuspend(wl->dev);
+	__pm_runtime_put_autosuspend(wl->dev);
 out:
 	mutex_unlock(&wl->mutex);
 	return count;
@@ -935,7 +935,7 @@ static ssize_t beacon_filtering_write(struct file *file,
 	}
 
 	pm_runtime_mark_last_busy(wl->dev);
-	pm_runtime_put_autosuspend(wl->dev);
+	__pm_runtime_put_autosuspend(wl->dev);
 out:
 	mutex_unlock(&wl->mutex);
 	return count;
@@ -1016,7 +1016,7 @@ static ssize_t sleep_auth_write(struct file *file,
 
 out_sleep:
 	pm_runtime_mark_last_busy(wl->dev);
-	pm_runtime_put_autosuspend(wl->dev);
+	__pm_runtime_put_autosuspend(wl->dev);
 out:
 	mutex_unlock(&wl->mutex);
 	return count;
@@ -1091,7 +1091,7 @@ read_err:
 
 part_err:
 	pm_runtime_mark_last_busy(wl->dev);
-	pm_runtime_put_autosuspend(wl->dev);
+	__pm_runtime_put_autosuspend(wl->dev);
 
 skip_read:
 	mutex_unlock(&wl->mutex);
@@ -1173,7 +1173,7 @@ write_err:
 
 part_err:
 	pm_runtime_mark_last_busy(wl->dev);
-	pm_runtime_put_autosuspend(wl->dev);
+	__pm_runtime_put_autosuspend(wl->dev);
 
 skip_write:
 	mutex_unlock(&wl->mutex);
@@ -1248,7 +1248,7 @@ static ssize_t fw_logger_write(struct file *file,
 	ret = wl12xx_cmd_config_fwlog(wl);
 
 	pm_runtime_mark_last_busy(wl->dev);
-	pm_runtime_put_autosuspend(wl->dev);
+	__pm_runtime_put_autosuspend(wl->dev);
 
 out:
 	mutex_unlock(&wl->mutex);

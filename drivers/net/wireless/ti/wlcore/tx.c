@@ -867,7 +867,7 @@ void wl1271_tx_work(struct work_struct *work)
 	}
 
 	pm_runtime_mark_last_busy(wl->dev);
-	pm_runtime_put_autosuspend(wl->dev);
+	__pm_runtime_put_autosuspend(wl->dev);
 out:
 	mutex_unlock(&wl->mutex);
 }

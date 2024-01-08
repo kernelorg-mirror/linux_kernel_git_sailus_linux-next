@@ -61,7 +61,7 @@ wlcore_vendor_cmd_smart_config_start(struct wiphy *wiphy,
 			nla_get_u32(tb[WLCORE_VENDOR_ATTR_GROUP_ID]));
 
 	pm_runtime_mark_last_busy(wl->dev);
-	pm_runtime_put_autosuspend(wl->dev);
+	__pm_runtime_put_autosuspend(wl->dev);
 out:
 	mutex_unlock(&wl->mutex);
 
@@ -93,7 +93,7 @@ wlcore_vendor_cmd_smart_config_stop(struct wiphy *wiphy,
 	ret = wlcore_smart_config_stop(wl);
 
 	pm_runtime_mark_last_busy(wl->dev);
-	pm_runtime_put_autosuspend(wl->dev);
+	__pm_runtime_put_autosuspend(wl->dev);
 out:
 	mutex_unlock(&wl->mutex);
 
@@ -141,7 +141,7 @@ wlcore_vendor_cmd_smart_config_set_group_key(struct wiphy *wiphy,
 			nla_data(tb[WLCORE_VENDOR_ATTR_GROUP_KEY]));
 
 	pm_runtime_mark_last_busy(wl->dev);
-	pm_runtime_put_autosuspend(wl->dev);
+	__pm_runtime_put_autosuspend(wl->dev);
 out:
 	mutex_unlock(&wl->mutex);
 
