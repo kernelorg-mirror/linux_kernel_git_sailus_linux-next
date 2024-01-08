@@ -173,7 +173,7 @@ static irqreturn_t ipa_smp2p_modem_setup_ready_isr(int irq, void *dev_id)
 
 out_power_put:
 	pm_runtime_mark_last_busy(dev);
-	(void)pm_runtime_put_autosuspend(dev);
+	(void) __pm_runtime_put_autosuspend(dev);
 
 	return IRQ_HANDLED;
 }
@@ -214,7 +214,7 @@ static void ipa_smp2p_power_release(struct ipa *ipa)
 		return;
 
 	pm_runtime_mark_last_busy(dev);
-	(void)pm_runtime_put_autosuspend(dev);
+	(void) __pm_runtime_put_autosuspend(dev);
 	ipa->smp2p->power_on = false;
 }
 

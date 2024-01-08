@@ -70,7 +70,7 @@ static int ipa_open(struct net_device *netdev)
 	netif_start_queue(netdev);
 
 	pm_runtime_mark_last_busy(dev);
-	(void)pm_runtime_put_autosuspend(dev);
+	(void) __pm_runtime_put_autosuspend(dev);
 
 	return 0;
 
@@ -101,7 +101,7 @@ static int ipa_stop(struct net_device *netdev)
 	ipa_endpoint_disable_one(ipa->name_map[IPA_ENDPOINT_AP_MODEM_TX]);
 out_power_put:
 	pm_runtime_mark_last_busy(dev);
-	(void)pm_runtime_put_autosuspend(dev);
+	(void) __pm_runtime_put_autosuspend(dev);
 
 	return 0;
 }
@@ -159,7 +159,7 @@ ipa_start_xmit(struct sk_buff *skb, struct net_device *netdev)
 	ret = ipa_endpoint_skb_tx(endpoint, skb);
 
 	pm_runtime_mark_last_busy(dev);
-	(void)pm_runtime_put_autosuspend(dev);
+	(void) __pm_runtime_put_autosuspend(dev);
 
 	if (ret) {
 		if (ret != -E2BIG)
@@ -409,7 +409,7 @@ static void ipa_modem_crashed(struct ipa *ipa)
 
 out_power_put:
 	pm_runtime_mark_last_busy(dev);
-	(void)pm_runtime_put_autosuspend(dev);
+	(void) __pm_runtime_put_autosuspend(dev);
 }
 
 static int ipa_modem_notify(struct notifier_block *nb, unsigned long action,

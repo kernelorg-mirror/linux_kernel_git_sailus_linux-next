@@ -157,7 +157,7 @@ static void ipa_uc_response_hdlr(struct ipa *ipa)
 			ipa->uc_loaded = true;
 			ipa_power_retention(ipa, true);
 			pm_runtime_mark_last_busy(dev);
-			(void)pm_runtime_put_autosuspend(dev);
+			(void) __pm_runtime_put_autosuspend(dev);
 			ipa->uc_powered = false;
 		} else {
 			dev_warn(dev, "unexpected init_completed response\n");
@@ -202,7 +202,7 @@ void ipa_uc_deconfig(struct ipa *ipa)
 		return;
 
 	pm_runtime_mark_last_busy(dev);
-	(void)pm_runtime_put_autosuspend(dev);
+	(void) __pm_runtime_put_autosuspend(dev);
 }
 
 /* Take a proxy power reference for the microcontroller */

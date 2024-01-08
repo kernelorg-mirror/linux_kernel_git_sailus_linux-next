@@ -124,7 +124,7 @@ static irqreturn_t ipa_isr_thread(int irq, void *dev_id)
 	}
 out_power_put:
 	pm_runtime_mark_last_busy(dev);
-	(void)pm_runtime_put_autosuspend(dev);
+	(void) __pm_runtime_put_autosuspend(dev);
 
 	return IRQ_HANDLED;
 }
