@@ -493,7 +493,7 @@ static void omap_des_finish_req(struct omap_des_dev *dd, int err)
 	crypto_finalize_skcipher_request(dd->engine, req, err);
 
 	pm_runtime_mark_last_busy(dd->dev);
-	pm_runtime_put_autosuspend(dd->dev);
+	__pm_runtime_put_autosuspend(dd->dev);
 }
 
 static int omap_des_crypt_dma_stop(struct omap_des_dev *dd)

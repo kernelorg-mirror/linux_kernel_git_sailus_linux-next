@@ -808,7 +808,7 @@ static void stm32_cryp_finish_req(struct stm32_cryp *cryp, int err)
 		stm32_cryp_get_iv(cryp);
 
 	pm_runtime_mark_last_busy(cryp->dev);
-	pm_runtime_put_autosuspend(cryp->dev);
+	__pm_runtime_put_autosuspend(cryp->dev);
 
 	if (is_gcm(cryp) || is_ccm(cryp))
 		crypto_finalize_aead_request(cryp->engine, cryp->areq, err);

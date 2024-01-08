@@ -39,7 +39,7 @@ static void omap_aes_gcm_finish_req(struct omap_aes_dev *dd, int ret)
 	crypto_finalize_aead_request(dd->engine, req, ret);
 
 	pm_runtime_mark_last_busy(dd->dev);
-	pm_runtime_put_autosuspend(dd->dev);
+	__pm_runtime_put_autosuspend(dd->dev);
 }
 
 static void omap_aes_gcm_done_task(struct omap_aes_dev *dd)

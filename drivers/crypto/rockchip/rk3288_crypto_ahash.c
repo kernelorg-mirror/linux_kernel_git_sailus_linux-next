@@ -330,7 +330,7 @@ static int rk_hash_run(struct crypto_engine *engine, void *breq)
 	}
 
 theend:
-	pm_runtime_put_autosuspend(rkc->dev);
+	__pm_runtime_put_autosuspend(rkc->dev);
 
 	local_bh_disable();
 	crypto_finalize_hash_request(engine, breq, err);

@@ -402,7 +402,7 @@ static void omap_aes_finish_req(struct omap_aes_dev *dd, int err)
 	crypto_finalize_skcipher_request(dd->engine, req, err);
 
 	pm_runtime_mark_last_busy(dd->dev);
-	pm_runtime_put_autosuspend(dd->dev);
+	__pm_runtime_put_autosuspend(dd->dev);
 }
 
 int omap_aes_crypt_dma_stop(struct omap_aes_dev *dd)

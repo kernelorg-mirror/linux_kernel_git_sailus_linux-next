@@ -976,7 +976,7 @@ static void stm32_hash_finish_req(struct ahash_request *req, int err)
 	}
 
 	pm_runtime_mark_last_busy(hdev->dev);
-	pm_runtime_put_autosuspend(hdev->dev);
+	__pm_runtime_put_autosuspend(hdev->dev);
 
 	crypto_finalize_hash_request(hdev->engine, req, err);
 }

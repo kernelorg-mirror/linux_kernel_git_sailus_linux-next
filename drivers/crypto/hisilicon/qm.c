@@ -829,7 +829,7 @@ static void qm_pm_put_sync(struct hisi_qm *qm)
 		return;
 
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 }
 
 static void qm_cq_head_update(struct hisi_qp *qp)

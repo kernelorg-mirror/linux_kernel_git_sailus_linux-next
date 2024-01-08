@@ -413,7 +413,7 @@ static int rk_cipher_run(struct crypto_engine *engine, void *async_req)
 	}
 
 theend:
-	pm_runtime_put_autosuspend(rkc->dev);
+	__pm_runtime_put_autosuspend(rkc->dev);
 
 	local_bh_disable();
 	crypto_finalize_skcipher_request(engine, areq, err);

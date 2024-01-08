@@ -139,7 +139,7 @@ static int stm32_crc_init(struct shash_desc *desc)
 	spin_unlock_irqrestore(&crc->lock, flags);
 
 	pm_runtime_mark_last_busy(crc->dev);
-	pm_runtime_put_autosuspend(crc->dev);
+	__pm_runtime_put_autosuspend(crc->dev);
 
 	return 0;
 }
@@ -209,7 +209,7 @@ static int burst_update(struct shash_desc *desc, const u8 *d8,
 
 pm_out:
 	pm_runtime_mark_last_busy(crc->dev);
-	pm_runtime_put_autosuspend(crc->dev);
+	__pm_runtime_put_autosuspend(crc->dev);
 
 	return 0;
 }

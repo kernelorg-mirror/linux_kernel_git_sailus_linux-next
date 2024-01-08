@@ -78,5 +78,5 @@ int cc_pm_get(struct device *dev)
 void cc_pm_put_suspend(struct device *dev)
 {
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 }
