@@ -1277,7 +1277,7 @@ void snd_soc_pcm_component_pm_runtime_put(struct snd_soc_pcm_runtime *rtd,
 			continue;
 
 		pm_runtime_mark_last_busy(component->dev);
-		pm_runtime_put_autosuspend(component->dev);
+		__pm_runtime_put_autosuspend(component->dev);
 
 		/* remove marked stream */
 		soc_component_mark_pop(component, stream, pm);
