@@ -1102,7 +1102,7 @@ static int had_pcm_open(struct snd_pcm_substream *substream)
 	return retval;
  error:
 	pm_runtime_mark_last_busy(intelhaddata->dev);
-	pm_runtime_put_autosuspend(intelhaddata->dev);
+	__pm_runtime_put_autosuspend(intelhaddata->dev);
 	return retval;
 }
 
@@ -1127,7 +1127,7 @@ static int had_pcm_close(struct snd_pcm_substream *substream)
 	spin_unlock_irq(&intelhaddata->had_spinlock);
 
 	pm_runtime_mark_last_busy(intelhaddata->dev);
-	pm_runtime_put_autosuspend(intelhaddata->dev);
+	__pm_runtime_put_autosuspend(intelhaddata->dev);
 	return 0;
 }
 
@@ -1589,7 +1589,7 @@ static void had_audio_wq(struct work_struct *work)
 
 	mutex_unlock(&ctx->mutex);
 	pm_runtime_mark_last_busy(ctx->dev);
-	pm_runtime_put_autosuspend(ctx->dev);
+	__pm_runtime_put_autosuspend(ctx->dev);
 }
 
 /*
