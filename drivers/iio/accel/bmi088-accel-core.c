@@ -380,7 +380,7 @@ static int bmi088_accel_read_raw(struct iio_dev *indio_dev,
 
 out_read_raw_pm_put:
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	return ret;
 }
@@ -424,7 +424,7 @@ static int bmi088_accel_write_raw(struct iio_dev *indio_dev,
 
 		ret = bmi088_accel_set_scale(data, val, val2);
 		pm_runtime_mark_last_busy(dev);
-		pm_runtime_put_autosuspend(dev);
+		__pm_runtime_put_autosuspend(dev);
 		return ret;
 	case IIO_CHAN_INFO_SAMP_FREQ:
 		ret = pm_runtime_resume_and_get(dev);
@@ -433,7 +433,7 @@ static int bmi088_accel_write_raw(struct iio_dev *indio_dev,
 
 		ret = bmi088_accel_set_sample_freq(data, val);
 		pm_runtime_mark_last_busy(dev);
-		pm_runtime_put_autosuspend(dev);
+		__pm_runtime_put_autosuspend(dev);
 		return ret;
 	default:
 		return -EINVAL;
