@@ -763,7 +763,7 @@ static int wcd_mbhc_initialise(struct wcd_mbhc *mbhc)
 	mutex_unlock(&mbhc->lock);
 
 	pm_runtime_mark_last_busy(component->dev);
-	pm_runtime_put_autosuspend(component->dev);
+	__pm_runtime_put_autosuspend(component->dev);
 
 	return 0;
 }
@@ -1257,7 +1257,7 @@ exit:
 		mbhc->mbhc_cb->hph_pull_down_ctrl(component, true);
 
 	pm_runtime_mark_last_busy(component->dev);
-	pm_runtime_put_autosuspend(component->dev);
+	__pm_runtime_put_autosuspend(component->dev);
 }
 
 static irqreturn_t wcd_mbhc_adc_hs_rem_irq(int irq, void *data)

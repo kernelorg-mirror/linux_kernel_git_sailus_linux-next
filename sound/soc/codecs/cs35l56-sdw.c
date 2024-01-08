@@ -188,7 +188,7 @@ static void cs35l56_sdw_init(struct sdw_slave *peripheral)
 
 out:
 	pm_runtime_mark_last_busy(cs35l56->base.dev);
-	pm_runtime_put_autosuspend(cs35l56->base.dev);
+	__pm_runtime_put_autosuspend(cs35l56->base.dev);
 }
 
 static int cs35l56_sdw_interrupt(struct sdw_slave *peripheral,
@@ -237,7 +237,7 @@ static void cs35l56_sdw_irq_work(struct work_struct *work)
 		sdw_write_no_pm(cs35l56->sdw_peripheral, CS35L56_SDW_GEN_INT_MASK_1,
 				CS35L56_SDW_INT_MASK_CODEC_IRQ);
 
-	pm_runtime_put_autosuspend(cs35l56->base.dev);
+	__pm_runtime_put_autosuspend(cs35l56->base.dev);
 }
 
 static int cs35l56_sdw_read_prop(struct sdw_slave *peripheral)

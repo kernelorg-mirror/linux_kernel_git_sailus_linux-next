@@ -278,7 +278,7 @@ static void arizona_start_mic(struct arizona_priv *info)
 		dev_err(arizona->dev, "Failed to enable micd: %d\n", ret);
 	} else if (!change) {
 		regulator_disable(info->micvdd);
-		pm_runtime_put_autosuspend(arizona->dev);
+		__pm_runtime_put_autosuspend(arizona->dev);
 	}
 }
 
@@ -320,7 +320,7 @@ static void arizona_stop_mic(struct arizona_priv *info)
 	if (change) {
 		regulator_disable(info->micvdd);
 		pm_runtime_mark_last_busy(arizona->dev);
-		pm_runtime_put_autosuspend(arizona->dev);
+		__pm_runtime_put_autosuspend(arizona->dev);
 	}
 }
 
@@ -594,7 +594,7 @@ done:
 		arizona_start_mic(info);
 
 	if (info->hpdet_active) {
-		pm_runtime_put_autosuspend(arizona->dev);
+		__pm_runtime_put_autosuspend(arizona->dev);
 		info->hpdet_active = false;
 	}
 
@@ -647,7 +647,7 @@ static void arizona_identify_headphone(struct arizona_priv *info)
 
 err:
 	arizona_extcon_hp_clamp(info, false);
-	pm_runtime_put_autosuspend(arizona->dev);
+	__pm_runtime_put_autosuspend(arizona->dev);
 
 	/* Just report headphone */
 	snd_soc_jack_report(info->jack, SND_JACK_HEADPHONE,
@@ -1043,7 +1043,7 @@ static irqreturn_t arizona_jackdet(int irq, void *data)
 	if (ret) {
 		dev_err(arizona->dev, "Failed to read jackdet status: %d\n", ret);
 		mutex_unlock(&info->lock);
-		pm_runtime_put_autosuspend(arizona->dev);
+		__pm_runtime_put_autosuspend(arizona->dev);
 		return IRQ_NONE;
 	}
 
@@ -1128,7 +1128,7 @@ out:
 	mutex_unlock(&info->lock);
 
 	pm_runtime_mark_last_busy(arizona->dev);
-	pm_runtime_put_autosuspend(arizona->dev);
+	__pm_runtime_put_autosuspend(arizona->dev);
 
 	return IRQ_HANDLED;
 }

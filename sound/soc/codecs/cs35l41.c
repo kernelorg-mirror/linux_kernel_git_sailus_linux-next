@@ -484,7 +484,7 @@ static irqreturn_t cs35l41_irq(int irq, void *data)
 
 done:
 	pm_runtime_mark_last_busy(cs35l41->dev);
-	pm_runtime_put_autosuspend(cs35l41->dev);
+	__pm_runtime_put_autosuspend(cs35l41->dev);
 
 	return ret;
 }
@@ -1323,7 +1323,7 @@ int cs35l41_probe(struct cs35l41_private *cs35l41, const struct cs35l41_hw_cfg *
 		goto err_pm;
 	}
 
-	pm_runtime_put_autosuspend(cs35l41->dev);
+	__pm_runtime_put_autosuspend(cs35l41->dev);
 
 	dev_info(cs35l41->dev, "Cirrus Logic CS35L41 (%x), Revision: %02X\n",
 		 regid, reg_revid);

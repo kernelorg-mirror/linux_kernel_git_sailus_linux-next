@@ -232,7 +232,7 @@ error:
 	mutex_unlock(&priv->jack_lock);
 
 	pm_runtime_mark_last_busy(priv->dev);
-	pm_runtime_put_autosuspend(priv->dev);
+	__pm_runtime_put_autosuspend(priv->dev);
 
 	return ret;
 }
@@ -413,7 +413,7 @@ error:
 	mutex_unlock(&priv->jack_lock);
 
 	pm_runtime_mark_last_busy(priv->dev);
-	pm_runtime_put_autosuspend(priv->dev);
+	__pm_runtime_put_autosuspend(priv->dev);
 }
 
 irqreturn_t cs42l43_button_press(int irq, void *data)
@@ -452,7 +452,7 @@ void cs42l43_button_release_work(struct work_struct *work)
 	mutex_unlock(&priv->jack_lock);
 
 	pm_runtime_mark_last_busy(priv->dev);
-	pm_runtime_put_autosuspend(priv->dev);
+	__pm_runtime_put_autosuspend(priv->dev);
 }
 
 irqreturn_t cs42l43_button_release(int irq, void *data)
@@ -494,7 +494,7 @@ void cs42l43_bias_sense_timeout(struct work_struct *work)
 	mutex_unlock(&priv->jack_lock);
 
 	pm_runtime_mark_last_busy(priv->dev);
-	pm_runtime_put_autosuspend(priv->dev);
+	__pm_runtime_put_autosuspend(priv->dev);
 }
 
 static void cs42l43_start_load_detect(struct cs42l43_codec *priv)
@@ -754,7 +754,7 @@ error:
 	mutex_unlock(&priv->jack_lock);
 
 	pm_runtime_mark_last_busy(priv->dev);
-	pm_runtime_put_autosuspend(priv->dev);
+	__pm_runtime_put_autosuspend(priv->dev);
 }
 
 irqreturn_t cs42l43_tip_sense(int irq, void *data)

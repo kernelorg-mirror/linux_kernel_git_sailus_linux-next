@@ -781,7 +781,7 @@ static int wsa881x_put_pa_gain(struct snd_kcontrol *kc,
 	}
 
 	pm_runtime_mark_last_busy(comp->dev);
-	pm_runtime_put_autosuspend(comp->dev);
+	__pm_runtime_put_autosuspend(comp->dev);
 
 	return 1;
 }

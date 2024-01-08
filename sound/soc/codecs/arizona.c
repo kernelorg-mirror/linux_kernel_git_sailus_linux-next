@@ -2548,7 +2548,7 @@ static void arizona_disable_fll(struct arizona_fll *fll)
 
 	if (ref_change) {
 		arizona_set_fll_clks(fll, fll->base, false);
-		pm_runtime_put_autosuspend(arizona->dev);
+		__pm_runtime_put_autosuspend(arizona->dev);
 	}
 }
 

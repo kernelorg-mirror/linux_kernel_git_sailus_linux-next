@@ -1476,7 +1476,7 @@ int cs35l45_probe(struct cs35l45_private *cs35l45)
 	if (ret < 0)
 		goto err_dsp;
 
-	pm_runtime_put_autosuspend(cs35l45->dev);
+	__pm_runtime_put_autosuspend(cs35l45->dev);
 
 	return 0;
 

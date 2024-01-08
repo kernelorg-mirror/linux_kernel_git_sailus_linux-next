@@ -363,7 +363,7 @@ static int rt1017_sdca_io_init(struct device *dev, struct sdw_slave *slave)
 	rt1017->hw_init = true;
 
 	pm_runtime_mark_last_busy(&slave->dev);
-	pm_runtime_put_autosuspend(&slave->dev);
+	__pm_runtime_put_autosuspend(&slave->dev);
 
 	dev_dbg(&slave->dev, "hw_init complete\n");
 	return 0;

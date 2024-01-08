@@ -3940,7 +3940,7 @@ static void madera_disable_fll(struct madera_fll *fll)
 
 	if (ref_change) {
 		madera_set_fll_clks(fll, fll->base, false);
-		pm_runtime_put_autosuspend(madera->dev);
+		__pm_runtime_put_autosuspend(madera->dev);
 	}
 }
 
@@ -4322,7 +4322,7 @@ static int madera_disable_fll_ao(struct madera_fll *fll)
 
 	if (change) {
 		madera_set_fllao_clks(fll, fll->base, false);
-		pm_runtime_put_autosuspend(madera->dev);
+		__pm_runtime_put_autosuspend(madera->dev);
 	}
 
 	return 0;
@@ -4411,7 +4411,7 @@ static int madera_fllhj_disable(struct madera_fll *fll)
 
 	if (change) {
 		madera_set_fllhj_clks(fll, fll->base, false);
-		pm_runtime_put_autosuspend(madera->dev);
+		__pm_runtime_put_autosuspend(madera->dev);
 	}
 
 	return 0;

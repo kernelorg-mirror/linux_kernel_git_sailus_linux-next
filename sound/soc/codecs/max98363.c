@@ -189,7 +189,7 @@ static int max98363_io_init(struct sdw_slave *slave)
 
 out:
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	return ret;
 }

@@ -431,7 +431,7 @@ int cs35l56_is_fw_reload_needed(struct cs35l56_base *cs35l56_base)
 	else
 		ret = !!(val & CS35L56_FIRMWARE_MISSING);
 
-	pm_runtime_put_autosuspend(cs35l56_base->dev);
+	__pm_runtime_put_autosuspend(cs35l56_base->dev);
 
 	return ret;
 }

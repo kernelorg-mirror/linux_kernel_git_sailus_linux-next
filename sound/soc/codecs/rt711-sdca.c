@@ -526,7 +526,7 @@ static int rt711_sdca_set_jack_detect(struct snd_soc_component *component,
 	rt711_sdca_jack_init(rt711);
 
 	pm_runtime_mark_last_busy(component->dev);
-	pm_runtime_put_autosuspend(component->dev);
+	__pm_runtime_put_autosuspend(component->dev);
 
 	return 0;
 }
@@ -1591,7 +1591,7 @@ int rt711_sdca_io_init(struct device *dev, struct sdw_slave *slave)
 	rt711->hw_init = true;
 
 	pm_runtime_mark_last_busy(&slave->dev);
-	pm_runtime_put_autosuspend(&slave->dev);
+	__pm_runtime_put_autosuspend(&slave->dev);
 
 	dev_dbg(&slave->dev, "%s hw_init complete\n", __func__);
 	return 0;

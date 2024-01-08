@@ -163,7 +163,7 @@ int hda_codec_probe_complete(struct hda_codec *codec)
 out:
 	/* Complement pm_runtime_get_sync(bus) in probe */
 	pm_runtime_mark_last_busy(bus->dev);
-	pm_runtime_put_autosuspend(bus->dev);
+	__pm_runtime_put_autosuspend(bus->dev);
 
 	return ret;
 }
@@ -263,7 +263,7 @@ device_new_err:
 	snd_hdac_ext_bus_link_put(bus, hlink);
 
 	pm_runtime_mark_last_busy(bus->dev);
-	pm_runtime_put_autosuspend(bus->dev);
+	__pm_runtime_put_autosuspend(bus->dev);
 	return ret;
 }
 
@@ -301,7 +301,7 @@ static void hda_codec_remove(struct snd_soc_component *component)
 	 */
 	if (!was_registered) {
 		pm_runtime_mark_last_busy(bus->dev);
-		pm_runtime_put_autosuspend(bus->dev);
+		__pm_runtime_put_autosuspend(bus->dev);
 	}
 
 #ifdef CONFIG_PM

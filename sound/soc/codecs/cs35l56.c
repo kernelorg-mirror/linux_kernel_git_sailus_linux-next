@@ -765,7 +765,7 @@ static void cs35l56_dsp_work(struct work_struct *work)
 		cs35l56_patch(cs35l56);
 
 	pm_runtime_mark_last_busy(cs35l56->base.dev);
-	pm_runtime_put_autosuspend(cs35l56->base.dev);
+	__pm_runtime_put_autosuspend(cs35l56->base.dev);
 }
 
 static int cs35l56_component_probe(struct snd_soc_component *component)

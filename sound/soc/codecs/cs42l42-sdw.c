@@ -304,7 +304,7 @@ static void cs42l42_sdw_init(struct sdw_slave *peripheral)
 
 err:
 	/* This cancels the pm_runtime_get_noresume() call from cs42l42_sdw_probe(). */
-	pm_runtime_put_autosuspend(cs42l42->dev);
+	__pm_runtime_put_autosuspend(cs42l42->dev);
 }
 
 static int cs42l42_sdw_read_prop(struct sdw_slave *peripheral)
