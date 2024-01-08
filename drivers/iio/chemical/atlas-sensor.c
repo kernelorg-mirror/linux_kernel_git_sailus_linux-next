@@ -427,7 +427,7 @@ static int atlas_buffer_predisable(struct iio_dev *indio_dev)
 		return ret;
 
 	pm_runtime_mark_last_busy(&data->client->dev);
-	ret = pm_runtime_put_autosuspend(&data->client->dev);
+	ret = __pm_runtime_put_autosuspend(&data->client->dev);
 	if (ret)
 		return ret;
 
@@ -492,7 +492,7 @@ static int atlas_read_measurement(struct atlas_data *data, int reg, __be32 *val)
 	ret = regmap_bulk_read(data->regmap, reg, val, sizeof(*val));
 
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	return ret;
 }
