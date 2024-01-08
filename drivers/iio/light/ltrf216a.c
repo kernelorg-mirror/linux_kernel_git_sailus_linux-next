@@ -201,7 +201,7 @@ static int ltrf216a_set_power_state(struct ltrf216a_data *data, bool on)
 		}
 	} else {
 		pm_runtime_mark_last_busy(dev);
-		pm_runtime_put_autosuspend(dev);
+		__pm_runtime_put_autosuspend(dev);
 	}
 
 	return ret;

@@ -112,7 +112,7 @@ static int bh1780_read_raw(struct iio_dev *indio_dev,
 			if (value < 0)
 				return value;
 			pm_runtime_mark_last_busy(&bh1780->client->dev);
-			pm_runtime_put_autosuspend(&bh1780->client->dev);
+			__pm_runtime_put_autosuspend(&bh1780->client->dev);
 			*val = value;
 
 			return IIO_VAL_INT;

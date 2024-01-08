@@ -454,7 +454,7 @@ static int apds9960_set_power_state(struct apds9960_data *data, bool on)
 				     APDS9960_MAX_INT_TIME_IN_US);
 	} else {
 		pm_runtime_mark_last_busy(dev);
-		ret = pm_runtime_put_autosuspend(dev);
+		ret = __pm_runtime_put_autosuspend(dev);
 	}
 
 	mutex_unlock(&data->lock);
@@ -857,7 +857,7 @@ static int apds9960_buffer_predisable(struct iio_dev *indio_dev)
 	if (ret)
 		return ret;
 
-	pm_runtime_put_autosuspend(&data->client->dev);
+	__pm_runtime_put_autosuspend(&data->client->dev);
 
 	return 0;
 }

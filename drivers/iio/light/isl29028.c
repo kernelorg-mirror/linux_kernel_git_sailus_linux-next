@@ -342,7 +342,7 @@ static int isl29028_set_pm_runtime_busy(struct isl29028_chip *chip, bool on)
 		ret = pm_runtime_resume_and_get(dev);
 	} else {
 		pm_runtime_mark_last_busy(dev);
-		ret = pm_runtime_put_autosuspend(dev);
+		ret = __pm_runtime_put_autosuspend(dev);
 	}
 
 	return ret;

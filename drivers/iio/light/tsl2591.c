@@ -773,7 +773,7 @@ err_unlock:
 	mutex_unlock(&chip->als_mutex);
 
 	pm_runtime_mark_last_busy(&client->dev);
-	pm_runtime_put_autosuspend(&client->dev);
+	__pm_runtime_put_autosuspend(&client->dev);
 
 	return ret;
 }
@@ -996,7 +996,7 @@ static int tsl2591_write_event_config(struct iio_dev *indio_dev,
 	} else if (!state && chip->events_enabled) {
 		chip->events_enabled = false;
 		pm_runtime_mark_last_busy(&client->dev);
-		pm_runtime_put_autosuspend(&client->dev);
+		__pm_runtime_put_autosuspend(&client->dev);
 	}
 
 	return 0;

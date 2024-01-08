@@ -190,7 +190,7 @@ static int pa12203001_set_power_state(struct pa12203001_data *data, bool on,
 
 	} else {
 		pm_runtime_mark_last_busy(&data->client->dev);
-		ret = pm_runtime_put_autosuspend(&data->client->dev);
+		ret = __pm_runtime_put_autosuspend(&data->client->dev);
 	}
 
 	return ret;
