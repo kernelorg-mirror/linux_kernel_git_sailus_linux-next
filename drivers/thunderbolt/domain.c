@@ -151,7 +151,7 @@ static ssize_t boot_acl_show(struct device *dev, struct device_attribute *attr,
 
 out:
 	pm_runtime_mark_last_busy(&tb->dev);
-	pm_runtime_put_autosuspend(&tb->dev);
+	__pm_runtime_put_autosuspend(&tb->dev);
 	kfree(uuids);
 
 	return ret;
@@ -223,7 +223,7 @@ static ssize_t boot_acl_store(struct device *dev, struct device_attribute *attr,
 
 err_rpm_put:
 	pm_runtime_mark_last_busy(&tb->dev);
-	pm_runtime_put_autosuspend(&tb->dev);
+	__pm_runtime_put_autosuspend(&tb->dev);
 err_free_acl:
 	kfree(acl);
 err_free_str:

@@ -158,7 +158,7 @@ out_unlock:
 	mutex_unlock(&tb->lock);
 out_rpm:
 	pm_runtime_mark_last_busy(&usb4->dev);
-	pm_runtime_put_autosuspend(&usb4->dev);
+	__pm_runtime_put_autosuspend(&usb4->dev);
 
 	return ret ? ret : count;
 }
@@ -200,7 +200,7 @@ out_unlock:
 	mutex_unlock(&tb->lock);
 out_rpm:
 	pm_runtime_mark_last_busy(&usb4->dev);
-	pm_runtime_put_autosuspend(&usb4->dev);
+	__pm_runtime_put_autosuspend(&usb4->dev);
 
 	return ret ? ret : count;
 }

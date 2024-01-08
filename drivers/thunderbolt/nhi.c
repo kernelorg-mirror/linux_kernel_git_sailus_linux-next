@@ -1409,7 +1409,7 @@ static int nhi_probe(struct pci_dev *pdev, const struct pci_device_id *id)
 	pm_runtime_allow(&pdev->dev);
 	pm_runtime_set_autosuspend_delay(&pdev->dev, TB_AUTOSUSPEND_DELAY);
 	pm_runtime_use_autosuspend(&pdev->dev);
-	pm_runtime_put_autosuspend(&pdev->dev);
+	__pm_runtime_put_autosuspend(&pdev->dev);
 
 	return 0;
 }

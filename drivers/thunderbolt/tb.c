@@ -1328,7 +1328,7 @@ static void tb_scan_switch(struct tb_switch *sw)
 		tb_scan_port(port);
 
 	pm_runtime_mark_last_busy(&sw->dev);
-	pm_runtime_put_autosuspend(&sw->dev);
+	__pm_runtime_put_autosuspend(&sw->dev);
 }
 
 /*
@@ -1460,7 +1460,7 @@ static void tb_scan_port(struct tb_port *port)
 out_rpm_put:
 	if (port->usb4) {
 		pm_runtime_mark_last_busy(&port->usb4->dev);
-		pm_runtime_put_autosuspend(&port->usb4->dev);
+		__pm_runtime_put_autosuspend(&port->usb4->dev);
 	}
 }
 
@@ -1494,9 +1494,9 @@ static void tb_deactivate_and_free_tunnel(struct tb_tunnel *tunnel)
 		tb_configure_sym(tb, src_port, dst_port, 0, 0, true);
 		/* Now we can allow the domain to runtime suspend again */
 		pm_runtime_mark_last_busy(&dst_port->sw->dev);
-		pm_runtime_put_autosuspend(&dst_port->sw->dev);
+		__pm_runtime_put_autosuspend(&dst_port->sw->dev);
 		pm_runtime_mark_last_busy(&src_port->sw->dev);
-		pm_runtime_put_autosuspend(&src_port->sw->dev);
+		__pm_runtime_put_autosuspend(&src_port->sw->dev);
 		fallthrough;
 
 	case TB_TUNNEL_USB3:
@@ -1869,9 +1869,9 @@ err_dealloc_dp:
 	tb_switch_dealloc_dp_resource(in->sw, in);
 err_rpm_put:
 	pm_runtime_mark_last_busy(&out->sw->dev);
-	pm_runtime_put_autosuspend(&out->sw->dev);
+	__pm_runtime_put_autosuspend(&out->sw->dev);
 	pm_runtime_mark_last_busy(&in->sw->dev);
-	pm_runtime_put_autosuspend(&in->sw->dev);
+	__pm_runtime_put_autosuspend(&in->sw->dev);
 
 	return false;
 }
@@ -2224,7 +2224,7 @@ static void tb_handle_hotplug(struct work_struct *work)
 	}
 
 	pm_runtime_mark_last_busy(&sw->dev);
-	pm_runtime_put_autosuspend(&sw->dev);
+	__pm_runtime_put_autosuspend(&sw->dev);
 
 put_sw:
 	tb_switch_put(sw);
@@ -2232,7 +2232,7 @@ out:
 	mutex_unlock(&tb->lock);
 
 	pm_runtime_mark_last_busy(&tb->dev);
-	pm_runtime_put_autosuspend(&tb->dev);
+	__pm_runtime_put_autosuspend(&tb->dev);
 
 	kfree(ev);
 }
@@ -2462,7 +2462,7 @@ unlock:
 	mutex_unlock(&tb->lock);
 
 	pm_runtime_mark_last_busy(&tb->dev);
-	pm_runtime_put_autosuspend(&tb->dev);
+	__pm_runtime_put_autosuspend(&tb->dev);
 
 	kfree(ev);
 }

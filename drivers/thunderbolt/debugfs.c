@@ -161,7 +161,7 @@ static ssize_t regs_write(struct tb_switch *sw, struct tb_port *port,
 
 out:
 	pm_runtime_mark_last_busy(&sw->dev);
-	pm_runtime_put_autosuspend(&sw->dev);
+	__pm_runtime_put_autosuspend(&sw->dev);
 	free_page((unsigned long)buf);
 
 	return ret < 0 ? ret : count;
@@ -620,7 +620,7 @@ out_unlock:
 	mutex_unlock(&tb->lock);
 out_rpm_put:
 	pm_runtime_mark_last_busy(&sw->dev);
-	pm_runtime_put_autosuspend(&sw->dev);
+	__pm_runtime_put_autosuspend(&sw->dev);
 
 	return ret;
 }
@@ -1084,7 +1084,7 @@ static ssize_t counters_write(struct file *file, const char __user *user_buf,
 
 out:
 	pm_runtime_mark_last_busy(&sw->dev);
-	pm_runtime_put_autosuspend(&sw->dev);
+	__pm_runtime_put_autosuspend(&sw->dev);
 	free_page((unsigned long)buf);
 
 	return ret < 0 ? ret : count;
@@ -1279,7 +1279,7 @@ out_unlock:
 	mutex_unlock(&tb->lock);
 out_rpm_put:
 	pm_runtime_mark_last_busy(&sw->dev);
-	pm_runtime_put_autosuspend(&sw->dev);
+	__pm_runtime_put_autosuspend(&sw->dev);
 
 	return ret;
 }
@@ -1383,7 +1383,7 @@ out_unlock:
 	mutex_unlock(&tb->lock);
 out_rpm_put:
 	pm_runtime_mark_last_busy(&sw->dev);
-	pm_runtime_put_autosuspend(&sw->dev);
+	__pm_runtime_put_autosuspend(&sw->dev);
 
 	return ret;
 }
@@ -1444,7 +1444,7 @@ out_unlock:
 	mutex_unlock(&tb->lock);
 out_rpm_put:
 	pm_runtime_mark_last_busy(&sw->dev);
-	pm_runtime_put_autosuspend(&sw->dev);
+	__pm_runtime_put_autosuspend(&sw->dev);
 
 	return ret;
 }
@@ -1498,7 +1498,7 @@ static int counters_show(struct seq_file *s, void *not_used)
 
 out:
 	pm_runtime_mark_last_busy(&sw->dev);
-	pm_runtime_put_autosuspend(&sw->dev);
+	__pm_runtime_put_autosuspend(&sw->dev);
 
 	return ret;
 }

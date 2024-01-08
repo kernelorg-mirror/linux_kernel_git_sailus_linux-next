@@ -50,7 +50,7 @@ static int nvm_read(void *priv, unsigned int offset, void *val, size_t bytes)
 
 out:
 	pm_runtime_mark_last_busy(&rt->dev);
-	pm_runtime_put_autosuspend(&rt->dev);
+	__pm_runtime_put_autosuspend(&rt->dev);
 
 	return ret;
 }
@@ -296,7 +296,7 @@ exit_unlock:
 	mutex_unlock(&rt->tb->lock);
 exit_rpm:
 	pm_runtime_mark_last_busy(&rt->dev);
-	pm_runtime_put_autosuspend(&rt->dev);
+	__pm_runtime_put_autosuspend(&rt->dev);
 
 	if (ret)
 		return ret;

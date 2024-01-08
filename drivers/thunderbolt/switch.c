@@ -319,7 +319,7 @@ static int nvm_read(void *priv, unsigned int offset, void *val, size_t bytes)
 
 out:
 	pm_runtime_mark_last_busy(&sw->dev);
-	pm_runtime_put_autosuspend(&sw->dev);
+	__pm_runtime_put_autosuspend(&sw->dev);
 
 	return ret;
 }
@@ -1742,7 +1742,7 @@ static ssize_t authorized_store(struct device *dev,
 	pm_runtime_get_sync(&sw->dev);
 	ret = tb_switch_set_authorized(sw, val);
 	pm_runtime_mark_last_busy(&sw->dev);
-	pm_runtime_put_autosuspend(&sw->dev);
+	__pm_runtime_put_autosuspend(&sw->dev);
 
 	return ret ? ret : count;
 }
@@ -1974,7 +1974,7 @@ exit_unlock:
 	mutex_unlock(&sw->tb->lock);
 exit_rpm:
 	pm_runtime_mark_last_busy(&sw->dev);
-	pm_runtime_put_autosuspend(&sw->dev);
+	__pm_runtime_put_autosuspend(&sw->dev);
 
 	return ret;
 }
