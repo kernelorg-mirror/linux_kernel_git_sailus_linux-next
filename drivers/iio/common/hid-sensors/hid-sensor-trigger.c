@@ -165,7 +165,7 @@ int hid_sensor_power_state(struct hid_sensor_common *st, bool state)
 		atomic_dec(&st->user_requested_state);
 		pm_runtime_mark_last_busy(&st->pdev->dev);
 		pm_runtime_use_autosuspend(&st->pdev->dev);
-		ret = pm_runtime_put_autosuspend(&st->pdev->dev);
+		ret = __pm_runtime_put_autosuspend(&st->pdev->dev);
 	}
 	if (ret < 0)
 		return ret;
