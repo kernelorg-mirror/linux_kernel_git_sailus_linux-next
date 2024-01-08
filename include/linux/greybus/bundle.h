@@ -64,7 +64,7 @@ static inline int gb_pm_runtime_put_autosuspend(struct gb_bundle *bundle)
 	int retval;
 
 	pm_runtime_mark_last_busy(&bundle->dev);
-	retval = pm_runtime_put_autosuspend(&bundle->dev);
+	retval = __pm_runtime_put_autosuspend(&bundle->dev);
 
 	return retval;
 }
