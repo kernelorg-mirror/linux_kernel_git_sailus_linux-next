@@ -1208,7 +1208,7 @@ nv50_mstc_detect(struct drm_connector *connector,
 
 	ret = pm_runtime_get_sync(connector->dev->dev);
 	if (ret < 0 && ret != -EACCES) {
-		pm_runtime_put_autosuspend(connector->dev->dev);
+		__pm_runtime_put_autosuspend(connector->dev->dev);
 		return connector_status_disconnected;
 	}
 
@@ -1219,7 +1219,7 @@ nv50_mstc_detect(struct drm_connector *connector,
 
 out:
 	pm_runtime_mark_last_busy(connector->dev->dev);
-	pm_runtime_put_autosuspend(connector->dev->dev);
+	__pm_runtime_put_autosuspend(connector->dev->dev);
 	return ret;
 }
 
@@ -2408,7 +2408,7 @@ nv50_disp_atomic_commit_tail(struct drm_atomic_state *state)
 
 	/* Drop the RPM ref we got from nv50_disp_atomic_commit() */
 	pm_runtime_mark_last_busy(dev->dev);
-	pm_runtime_put_autosuspend(dev->dev);
+	__pm_runtime_put_autosuspend(dev->dev);
 }
 
 static void
@@ -2429,7 +2429,7 @@ nv50_disp_atomic_commit(struct drm_device *dev,
 
 	ret = pm_runtime_get_sync(dev->dev);
 	if (ret < 0 && ret != -EACCES) {
-		pm_runtime_put_autosuspend(dev->dev);
+		__pm_runtime_put_autosuspend(dev->dev);
 		return ret;
 	}
 
@@ -2478,7 +2478,7 @@ err_cleanup:
 	if (ret)
 		drm_atomic_helper_unprepare_planes(dev, state);
 done:
-	pm_runtime_put_autosuspend(dev->dev);
+	__pm_runtime_put_autosuspend(dev->dev);
 	return ret;
 }
 

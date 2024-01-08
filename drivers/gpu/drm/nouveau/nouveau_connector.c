@@ -583,7 +583,7 @@ nouveau_connector_detect(struct drm_connector *connector, bool force)
 	} else {
 		ret = pm_runtime_get_sync(dev->dev);
 		if (ret < 0 && ret != -EACCES) {
-			pm_runtime_put_autosuspend(dev->dev);
+			__pm_runtime_put_autosuspend(dev->dev);
 			nouveau_connector_set_edid(nv_connector, NULL);
 			return conn_status;
 		}
@@ -675,7 +675,7 @@ detect_analog:
 		drm_dp_cec_unset_edid(&nv_connector->aux);
 
 	pm_runtime_mark_last_busy(dev->dev);
-	pm_runtime_put_autosuspend(dev->dev);
+	__pm_runtime_put_autosuspend(dev->dev);
 
 	return conn_status;
 }

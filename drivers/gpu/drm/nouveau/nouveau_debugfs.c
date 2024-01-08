@@ -55,7 +55,7 @@ nouveau_debugfs_strap_peek(struct seq_file *m, void *data)
 
 	ret = pm_runtime_get_sync(drm->dev->dev);
 	if (ret < 0 && ret != -EACCES) {
-		pm_runtime_put_autosuspend(drm->dev->dev);
+		__pm_runtime_put_autosuspend(drm->dev->dev);
 		return ret;
 	}
 
@@ -63,7 +63,7 @@ nouveau_debugfs_strap_peek(struct seq_file *m, void *data)
 		   nvif_rd32(&drm->client.device.object, 0x101000));
 
 	pm_runtime_mark_last_busy(drm->dev->dev);
-	pm_runtime_put_autosuspend(drm->dev->dev);
+	__pm_runtime_put_autosuspend(drm->dev->dev);
 
 	return 0;
 }
@@ -184,13 +184,13 @@ nouveau_debugfs_pstate_set(struct file *file, const char __user *ubuf,
 
 	ret = pm_runtime_get_sync(drm->dev);
 	if (ret < 0 && ret != -EACCES) {
-		pm_runtime_put_autosuspend(drm->dev);
+		__pm_runtime_put_autosuspend(drm->dev);
 		return ret;
 	}
 
 	ret = nvif_mthd(&debugfs->ctrl, NVIF_CONTROL_PSTATE_USER,
 			&args, sizeof(args));
-	pm_runtime_put_autosuspend(drm->dev);
+	__pm_runtime_put_autosuspend(drm->dev);
 	if (ret < 0)
 		return ret;
 
