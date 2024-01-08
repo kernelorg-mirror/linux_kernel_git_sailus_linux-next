@@ -660,7 +660,7 @@ static void rkvdec_job_finish(struct rkvdec_ctx *ctx,
 	struct rkvdec_dev *rkvdec = ctx->dev;
 
 	pm_runtime_mark_last_busy(rkvdec->dev);
-	pm_runtime_put_autosuspend(rkvdec->dev);
+	__pm_runtime_put_autosuspend(rkvdec->dev);
 	rkvdec_job_finish_no_pm(ctx, result);
 }
 
