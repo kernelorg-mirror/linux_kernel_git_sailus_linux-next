@@ -1456,7 +1456,7 @@ static int stm32_adc_single_conv(struct iio_dev *indio_dev,
 	stm32_adc_conv_irq_disable(adc);
 
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	return ret;
 }
@@ -1623,7 +1623,7 @@ static int stm32_adc_update_scan_mode(struct iio_dev *indio_dev,
 
 	ret = stm32_adc_conf_scan_seq(indio_dev, scan_mask);
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	return ret;
 }
@@ -1672,7 +1672,7 @@ static int stm32_adc_debugfs_reg_access(struct iio_dev *indio_dev,
 		*readval = stm32_adc_readl(adc, reg);
 
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	return 0;
 }
@@ -1816,7 +1816,7 @@ err_clr_trig:
 	stm32_adc_set_trig(indio_dev, NULL);
 err_pm_put:
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	return ret;
 }
@@ -1839,7 +1839,7 @@ static int stm32_adc_buffer_predisable(struct iio_dev *indio_dev)
 		dev_err(&indio_dev->dev, "Can't clear trigger\n");
 
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	return 0;
 }
@@ -2486,7 +2486,7 @@ static int stm32_adc_probe(struct platform_device *pdev)
 	}
 
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	if (IS_ENABLED(CONFIG_DEBUG_FS))
 		stm32_adc_debugfs_init(indio_dev);

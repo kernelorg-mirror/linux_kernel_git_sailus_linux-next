@@ -798,7 +798,7 @@ static int stm32_adc_probe(struct platform_device *pdev)
 	}
 
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	return 0;
 

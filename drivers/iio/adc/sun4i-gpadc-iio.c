@@ -251,7 +251,7 @@ static int sun4i_gpadc_read(struct iio_dev *indio_dev, int channel, int *val,
 	pm_runtime_mark_last_busy(indio_dev->dev.parent);
 
 err:
-	pm_runtime_put_autosuspend(indio_dev->dev.parent);
+	__pm_runtime_put_autosuspend(indio_dev->dev.parent);
 	disable_irq(irq);
 	mutex_unlock(&info->mutex);
 
@@ -276,7 +276,7 @@ static int sun4i_gpadc_temp_read(struct iio_dev *indio_dev, int *val)
 		regmap_read(info->regmap, SUN4I_GPADC_TEMP_DATA, val);
 
 		pm_runtime_mark_last_busy(indio_dev->dev.parent);
-		pm_runtime_put_autosuspend(indio_dev->dev.parent);
+		__pm_runtime_put_autosuspend(indio_dev->dev.parent);
 
 		return 0;
 	}

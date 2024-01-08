@@ -893,7 +893,7 @@ static int at91_adc_config_emr(struct at91_adc_state *st,
 	at91_adc_writel(st, EMR, emr);
 
 	pm_runtime_mark_last_busy(st->dev);
-	pm_runtime_put_autosuspend(st->dev);
+	__pm_runtime_put_autosuspend(st->dev);
 
 	st->oversampling_ratio = oversampling_ratio;
 
@@ -968,7 +968,7 @@ static int at91_adc_configure_touch(struct at91_adc_state *st, bool state)
 		at91_adc_writel(st, TSMR, 0);
 
 		pm_runtime_mark_last_busy(st->dev);
-		pm_runtime_put_autosuspend(st->dev);
+		__pm_runtime_put_autosuspend(st->dev);
 		return 0;
 	}
 	/*
@@ -1140,7 +1140,7 @@ static int at91_adc_configure_trigger(struct iio_trigger *trig, bool state)
 
 	if (!state) {
 		pm_runtime_mark_last_busy(st->dev);
-		pm_runtime_put_autosuspend(st->dev);
+		__pm_runtime_put_autosuspend(st->dev);
 	}
 
 	return 0;
@@ -1333,7 +1333,7 @@ static int at91_adc_buffer_prepare(struct iio_dev *indio_dev)
 
 pm_runtime_put:
 	pm_runtime_mark_last_busy(st->dev);
-	pm_runtime_put_autosuspend(st->dev);
+	__pm_runtime_put_autosuspend(st->dev);
 	return ret;
 }
 
@@ -1391,7 +1391,7 @@ static int at91_adc_buffer_postdisable(struct iio_dev *indio_dev)
 		dmaengine_terminate_sync(st->dma_st.dma_chan);
 
 	pm_runtime_mark_last_busy(st->dev);
-	pm_runtime_put_autosuspend(st->dev);
+	__pm_runtime_put_autosuspend(st->dev);
 
 	return 0;
 }
@@ -1600,7 +1600,7 @@ static void at91_adc_setup_samp_freq(struct iio_dev *indio_dev, unsigned freq,
 	at91_adc_writel(st, MR, mr);
 
 	pm_runtime_mark_last_busy(st->dev);
-	pm_runtime_put_autosuspend(st->dev);
+	__pm_runtime_put_autosuspend(st->dev);
 
 	dev_dbg(&indio_dev->dev, "freq: %u, startup: %u, prescal: %u, tracktim=%u\n",
 		freq, startup, prescal, tracktim);
@@ -1806,7 +1806,7 @@ static int at91_adc_read_info_raw(struct iio_dev *indio_dev,
 
 pm_runtime_put:
 	pm_runtime_mark_last_busy(st->dev);
-	pm_runtime_put_autosuspend(st->dev);
+	__pm_runtime_put_autosuspend(st->dev);
 	return ret;
 }
 
@@ -1899,7 +1899,7 @@ restore_config:
 	/* Revert previous settings. */
 	at91_adc_temp_sensor_configure(st, false);
 	pm_runtime_mark_last_busy(st->dev);
-	pm_runtime_put_autosuspend(st->dev);
+	__pm_runtime_put_autosuspend(st->dev);
 unlock:
 	mutex_unlock(&st->lock);
 	iio_device_release_direct_mode(indio_dev);
@@ -2467,7 +2467,7 @@ static int at91_adc_probe(struct platform_device *pdev)
 		 readl_relaxed(st->base + st->soc_info.platform->layout->VERSION));
 
 	pm_runtime_mark_last_busy(st->dev);
-	pm_runtime_put_autosuspend(st->dev);
+	__pm_runtime_put_autosuspend(st->dev);
 
 	return 0;
 
@@ -2569,7 +2569,7 @@ static int at91_adc_resume(struct device *dev)
 	}
 
 	pm_runtime_mark_last_busy(st->dev);
-	pm_runtime_put_autosuspend(st->dev);
+	__pm_runtime_put_autosuspend(st->dev);
 
 	return 0;
 

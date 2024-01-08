@@ -105,7 +105,7 @@ static int ads1100_get_adc_result(struct ads1100_data *data, int chan, int *val)
 	ret = i2c_master_recv(data->client, (char *)&buffer, sizeof(buffer));
 
 	pm_runtime_mark_last_busy(&data->client->dev);
-	pm_runtime_put_autosuspend(&data->client->dev);
+	__pm_runtime_put_autosuspend(&data->client->dev);
 
 	if (ret < 0) {
 		dev_err(&data->client->dev, "I2C read fail: %d\n", ret);
