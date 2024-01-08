@@ -446,7 +446,7 @@ out:
 	mutex_unlock(&hdq_data->hdq_mutex);
 rtn:
 	pm_runtime_mark_last_busy(hdq_data->dev);
-	pm_runtime_put_autosuspend(hdq_data->dev);
+	__pm_runtime_put_autosuspend(hdq_data->dev);
 
 	return ret;
 }
@@ -467,7 +467,7 @@ static u8 omap_w1_reset_bus(void *_hdq)
 	omap_hdq_break(hdq_data);
 
 	pm_runtime_mark_last_busy(hdq_data->dev);
-	pm_runtime_put_autosuspend(hdq_data->dev);
+	__pm_runtime_put_autosuspend(hdq_data->dev);
 
 	return 0;
 }
@@ -491,7 +491,7 @@ static u8 omap_w1_read_byte(void *_hdq)
 		val = -1;
 
 	pm_runtime_mark_last_busy(hdq_data->dev);
-	pm_runtime_put_autosuspend(hdq_data->dev);
+	__pm_runtime_put_autosuspend(hdq_data->dev);
 
 	return val;
 }
@@ -526,7 +526,7 @@ static void omap_w1_write_byte(void *_hdq, u8 byte)
 
 out_err:
 	pm_runtime_mark_last_busy(hdq_data->dev);
-	pm_runtime_put_autosuspend(hdq_data->dev);
+	__pm_runtime_put_autosuspend(hdq_data->dev);
 }
 
 static struct w1_bus_master omap_w1_master = {
@@ -626,7 +626,7 @@ static int omap_hdq_probe(struct platform_device *pdev)
 	omap_hdq_break(hdq_data);
 
 	pm_runtime_mark_last_busy(&pdev->dev);
-	pm_runtime_put_autosuspend(&pdev->dev);
+	__pm_runtime_put_autosuspend(&pdev->dev);
 
 	omap_w1_master.data = hdq_data;
 
