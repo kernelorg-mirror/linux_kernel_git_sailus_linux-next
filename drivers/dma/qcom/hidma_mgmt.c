@@ -156,7 +156,7 @@ int hidma_mgmt_setup(struct hidma_mgmt_dev *mgmtdev)
 	writel(val, mgmtdev->virtaddr + HIDMA_CHRESET_TIMEOUT_OFFSET);
 
 	pm_runtime_mark_last_busy(&mgmtdev->pdev->dev);
-	pm_runtime_put_autosuspend(&mgmtdev->pdev->dev);
+	__pm_runtime_put_autosuspend(&mgmtdev->pdev->dev);
 	return 0;
 }
 EXPORT_SYMBOL_GPL(hidma_mgmt_setup);
@@ -311,7 +311,7 @@ static int hidma_mgmt_probe(struct platform_device *pdev)
 
 	platform_set_drvdata(pdev, mgmtdev);
 	pm_runtime_mark_last_busy(&pdev->dev);
-	pm_runtime_put_autosuspend(&pdev->dev);
+	__pm_runtime_put_autosuspend(&pdev->dev);
 	return 0;
 out:
 	pm_runtime_put_sync_suspend(&pdev->dev);

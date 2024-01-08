@@ -187,7 +187,7 @@ static void hidma_callback(void *data)
 
 	if (queued) {
 		pm_runtime_mark_last_busy(dmadev->ddev.dev);
-		pm_runtime_put_autosuspend(dmadev->ddev.dev);
+		__pm_runtime_put_autosuspend(dmadev->ddev.dev);
 	}
 }
 
@@ -318,11 +318,11 @@ static dma_cookie_t hidma_tx_submit(struct dma_async_tx_descriptor *txd)
 	pm_runtime_get_sync(dmadev->ddev.dev);
 	if (!hidma_ll_isenabled(dmadev->lldev)) {
 		pm_runtime_mark_last_busy(dmadev->ddev.dev);
-		pm_runtime_put_autosuspend(dmadev->ddev.dev);
+		__pm_runtime_put_autosuspend(dmadev->ddev.dev);
 		return -ENODEV;
 	}
 	pm_runtime_mark_last_busy(dmadev->ddev.dev);
-	pm_runtime_put_autosuspend(dmadev->ddev.dev);
+	__pm_runtime_put_autosuspend(dmadev->ddev.dev);
 
 	mdesc = container_of(txd, struct hidma_desc, desc);
 	spin_lock_irqsave(&mchan->lock, irqflags);
@@ -509,7 +509,7 @@ static int hidma_terminate_channel(struct dma_chan *chan)
 	rc = hidma_ll_enable(dmadev->lldev);
 out:
 	pm_runtime_mark_last_busy(dmadev->ddev.dev);
-	pm_runtime_put_autosuspend(dmadev->ddev.dev);
+	__pm_runtime_put_autosuspend(dmadev->ddev.dev);
 	return rc;
 }
 
@@ -527,7 +527,7 @@ static int hidma_terminate_all(struct dma_chan *chan)
 	pm_runtime_get_sync(dmadev->ddev.dev);
 	rc = hidma_ll_setup(dmadev->lldev);
 	pm_runtime_mark_last_busy(dmadev->ddev.dev);
-	pm_runtime_put_autosuspend(dmadev->ddev.dev);
+	__pm_runtime_put_autosuspend(dmadev->ddev.dev);
 	return rc;
 }
 
@@ -571,7 +571,7 @@ static int hidma_pause(struct dma_chan *chan)
 			dev_warn(dmadev->ddev.dev, "channel did not stop\n");
 		mchan->paused = true;
 		pm_runtime_mark_last_busy(dmadev->ddev.dev);
-		pm_runtime_put_autosuspend(dmadev->ddev.dev);
+		__pm_runtime_put_autosuspend(dmadev->ddev.dev);
 	}
 	return 0;
 }
@@ -593,7 +593,7 @@ static int hidma_resume(struct dma_chan *chan)
 			dev_err(dmadev->ddev.dev,
 				"failed to resume the channel");
 		pm_runtime_mark_last_busy(dmadev->ddev.dev);
-		pm_runtime_put_autosuspend(dmadev->ddev.dev);
+		__pm_runtime_put_autosuspend(dmadev->ddev.dev);
 	}
 	return rc;
 }
@@ -884,7 +884,7 @@ static int hidma_probe(struct platform_device *pdev)
 	hidma_sysfs_init(dmadev);
 	dev_info(&pdev->dev, "HI-DMA engine driver registration complete\n");
 	pm_runtime_mark_last_busy(dmadev->ddev.dev);
-	pm_runtime_put_autosuspend(dmadev->ddev.dev);
+	__pm_runtime_put_autosuspend(dmadev->ddev.dev);
 	return 0;
 
 uninit:
@@ -911,7 +911,7 @@ static void hidma_shutdown(struct platform_device *pdev)
 	if (hidma_ll_disable(dmadev->lldev))
 		dev_warn(dmadev->ddev.dev, "channel did not stop\n");
 	pm_runtime_mark_last_busy(dmadev->ddev.dev);
-	pm_runtime_put_autosuspend(dmadev->ddev.dev);
+	__pm_runtime_put_autosuspend(dmadev->ddev.dev);
 
 }
 

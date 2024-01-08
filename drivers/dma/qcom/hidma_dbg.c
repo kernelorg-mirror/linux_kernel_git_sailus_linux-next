@@ -104,7 +104,7 @@ static int hidma_chan_show(struct seq_file *s, void *unused)
 
 	hidma_ll_devstats(s, mchan->dmadev->lldev);
 	pm_runtime_mark_last_busy(dmadev->ddev.dev);
-	pm_runtime_put_autosuspend(dmadev->ddev.dev);
+	__pm_runtime_put_autosuspend(dmadev->ddev.dev);
 	return 0;
 }
 
