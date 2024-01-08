@@ -711,7 +711,7 @@ static int pcie_portdrv_probe(struct pci_dev *dev,
 		pm_runtime_set_autosuspend_delay(&dev->dev, 100);
 		pm_runtime_use_autosuspend(&dev->dev);
 		pm_runtime_mark_last_busy(&dev->dev);
-		pm_runtime_put_autosuspend(&dev->dev);
+		__pm_runtime_put_autosuspend(&dev->dev);
 		pm_runtime_allow(&dev->dev);
 	}
 
