@@ -301,7 +301,7 @@ int ivpu_rpm_get_if_active(struct ivpu_device *vdev)
 void ivpu_rpm_put(struct ivpu_device *vdev)
 {
 	pm_runtime_mark_last_busy(vdev->drm.dev);
-	pm_runtime_put_autosuspend(vdev->drm.dev);
+	__pm_runtime_put_autosuspend(vdev->drm.dev);
 }
 
 void ivpu_pm_reset_prepare_cb(struct pci_dev *pdev)
@@ -332,7 +332,7 @@ void ivpu_pm_reset_done_cb(struct pci_dev *pdev)
 	atomic_set(&vdev->pm->in_reset, 0);
 	ivpu_dbg(vdev, PM, "Post-reset done.\n");
 
-	pm_runtime_put_autosuspend(vdev->drm.dev);
+	__pm_runtime_put_autosuspend(vdev->drm.dev);
 }
 
 void ivpu_pm_init(struct ivpu_device *vdev)
@@ -372,7 +372,7 @@ void ivpu_pm_enable(struct ivpu_device *vdev)
 	pm_runtime_set_active(dev);
 	pm_runtime_allow(dev);
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 }
 
 void ivpu_pm_disable(struct ivpu_device *vdev)
