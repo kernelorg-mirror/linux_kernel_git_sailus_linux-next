@@ -578,7 +578,7 @@ static int mchp_spdifrx_cs_get(struct mchp_spdifrx_dev *dev,
 
 pm_runtime_put:
 	pm_runtime_mark_last_busy(dev->dev);
-	pm_runtime_put_autosuspend(dev->dev);
+	__pm_runtime_put_autosuspend(dev->dev);
 unlock:
 	mutex_unlock(&dev->mlock);
 	return ret;
@@ -661,7 +661,7 @@ static int mchp_spdifrx_subcode_ch_get(struct mchp_spdifrx_dev *dev,
 
 pm_runtime_put:
 	pm_runtime_mark_last_busy(dev->dev);
-	pm_runtime_put_autosuspend(dev->dev);
+	__pm_runtime_put_autosuspend(dev->dev);
 unlock:
 	mutex_unlock(&dev->mlock);
 	return ret;
@@ -727,7 +727,7 @@ static int mchp_spdifrx_ulock_get(struct snd_kcontrol *kcontrol,
 	uvalue->value.integer.value[0] = ctrl->ulock;
 
 	pm_runtime_mark_last_busy(dev->dev);
-	pm_runtime_put_autosuspend(dev->dev);
+	__pm_runtime_put_autosuspend(dev->dev);
 unlock:
 	mutex_unlock(&dev->mlock);
 
@@ -763,7 +763,7 @@ static int mchp_spdifrx_badf_get(struct snd_kcontrol *kcontrol,
 	}
 
 	pm_runtime_mark_last_busy(dev->dev);
-	pm_runtime_put_autosuspend(dev->dev);
+	__pm_runtime_put_autosuspend(dev->dev);
 unlock:
 	mutex_unlock(&dev->mlock);
 
@@ -812,7 +812,7 @@ static int mchp_spdifrx_signal_get(struct snd_kcontrol *kcontrol,
 	}
 
 	pm_runtime_mark_last_busy(dev->dev);
-	pm_runtime_put_autosuspend(dev->dev);
+	__pm_runtime_put_autosuspend(dev->dev);
 
 unlock:
 	mutex_unlock(&dev->mlock);
@@ -876,7 +876,7 @@ static int mchp_spdifrx_rate_get(struct snd_kcontrol *kcontrol,
 
 pm_runtime_put:
 	pm_runtime_mark_last_busy(dev->dev);
-	pm_runtime_put_autosuspend(dev->dev);
+	__pm_runtime_put_autosuspend(dev->dev);
 unlock:
 	mutex_unlock(&dev->mlock);
 	return ret;
