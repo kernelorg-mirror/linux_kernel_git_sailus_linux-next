@@ -552,7 +552,7 @@ static void omap_rproc_kick(struct rproc *rproc, int vqid)
 			ret);
 
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 }
 
 /**
@@ -653,7 +653,7 @@ static int omap_rproc_start(struct rproc *rproc)
 	pm_runtime_get_noresume(dev);
 	pm_runtime_enable(dev);
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	return 0;
 
@@ -711,7 +711,7 @@ enable_device:
 out:
 	/* schedule the next auto-suspend */
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 	return ret;
 }
 
