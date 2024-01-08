@@ -513,7 +513,7 @@ static int twl4030_charger_enable_usb(struct twl4030_bci *bci, bool enable)
 					TWL4030_BCIMDKEY);
 		if (bci->usb_enabled) {
 			pm_runtime_mark_last_busy(bci->transceiver->dev);
-			pm_runtime_put_autosuspend(bci->transceiver->dev);
+			__pm_runtime_put_autosuspend(bci->transceiver->dev);
 			bci->usb_enabled = 0;
 		}
 		bci->usb_cur = 0;
