@@ -177,7 +177,7 @@ int radeon_driver_load_kms(struct drm_device *dev, unsigned long flags)
 		pm_runtime_set_active(dev->dev);
 		pm_runtime_allow(dev->dev);
 		pm_runtime_mark_last_busy(dev->dev);
-		pm_runtime_put_autosuspend(dev->dev);
+		__pm_runtime_put_autosuspend(dev->dev);
 	}
 
 out:
@@ -641,7 +641,7 @@ int radeon_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
 
 	r = pm_runtime_get_sync(dev->dev);
 	if (r < 0) {
-		pm_runtime_put_autosuspend(dev->dev);
+		__pm_runtime_put_autosuspend(dev->dev);
 		return r;
 	}
 
@@ -684,7 +684,7 @@ int radeon_driver_open_kms(struct drm_device *dev, struct drm_file *file_priv)
 	}
 
 	pm_runtime_mark_last_busy(dev->dev);
-	pm_runtime_put_autosuspend(dev->dev);
+	__pm_runtime_put_autosuspend(dev->dev);
 	return 0;
 
 err_vm_fini:
@@ -694,7 +694,7 @@ err_fpriv:
 
 err_suspend:
 	pm_runtime_mark_last_busy(dev->dev);
-	pm_runtime_put_autosuspend(dev->dev);
+	__pm_runtime_put_autosuspend(dev->dev);
 	return r;
 }
 
@@ -744,7 +744,7 @@ void radeon_driver_postclose_kms(struct drm_device *dev,
 		file_priv->driver_priv = NULL;
 	}
 	pm_runtime_mark_last_busy(dev->dev);
-	pm_runtime_put_autosuspend(dev->dev);
+	__pm_runtime_put_autosuspend(dev->dev);
 }
 
 /*

@@ -156,7 +156,7 @@ static int radeon_fbdev_fb_open(struct fb_info *info, int user)
 
 err_pm_runtime_mark_last_busy:
 	pm_runtime_mark_last_busy(rdev->ddev->dev);
-	pm_runtime_put_autosuspend(rdev->ddev->dev);
+	__pm_runtime_put_autosuspend(rdev->ddev->dev);
 	return ret;
 }
 
@@ -166,7 +166,7 @@ static int radeon_fbdev_fb_release(struct fb_info *info, int user)
 	struct radeon_device *rdev = fb_helper->dev->dev_private;
 
 	pm_runtime_mark_last_busy(rdev->ddev->dev);
-	pm_runtime_put_autosuspend(rdev->ddev->dev);
+	__pm_runtime_put_autosuspend(rdev->ddev->dev);
 
 	return 0;
 }

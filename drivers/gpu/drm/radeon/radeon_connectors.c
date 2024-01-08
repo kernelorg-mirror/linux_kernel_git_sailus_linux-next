@@ -860,7 +860,7 @@ radeon_lvds_detect(struct drm_connector *connector, bool force)
 	if (!drm_kms_helper_is_poll_worker()) {
 		r = pm_runtime_get_sync(connector->dev->dev);
 		if (r < 0) {
-			pm_runtime_put_autosuspend(connector->dev->dev);
+			__pm_runtime_put_autosuspend(connector->dev->dev);
 			return connector_status_disconnected;
 		}
 	}
@@ -889,7 +889,7 @@ radeon_lvds_detect(struct drm_connector *connector, bool force)
 
 	if (!drm_kms_helper_is_poll_worker()) {
 		pm_runtime_mark_last_busy(connector->dev->dev);
-		pm_runtime_put_autosuspend(connector->dev->dev);
+		__pm_runtime_put_autosuspend(connector->dev->dev);
 	}
 
 	return ret;
@@ -1008,7 +1008,7 @@ radeon_vga_detect(struct drm_connector *connector, bool force)
 	if (!drm_kms_helper_is_poll_worker()) {
 		r = pm_runtime_get_sync(connector->dev->dev);
 		if (r < 0) {
-			pm_runtime_put_autosuspend(connector->dev->dev);
+			__pm_runtime_put_autosuspend(connector->dev->dev);
 			return connector_status_disconnected;
 		}
 	}
@@ -1080,7 +1080,7 @@ radeon_vga_detect(struct drm_connector *connector, bool force)
 out:
 	if (!drm_kms_helper_is_poll_worker()) {
 		pm_runtime_mark_last_busy(connector->dev->dev);
-		pm_runtime_put_autosuspend(connector->dev->dev);
+		__pm_runtime_put_autosuspend(connector->dev->dev);
 	}
 
 	return ret;
@@ -1150,7 +1150,7 @@ radeon_tv_detect(struct drm_connector *connector, bool force)
 	if (!drm_kms_helper_is_poll_worker()) {
 		r = pm_runtime_get_sync(connector->dev->dev);
 		if (r < 0) {
-			pm_runtime_put_autosuspend(connector->dev->dev);
+			__pm_runtime_put_autosuspend(connector->dev->dev);
 			return connector_status_disconnected;
 		}
 	}
@@ -1168,7 +1168,7 @@ radeon_tv_detect(struct drm_connector *connector, bool force)
 
 	if (!drm_kms_helper_is_poll_worker()) {
 		pm_runtime_mark_last_busy(connector->dev->dev);
-		pm_runtime_put_autosuspend(connector->dev->dev);
+		__pm_runtime_put_autosuspend(connector->dev->dev);
 	}
 
 	return ret;
@@ -1236,7 +1236,7 @@ radeon_dvi_detect(struct drm_connector *connector, bool force)
 	if (!drm_kms_helper_is_poll_worker()) {
 		r = pm_runtime_get_sync(connector->dev->dev);
 		if (r < 0) {
-			pm_runtime_put_autosuspend(connector->dev->dev);
+			__pm_runtime_put_autosuspend(connector->dev->dev);
 			return connector_status_disconnected;
 		}
 	}
@@ -1416,7 +1416,7 @@ out:
 exit:
 	if (!drm_kms_helper_is_poll_worker()) {
 		pm_runtime_mark_last_busy(connector->dev->dev);
-		pm_runtime_put_autosuspend(connector->dev->dev);
+		__pm_runtime_put_autosuspend(connector->dev->dev);
 	}
 
 	return ret;
@@ -1645,7 +1645,7 @@ radeon_dp_detect(struct drm_connector *connector, bool force)
 	if (!drm_kms_helper_is_poll_worker()) {
 		r = pm_runtime_get_sync(connector->dev->dev);
 		if (r < 0) {
-			pm_runtime_put_autosuspend(connector->dev->dev);
+			__pm_runtime_put_autosuspend(connector->dev->dev);
 			return connector_status_disconnected;
 		}
 	}
@@ -1728,7 +1728,7 @@ radeon_dp_detect(struct drm_connector *connector, bool force)
 out:
 	if (!drm_kms_helper_is_poll_worker()) {
 		pm_runtime_mark_last_busy(connector->dev->dev);
-		pm_runtime_put_autosuspend(connector->dev->dev);
+		__pm_runtime_put_autosuspend(connector->dev->dev);
 	}
 
 	return ret;

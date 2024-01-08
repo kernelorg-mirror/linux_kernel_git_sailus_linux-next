@@ -634,7 +634,7 @@ radeon_crtc_set_config(struct drm_mode_set *set,
 
 	ret = pm_runtime_get_sync(dev->dev);
 	if (ret < 0) {
-		pm_runtime_put_autosuspend(dev->dev);
+		__pm_runtime_put_autosuspend(dev->dev);
 		return ret;
 	}
 
@@ -656,12 +656,12 @@ radeon_crtc_set_config(struct drm_mode_set *set,
 	/* if we have no active crtcs, then drop the power ref
 	   we got before */
 	if (!active && rdev->have_disp_power_ref) {
-		pm_runtime_put_autosuspend(dev->dev);
+		__pm_runtime_put_autosuspend(dev->dev);
 		rdev->have_disp_power_ref = false;
 	}
 
 	/* drop the power reference we got coming in here */
-	pm_runtime_put_autosuspend(dev->dev);
+	__pm_runtime_put_autosuspend(dev->dev);
 	return ret;
 }
 
