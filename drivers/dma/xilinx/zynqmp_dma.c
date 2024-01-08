@@ -683,7 +683,7 @@ static void zynqmp_dma_free_chan_resources(struct dma_chan *dchan)
 		chan->desc_pool_v, chan->desc_pool_p);
 	kfree(chan->sw_desc_pool);
 	pm_runtime_mark_last_busy(chan->dev);
-	pm_runtime_put_autosuspend(chan->dev);
+	__pm_runtime_put_autosuspend(chan->dev);
 }
 
 /**
