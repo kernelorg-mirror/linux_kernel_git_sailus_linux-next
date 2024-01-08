@@ -187,7 +187,7 @@ static int gpmi_init(struct gpmi_nand_data *this)
 
 err_out:
 	pm_runtime_mark_last_busy(this->dev);
-	pm_runtime_put_autosuspend(this->dev);
+	__pm_runtime_put_autosuspend(this->dev);
 	return ret;
 }
 
@@ -739,7 +739,7 @@ static int bch_set_geometry(struct gpmi_nand_data *this)
 
 	ret = pm_runtime_get_sync(this->dev);
 	if (ret < 0) {
-		pm_runtime_put_autosuspend(this->dev);
+		__pm_runtime_put_autosuspend(this->dev);
 		return ret;
 	}
 
@@ -758,7 +758,7 @@ static int bch_set_geometry(struct gpmi_nand_data *this)
 	ret = 0;
 err_out:
 	pm_runtime_mark_last_busy(this->dev);
-	pm_runtime_put_autosuspend(this->dev);
+	__pm_runtime_put_autosuspend(this->dev);
 
 	return ret;
 }
@@ -2647,7 +2647,7 @@ unmap:
 
 out_pm:
 	pm_runtime_mark_last_busy(this->dev);
-	pm_runtime_put_autosuspend(this->dev);
+	__pm_runtime_put_autosuspend(this->dev);
 
 	return ret;
 }
@@ -2762,7 +2762,7 @@ static int gpmi_nand_probe(struct platform_device *pdev)
 		goto exit_nfc_init;
 
 	pm_runtime_mark_last_busy(&pdev->dev);
-	pm_runtime_put_autosuspend(&pdev->dev);
+	__pm_runtime_put_autosuspend(&pdev->dev);
 
 	dev_info(this->dev, "driver registered.\n");
 
