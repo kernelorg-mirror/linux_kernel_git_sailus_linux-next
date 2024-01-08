@@ -391,7 +391,7 @@ static int cppi41_dma_alloc_chan_resources(struct dma_chan *chan)
 		cppi_writel(c->q_num, c->gcr_reg + RXHPCRA0);
 
 	pm_runtime_mark_last_busy(cdd->ddev.dev);
-	pm_runtime_put_autosuspend(cdd->ddev.dev);
+	__pm_runtime_put_autosuspend(cdd->ddev.dev);
 
 	return 0;
 }
@@ -412,7 +412,7 @@ static void cppi41_dma_free_chan_resources(struct dma_chan *chan)
 	WARN_ON(!list_empty(&cdd->pending));
 
 	pm_runtime_mark_last_busy(cdd->ddev.dev);
-	pm_runtime_put_autosuspend(cdd->ddev.dev);
+	__pm_runtime_put_autosuspend(cdd->ddev.dev);
 }
 
 static enum dma_status cppi41_dma_tx_status(struct dma_chan *chan,
@@ -510,7 +510,7 @@ static void cppi41_dma_issue_pending(struct dma_chan *chan)
 	spin_unlock_irqrestore(&cdd->lock, flags);
 
 	pm_runtime_mark_last_busy(cdd->ddev.dev);
-	pm_runtime_put_autosuspend(cdd->ddev.dev);
+	__pm_runtime_put_autosuspend(cdd->ddev.dev);
 }
 
 static u32 get_host_pd0(u32 length)
@@ -628,7 +628,7 @@ static struct dma_async_tx_descriptor *cppi41_dma_prep_slave_sg(
 
 err_out_not_ready:
 	pm_runtime_mark_last_busy(cdd->ddev.dev);
-	pm_runtime_put_autosuspend(cdd->ddev.dev);
+	__pm_runtime_put_autosuspend(cdd->ddev.dev);
 
 	return txd;
 }
@@ -1140,7 +1140,7 @@ static int cppi41_dma_probe(struct platform_device *pdev)
 		goto err_of;
 
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	return 0;
 err_of:
