@@ -454,7 +454,7 @@ static int sdhci_pxav3_probe(struct platform_device *pdev)
 	if (host->mmc->pm_caps & MMC_PM_WAKE_SDIO_IRQ)
 		device_init_wakeup(&pdev->dev, 1);
 
-	pm_runtime_put_autosuspend(&pdev->dev);
+	__pm_runtime_put_autosuspend(&pdev->dev);
 
 	return 0;
 
@@ -499,7 +499,7 @@ static int sdhci_pxav3_suspend(struct device *dev)
 		mmc_retune_needed(host->mmc);
 	ret = sdhci_suspend_host(host);
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	return ret;
 }
@@ -512,7 +512,7 @@ static int sdhci_pxav3_resume(struct device *dev)
 	pm_runtime_get_sync(dev);
 	ret = sdhci_resume_host(host);
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	return ret;
 }

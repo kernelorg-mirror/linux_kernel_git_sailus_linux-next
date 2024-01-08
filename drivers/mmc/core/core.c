@@ -849,7 +849,7 @@ void mmc_release_host(struct mmc_host *host)
 		if (host->caps & MMC_CAP_SYNC_RUNTIME_PM)
 			pm_runtime_put_sync_suspend(mmc_dev(host));
 		else
-			pm_runtime_put_autosuspend(mmc_dev(host));
+			__pm_runtime_put_autosuspend(mmc_dev(host));
 	}
 }
 EXPORT_SYMBOL(mmc_release_host);
@@ -877,7 +877,7 @@ void mmc_put_card(struct mmc_card *card, struct mmc_ctx *ctx)
 
 	mmc_release_host(host);
 	pm_runtime_mark_last_busy(&card->dev);
-	pm_runtime_put_autosuspend(&card->dev);
+	__pm_runtime_put_autosuspend(&card->dev);
 }
 EXPORT_SYMBOL(mmc_put_card);
 

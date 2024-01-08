@@ -794,7 +794,7 @@ static void intel_ltr_set(struct device *dev, s32 val)
 	/* Cache the values into lpss structure */
 	intel_cache_ltr(slot);
 out:
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 }
 
 static bool intel_use_ltr(struct sdhci_pci_chip *chip)

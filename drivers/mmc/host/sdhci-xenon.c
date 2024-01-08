@@ -581,7 +581,7 @@ static int xenon_probe(struct platform_device *pdev)
 	if (err)
 		goto remove_sdhc;
 
-	pm_runtime_put_autosuspend(&pdev->dev);
+	__pm_runtime_put_autosuspend(&pdev->dev);
 	/*
 	 * If we previously detected AC5 with over 2GB of memory,
 	 * then we disable ADMA and 64-bit DMA.

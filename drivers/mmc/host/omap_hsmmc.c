@@ -1664,7 +1664,7 @@ static int mmc_regs_show(struct seq_file *s, void *data)
 			OMAP_HSMMC_READ(host->base, CAPA));
 
 	pm_runtime_mark_last_busy(host->dev);
-	pm_runtime_put_autosuspend(host->dev);
+	__pm_runtime_put_autosuspend(host->dev);
 
 	return 0;
 }
@@ -1957,7 +1957,7 @@ static int omap_hsmmc_probe(struct platform_device *pdev)
 
 	omap_hsmmc_debugfs(mmc);
 	pm_runtime_mark_last_busy(host->dev);
-	pm_runtime_put_autosuspend(host->dev);
+	__pm_runtime_put_autosuspend(host->dev);
 
 	return 0;
 
@@ -2039,7 +2039,7 @@ static int omap_hsmmc_resume(struct device *dev)
 		omap_hsmmc_conf_bus_power(host);
 
 	pm_runtime_mark_last_busy(host->dev);
-	pm_runtime_put_autosuspend(host->dev);
+	__pm_runtime_put_autosuspend(host->dev);
 	return 0;
 }
 #endif

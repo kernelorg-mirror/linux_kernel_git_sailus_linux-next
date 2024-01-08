@@ -2083,7 +2083,7 @@ static void mmci_enable_sdio_irq(struct mmc_host *mmc, int enable)
 
 	if (!enable) {
 		pm_runtime_mark_last_busy(mmc_dev(mmc));
-		pm_runtime_put_autosuspend(mmc_dev(mmc));
+		__pm_runtime_put_autosuspend(mmc_dev(mmc));
 	}
 }
 

@@ -550,7 +550,7 @@ static int atmci_regs_show(struct seq_file *s, void *v)
 	spin_unlock_bh(&host->lock);
 
 	pm_runtime_mark_last_busy(&host->pdev->dev);
-	pm_runtime_put_autosuspend(&host->pdev->dev);
+	__pm_runtime_put_autosuspend(&host->pdev->dev);
 
 	seq_printf(s, "MR:\t0x%08x%s%s ",
 			buf[ATMCI_MR / 4],
@@ -2612,7 +2612,7 @@ static int atmci_probe(struct platform_device *pdev)
 			host->mapbase, irq, nr_slots);
 
 	pm_runtime_mark_last_busy(&host->pdev->dev);
-	pm_runtime_put_autosuspend(&pdev->dev);
+	__pm_runtime_put_autosuspend(&pdev->dev);
 
 	return 0;
 
