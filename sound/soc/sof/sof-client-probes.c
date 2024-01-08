@@ -239,7 +239,7 @@ static ssize_t sof_probes_dfs_points_read(struct file *file, char __user *to,
 
 pm_error:
 	pm_runtime_mark_last_busy(dev);
-	err = pm_runtime_put_autosuspend(dev);
+	err = __pm_runtime_put_autosuspend(dev);
 	if (err < 0)
 		dev_err_ratelimited(dev, "debugfs read failed to idle %d\n", err);
 
@@ -290,7 +290,7 @@ sof_probes_dfs_points_write(struct file *file, const char __user *from,
 		ret = count;
 
 	pm_runtime_mark_last_busy(dev);
-	err = pm_runtime_put_autosuspend(dev);
+	err = __pm_runtime_put_autosuspend(dev);
 	if (err < 0)
 		dev_err_ratelimited(dev, "debugfs write failed to idle %d\n", err);
 exit:
@@ -338,7 +338,7 @@ sof_probes_dfs_points_remove_write(struct file *file, const char __user *from,
 		ret = count;
 
 	pm_runtime_mark_last_busy(dev);
-	err = pm_runtime_put_autosuspend(dev);
+	err = __pm_runtime_put_autosuspend(dev);
 	if (err < 0)
 		dev_err_ratelimited(dev, "debugfs write failed to idle %d\n", err);
 exit:

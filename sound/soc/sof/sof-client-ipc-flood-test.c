@@ -227,7 +227,7 @@ static ssize_t sof_ipc_flood_dfs_write(struct file *file, const char __user *buf
 				       ipc_duration_ms, ipc_count);
 
 	pm_runtime_mark_last_busy(dev);
-	err = pm_runtime_put_autosuspend(dev);
+	err = __pm_runtime_put_autosuspend(dev);
 	if (err < 0)
 		dev_err_ratelimited(dev, "debugfs write failed to idle %d\n", err);
 
