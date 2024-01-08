@@ -955,7 +955,7 @@ static int mt9m114_start_streaming(struct mt9m114 *sensor,
 
 error:
 	pm_runtime_mark_last_busy(&sensor->client->dev);
-	pm_runtime_put_autosuspend(&sensor->client->dev);
+	__pm_runtime_put_autosuspend(&sensor->client->dev);
 
 	return ret;
 }
@@ -969,7 +969,7 @@ static int mt9m114_stop_streaming(struct mt9m114 *sensor)
 	ret = mt9m114_set_state(sensor, MT9M114_SYS_STATE_ENTER_SUSPEND);
 
 	pm_runtime_mark_last_busy(&sensor->client->dev);
-	pm_runtime_put_autosuspend(&sensor->client->dev);
+	__pm_runtime_put_autosuspend(&sensor->client->dev);
 
 	return ret;
 }
@@ -1027,7 +1027,7 @@ static int mt9m114_pa_g_ctrl(struct v4l2_ctrl *ctrl)
 	}
 
 	pm_runtime_mark_last_busy(&sensor->client->dev);
-	pm_runtime_put_autosuspend(&sensor->client->dev);
+	__pm_runtime_put_autosuspend(&sensor->client->dev);
 
 	return ret;
 }
@@ -1094,7 +1094,7 @@ static int mt9m114_pa_s_ctrl(struct v4l2_ctrl *ctrl)
 	}
 
 	pm_runtime_mark_last_busy(&sensor->client->dev);
-	pm_runtime_put_autosuspend(&sensor->client->dev);
+	__pm_runtime_put_autosuspend(&sensor->client->dev);
 
 	return ret;
 }
@@ -1546,7 +1546,7 @@ static int mt9m114_ifp_s_ctrl(struct v4l2_ctrl *ctrl)
 	}
 
 	pm_runtime_mark_last_busy(&sensor->client->dev);
-	pm_runtime_put_autosuspend(&sensor->client->dev);
+	__pm_runtime_put_autosuspend(&sensor->client->dev);
 
 	return ret;
 }
@@ -2438,7 +2438,7 @@ static int mt9m114_probe(struct i2c_client *client)
 	 * autosuspend delay, turning the power off.
 	 */
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	return 0;
 

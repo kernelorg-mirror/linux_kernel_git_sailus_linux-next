@@ -789,7 +789,7 @@ static int ccs_set_ctrl(struct v4l2_ctrl *ctrl)
 
 	if (pm_status > 0) {
 		pm_runtime_mark_last_busy(&client->dev);
-		pm_runtime_put_autosuspend(&client->dev);
+		__pm_runtime_put_autosuspend(&client->dev);
 	}
 
 	return rval;
@@ -1919,7 +1919,7 @@ static int ccs_set_stream(struct v4l2_subdev *subdev, int enable)
 		ccs_stop_streaming(sensor);
 		sensor->streaming = false;
 		pm_runtime_mark_last_busy(&client->dev);
-		pm_runtime_put_autosuspend(&client->dev);
+		__pm_runtime_put_autosuspend(&client->dev);
 
 		return 0;
 	}
@@ -1934,7 +1934,7 @@ static int ccs_set_stream(struct v4l2_subdev *subdev, int enable)
 	if (rval < 0) {
 		sensor->streaming = false;
 		pm_runtime_mark_last_busy(&client->dev);
-		pm_runtime_put_autosuspend(&client->dev);
+		__pm_runtime_put_autosuspend(&client->dev);
 	}
 
 	return rval;
@@ -2682,7 +2682,7 @@ nvm_show(struct device *dev, struct device_attribute *attr, char *buf)
 	}
 
 	pm_runtime_mark_last_busy(&client->dev);
-	pm_runtime_put_autosuspend(&client->dev);
+	__pm_runtime_put_autosuspend(&client->dev);
 
 	/*
 	 * NVM is still way below a PAGE_SIZE, so we can safely
@@ -3555,7 +3555,7 @@ static int ccs_probe(struct i2c_client *client)
 
 	pm_runtime_set_autosuspend_delay(&client->dev, 1000);
 	pm_runtime_use_autosuspend(&client->dev);
-	pm_runtime_put_autosuspend(&client->dev);
+	__pm_runtime_put_autosuspend(&client->dev);
 
 	return 0;
 

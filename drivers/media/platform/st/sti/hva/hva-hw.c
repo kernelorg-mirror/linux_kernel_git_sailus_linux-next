@@ -278,7 +278,7 @@ static unsigned long int hva_hw_get_ip_version(struct hva_dev *hva)
 	version = readl_relaxed(hva->regs + HVA_HIF_REG_VERSION) &
 				VERSION_ID_MASK;
 
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	switch (version) {
 	case HVA_VERSION_V400:
@@ -419,7 +419,7 @@ void hva_hw_remove(struct hva_dev *hva)
 	disable_irq(hva->irq_its);
 	disable_irq(hva->irq_err);
 
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 	pm_runtime_disable(dev);
 }
 
@@ -538,7 +538,7 @@ out:
 	}
 
 	if (got_pm)
-		pm_runtime_put_autosuspend(dev);
+		__pm_runtime_put_autosuspend(dev);
 	mutex_unlock(&hva->protect_mutex);
 
 	return ret;
@@ -579,7 +579,7 @@ void hva_hw_dump_regs(struct hva_dev *hva, struct seq_file *s)
 	DUMP(HVA_HIF_REG_CLK_GATING);
 	DUMP(HVA_HIF_REG_VERSION);
 
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 	mutex_unlock(&hva->protect_mutex);
 }
 #endif

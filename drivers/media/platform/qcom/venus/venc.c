@@ -623,7 +623,7 @@ static int venc_pm_put(struct venus_inst *inst, bool autosuspend)
 	mutex_lock(&core->pm_lock);
 
 	if (autosuspend)
-		ret = pm_runtime_put_autosuspend(dev);
+		ret = __pm_runtime_put_autosuspend(dev);
 	else
 		ret = pm_runtime_put_sync(dev);
 
@@ -645,7 +645,7 @@ static int venc_pm_get_put(struct venus_inst *inst)
 		if (ret < 0)
 			goto error;
 
-		ret = pm_runtime_put_autosuspend(dev);
+		ret = __pm_runtime_put_autosuspend(dev);
 	}
 
 error:

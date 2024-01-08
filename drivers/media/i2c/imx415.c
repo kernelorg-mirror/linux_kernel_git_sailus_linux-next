@@ -772,7 +772,7 @@ static int imx415_s_stream(struct v4l2_subdev *sd, int enable)
 		ret = imx415_stream_off(sensor);
 
 		pm_runtime_mark_last_busy(sensor->dev);
-		pm_runtime_put_autosuspend(sensor->dev);
+		__pm_runtime_put_autosuspend(sensor->dev);
 
 		goto unlock;
 	}
@@ -1213,7 +1213,7 @@ static int imx415_probe(struct i2c_client *client)
 	 */
 	pm_runtime_set_autosuspend_delay(sensor->dev, 1000);
 	pm_runtime_use_autosuspend(sensor->dev);
-	pm_runtime_put_autosuspend(sensor->dev);
+	__pm_runtime_put_autosuspend(sensor->dev);
 
 	return 0;
 

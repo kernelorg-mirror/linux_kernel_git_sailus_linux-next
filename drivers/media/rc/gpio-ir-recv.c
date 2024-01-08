@@ -51,7 +51,7 @@ static irqreturn_t gpio_ir_recv_irq(int irq, void *dev_id)
 
 	if (pmdev) {
 		pm_runtime_mark_last_busy(pmdev);
-		pm_runtime_put_autosuspend(pmdev);
+		__pm_runtime_put_autosuspend(pmdev);
 	}
 
 	return IRQ_HANDLED;

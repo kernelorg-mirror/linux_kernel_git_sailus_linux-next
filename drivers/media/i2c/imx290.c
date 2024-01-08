@@ -824,7 +824,7 @@ static int imx290_set_ctrl(struct v4l2_ctrl *ctrl)
 	}
 
 	pm_runtime_mark_last_busy(imx290->dev);
-	pm_runtime_put_autosuspend(imx290->dev);
+	__pm_runtime_put_autosuspend(imx290->dev);
 
 	return ret;
 }
@@ -1058,7 +1058,7 @@ static int imx290_set_stream(struct v4l2_subdev *sd, int enable)
 	} else {
 		imx290_stop_streaming(imx290);
 		pm_runtime_mark_last_busy(imx290->dev);
-		pm_runtime_put_autosuspend(imx290->dev);
+		__pm_runtime_put_autosuspend(imx290->dev);
 	}
 
 	/*
@@ -1604,7 +1604,7 @@ static int imx290_probe(struct i2c_client *client)
 	 * autosuspend delay, turning the power off.
 	 */
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	return 0;
 

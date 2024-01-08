@@ -909,7 +909,7 @@ static int gc2145_start_streaming(struct gc2145 *gc2145,
 
 err_rpm_put:
 	pm_runtime_mark_last_busy(&client->dev);
-	pm_runtime_put_autosuspend(&client->dev);
+	__pm_runtime_put_autosuspend(&client->dev);
 	return ret;
 }
 
@@ -928,7 +928,7 @@ static void gc2145_stop_streaming(struct gc2145 *gc2145)
 		dev_err(&client->dev, "%s failed to write regs\n", __func__);
 
 	pm_runtime_mark_last_busy(&client->dev);
-	pm_runtime_put_autosuspend(&client->dev);
+	__pm_runtime_put_autosuspend(&client->dev);
 }
 
 static int gc2145_set_stream(struct v4l2_subdev *sd, int enable)
@@ -1156,7 +1156,7 @@ static int gc2145_s_ctrl(struct v4l2_ctrl *ctrl)
 	}
 
 	pm_runtime_mark_last_busy(&client->dev);
-	pm_runtime_put_autosuspend(&client->dev);
+	__pm_runtime_put_autosuspend(&client->dev);
 
 	return ret;
 }
@@ -1380,7 +1380,7 @@ static int gc2145_probe(struct i2c_client *client)
 
 	pm_runtime_set_autosuspend_delay(&client->dev, 1000);
 	pm_runtime_use_autosuspend(&client->dev);
-	pm_runtime_put_autosuspend(&client->dev);
+	__pm_runtime_put_autosuspend(&client->dev);
 
 	ret = v4l2_async_register_subdev_sensor(&gc2145->sd);
 	if (ret < 0) {

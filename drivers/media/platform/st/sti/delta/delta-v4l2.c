@@ -1288,7 +1288,7 @@ void delta_put_autosuspend(struct delta_ctx *ctx)
 {
 	struct delta_dev *delta = ctx->dev;
 
-	pm_runtime_put_autosuspend(delta->dev);
+	__pm_runtime_put_autosuspend(delta->dev);
 }
 
 static void delta_vb2_au_queue(struct vb2_buffer *vb)
@@ -1910,7 +1910,7 @@ static void delta_remove(struct platform_device *pdev)
 
 	destroy_workqueue(delta->work_queue);
 
-	pm_runtime_put_autosuspend(delta->dev);
+	__pm_runtime_put_autosuspend(delta->dev);
 	pm_runtime_disable(delta->dev);
 
 	v4l2_device_unregister(&delta->v4l2_dev);
