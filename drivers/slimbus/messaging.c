@@ -48,7 +48,7 @@ void slim_msg_response(struct slim_controller *ctrl, u8 *reply, u8 tid, u8 len)
 
 	/* Remove runtime-pm vote now that response was received for TID txn */
 	pm_runtime_mark_last_busy(ctrl->dev);
-	pm_runtime_put_autosuspend(ctrl->dev);
+	__pm_runtime_put_autosuspend(ctrl->dev);
 }
 EXPORT_SYMBOL_GPL(slim_msg_response);
 
@@ -170,7 +170,7 @@ slim_xfer_err:
 		 * if there was error during this transaction
 		 */
 		pm_runtime_mark_last_busy(ctrl->dev);
-		pm_runtime_put_autosuspend(ctrl->dev);
+		__pm_runtime_put_autosuspend(ctrl->dev);
 	}
 	return ret;
 }

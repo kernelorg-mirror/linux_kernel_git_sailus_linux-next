@@ -512,7 +512,7 @@ int slim_device_report_present(struct slim_controller *ctrl,
 
 slimbus_not_active:
 	pm_runtime_mark_last_busy(ctrl->dev);
-	pm_runtime_put_autosuspend(ctrl->dev);
+	__pm_runtime_put_autosuspend(ctrl->dev);
 	return ret;
 }
 EXPORT_SYMBOL_GPL(slim_device_report_present);
