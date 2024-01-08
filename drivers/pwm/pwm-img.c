@@ -142,7 +142,7 @@ static int img_pwm_config(struct pwm_chip *chip, struct pwm_device *pwm,
 	img_pwm_writel(imgchip, PWM_CH_CFG(pwm->hwpwm), val);
 
 	pm_runtime_mark_last_busy(chip->dev);
-	pm_runtime_put_autosuspend(chip->dev);
+	__pm_runtime_put_autosuspend(chip->dev);
 
 	return 0;
 }
@@ -178,7 +178,7 @@ static void img_pwm_disable(struct pwm_chip *chip, struct pwm_device *pwm)
 	img_pwm_writel(imgchip, PWM_CTRL_CFG, val);
 
 	pm_runtime_mark_last_busy(chip->dev);
-	pm_runtime_put_autosuspend(chip->dev);
+	__pm_runtime_put_autosuspend(chip->dev);
 }
 
 static int img_pwm_apply(struct pwm_chip *chip, struct pwm_device *pwm,
