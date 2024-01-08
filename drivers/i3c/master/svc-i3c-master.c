@@ -617,7 +617,7 @@ static int svc_i3c_master_bus_init(struct i3c_master_controller *m)
 
 rpm_out:
 	pm_runtime_mark_last_busy(master->dev);
-	pm_runtime_put_autosuspend(master->dev);
+	__pm_runtime_put_autosuspend(master->dev);
 
 	return ret;
 }
@@ -639,7 +639,7 @@ static void svc_i3c_master_bus_cleanup(struct i3c_master_controller *m)
 	writel(0, master->regs + SVC_I3C_MCONFIG);
 
 	pm_runtime_mark_last_busy(master->dev);
-	pm_runtime_put_autosuspend(master->dev);
+	__pm_runtime_put_autosuspend(master->dev);
 }
 
 static int svc_i3c_master_reserve_slot(struct svc_i3c_master *master)
@@ -971,7 +971,7 @@ static int svc_i3c_master_do_daa(struct i3c_master_controller *m)
 
 rpm_out:
 	pm_runtime_mark_last_busy(master->dev);
-	pm_runtime_put_autosuspend(master->dev);
+	__pm_runtime_put_autosuspend(master->dev);
 
 	return ret;
 }
@@ -1224,7 +1224,7 @@ static void svc_i3c_master_enqueue_xfer(struct svc_i3c_master *master,
 	spin_unlock_irqrestore(&master->xferqueue.lock, flags);
 
 	pm_runtime_mark_last_busy(master->dev);
-	pm_runtime_put_autosuspend(master->dev);
+	__pm_runtime_put_autosuspend(master->dev);
 }
 
 static bool
@@ -1514,7 +1514,7 @@ static int svc_i3c_master_disable_ibi(struct i3c_dev_desc *dev)
 	ret = i3c_master_disec_locked(m, dev->info.dyn_addr, I3C_CCC_EVENT_SIR);
 
 	pm_runtime_mark_last_busy(master->dev);
-	pm_runtime_put_autosuspend(master->dev);
+	__pm_runtime_put_autosuspend(master->dev);
 
 	return ret;
 }
@@ -1690,7 +1690,7 @@ static int svc_i3c_master_probe(struct platform_device *pdev)
 		goto rpm_disable;
 
 	pm_runtime_mark_last_busy(&pdev->dev);
-	pm_runtime_put_autosuspend(&pdev->dev);
+	__pm_runtime_put_autosuspend(&pdev->dev);
 
 	return 0;
 
