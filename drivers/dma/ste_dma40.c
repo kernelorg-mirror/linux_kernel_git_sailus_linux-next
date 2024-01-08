@@ -1453,7 +1453,7 @@ static int d40_pause(struct dma_chan *chan)
 	res = d40_channel_execute_command(d40c, D40_DMA_SUSPEND_REQ);
 
 	pm_runtime_mark_last_busy(d40c->base->dev);
-	pm_runtime_put_autosuspend(d40c->base->dev);
+	__pm_runtime_put_autosuspend(d40c->base->dev);
 	spin_unlock_irqrestore(&d40c->lock, flags);
 	return res;
 }
@@ -1480,7 +1480,7 @@ static int d40_resume(struct dma_chan *chan)
 		res = d40_channel_execute_command(d40c, D40_DMA_RUN);
 
 	pm_runtime_mark_last_busy(d40c->base->dev);
-	pm_runtime_put_autosuspend(d40c->base->dev);
+	__pm_runtime_put_autosuspend(d40c->base->dev);
 	spin_unlock_irqrestore(&d40c->lock, flags);
 	return res;
 }
@@ -1582,7 +1582,7 @@ static void dma_tc_handle(struct d40_chan *d40c)
 			d40c->busy = false;
 
 			pm_runtime_mark_last_busy(d40c->base->dev);
-			pm_runtime_put_autosuspend(d40c->base->dev);
+			__pm_runtime_put_autosuspend(d40c->base->dev);
 		}
 
 		d40_desc_remove(d40d);
@@ -2056,7 +2056,7 @@ static int d40_free_dma(struct d40_chan *d40c)
 
 	if (d40c->busy) {
 		pm_runtime_mark_last_busy(d40c->base->dev);
-		pm_runtime_put_autosuspend(d40c->base->dev);
+		__pm_runtime_put_autosuspend(d40c->base->dev);
 	}
 
 	d40c->busy = false;
@@ -2064,7 +2064,7 @@ static int d40_free_dma(struct d40_chan *d40c)
 	d40c->configured = false;
  mark_last_busy:
 	pm_runtime_mark_last_busy(d40c->base->dev);
-	pm_runtime_put_autosuspend(d40c->base->dev);
+	__pm_runtime_put_autosuspend(d40c->base->dev);
 	return res;
 }
 
@@ -2467,7 +2467,7 @@ static int d40_alloc_chan_resources(struct dma_chan *chan)
 		d40_config_write(d40c);
  mark_last_busy:
 	pm_runtime_mark_last_busy(d40c->base->dev);
-	pm_runtime_put_autosuspend(d40c->base->dev);
+	__pm_runtime_put_autosuspend(d40c->base->dev);
 	spin_unlock_irqrestore(&d40c->lock, flags);
 	return err;
 }
@@ -2619,10 +2619,10 @@ static int d40_terminate_all(struct dma_chan *chan)
 
 	d40_term_all(d40c);
 	pm_runtime_mark_last_busy(d40c->base->dev);
-	pm_runtime_put_autosuspend(d40c->base->dev);
+	__pm_runtime_put_autosuspend(d40c->base->dev);
 	if (d40c->busy) {
 		pm_runtime_mark_last_busy(d40c->base->dev);
-		pm_runtime_put_autosuspend(d40c->base->dev);
+		__pm_runtime_put_autosuspend(d40c->base->dev);
 	}
 	d40c->busy = false;
 
