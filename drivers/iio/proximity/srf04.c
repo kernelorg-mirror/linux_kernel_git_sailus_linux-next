@@ -119,7 +119,7 @@ static int srf04_read(struct srf04_data *data)
 
 	if (data->gpiod_power) {
 		pm_runtime_mark_last_busy(data->dev);
-		pm_runtime_put_autosuspend(data->dev);
+		__pm_runtime_put_autosuspend(data->dev);
 	}
 
 	/* it should not take more than 20 ms until echo is rising */
