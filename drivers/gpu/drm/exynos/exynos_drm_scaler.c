@@ -439,7 +439,7 @@ static irqreturn_t scaler_irq_handler(int irq, void *arg)
 
 		scaler->task = NULL;
 		pm_runtime_mark_last_busy(scaler->dev);
-		pm_runtime_put_autosuspend(scaler->dev);
+		__pm_runtime_put_autosuspend(scaler->dev);
 		exynos_drm_ipp_task_done(task, scaler_task_done(val));
 	}
 

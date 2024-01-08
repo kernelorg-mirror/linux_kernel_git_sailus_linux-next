@@ -230,7 +230,7 @@ static int atana33xc20_prepare(struct drm_panel *panel)
 
 	ret = pm_runtime_get_sync(panel->dev);
 	if (ret < 0) {
-		pm_runtime_put_autosuspend(panel->dev);
+		__pm_runtime_put_autosuspend(panel->dev);
 		return ret;
 	}
 	p->prepared = true;
@@ -252,7 +252,7 @@ static int atana33xc20_get_modes(struct drm_panel *panel,
 	num = drm_add_edid_modes(connector, p->edid);
 
 	pm_runtime_mark_last_busy(panel->dev);
-	pm_runtime_put_autosuspend(panel->dev);
+	__pm_runtime_put_autosuspend(panel->dev);
 
 	return num;
 }
@@ -321,7 +321,7 @@ static int atana33xc20_probe(struct dp_aux_ep_device *aux_ep)
 	pm_runtime_get_sync(dev);
 	ret = drm_panel_dp_aux_backlight(&panel->base, aux_ep->aux);
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 	if (ret)
 		return dev_err_probe(dev, ret,
 				     "failed to register dp aux backlight\n");

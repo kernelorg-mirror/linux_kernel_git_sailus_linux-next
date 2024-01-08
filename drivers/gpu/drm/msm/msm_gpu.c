@@ -685,7 +685,7 @@ static void retire_submit(struct msm_gpu *gpu, struct msm_ringbuffer *ring,
 	WARN_ON(gpu->active_submits < 0);
 	if (!gpu->active_submits) {
 		msm_devfreq_idle(gpu);
-		pm_runtime_put_autosuspend(&gpu->pdev->dev);
+		__pm_runtime_put_autosuspend(&gpu->pdev->dev);
 	}
 
 	mutex_unlock(&gpu->active_lock);

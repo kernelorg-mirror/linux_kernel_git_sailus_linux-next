@@ -1054,7 +1054,7 @@ static irqreturn_t gsc_irq_handler(int irq, void *dev_id)
 
 		ctx->task = NULL;
 		pm_runtime_mark_last_busy(ctx->dev);
-		pm_runtime_put_autosuspend(ctx->dev);
+		__pm_runtime_put_autosuspend(ctx->dev);
 		exynos_drm_ipp_task_done(task, err);
 	}
 
@@ -1127,7 +1127,7 @@ static int gsc_commit(struct exynos_drm_ipp *ipp,
 
 	ret = gsc_reset(ctx);
 	if (ret) {
-		pm_runtime_put_autosuspend(ctx->dev);
+		__pm_runtime_put_autosuspend(ctx->dev);
 		ctx->task = NULL;
 		return ret;
 	}
@@ -1157,7 +1157,7 @@ static void gsc_abort(struct exynos_drm_ipp *ipp,
 
 		ctx->task = NULL;
 		pm_runtime_mark_last_busy(ctx->dev);
-		pm_runtime_put_autosuspend(ctx->dev);
+		__pm_runtime_put_autosuspend(ctx->dev);
 		exynos_drm_ipp_task_done(task, -EIO);
 	}
 }

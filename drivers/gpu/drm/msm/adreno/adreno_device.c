@@ -623,7 +623,7 @@ struct msm_gpu *adreno_load_gpu(struct drm_device *dev)
 		goto err_put_rpm;
 	}
 
-	pm_runtime_put_autosuspend(&pdev->dev);
+	__pm_runtime_put_autosuspend(&pdev->dev);
 
 #ifdef CONFIG_DEBUG_FS
 	if (gpu->funcs->debugfs_init) {

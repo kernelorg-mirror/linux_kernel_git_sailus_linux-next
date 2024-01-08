@@ -1519,7 +1519,7 @@ static int anx7625_wait_hpd_asserted(struct drm_dp_aux *aux,
 	pm_runtime_get_sync(dev);
 	ret = _anx7625_hpd_polling(ctx, wait_us);
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	return ret;
 }
@@ -1777,7 +1777,7 @@ static ssize_t anx7625_aux_transfer(struct drm_dp_aux *aux,
 		ret = anx7625_aux_trans(ctx, msg->request, msg->address,
 					msg->size, msg->buffer);
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	return ret;
 }

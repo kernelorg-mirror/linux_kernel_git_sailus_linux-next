@@ -882,7 +882,7 @@ static void g2d_runqueue_worker(struct work_struct *work)
 
 	if (runqueue_node) {
 		pm_runtime_mark_last_busy(g2d->dev);
-		pm_runtime_put_autosuspend(g2d->dev);
+		__pm_runtime_put_autosuspend(g2d->dev);
 
 		complete(&runqueue_node->complete);
 		if (runqueue_node->async)
@@ -1010,7 +1010,7 @@ static void g2d_wait_finish(struct g2d_data *g2d, struct drm_file *file)
 	 * So do this manually here.
 	 */
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	complete(&runqueue_node->complete);
 	if (runqueue_node->async)

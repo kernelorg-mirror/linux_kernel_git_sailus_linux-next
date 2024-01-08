@@ -196,7 +196,7 @@ static void lima_pm_idle(struct lima_device *ldev)
 
 	/* GPU can do auto runtime suspend */
 	pm_runtime_mark_last_busy(ldev->dev);
-	pm_runtime_put_autosuspend(ldev->dev);
+	__pm_runtime_put_autosuspend(ldev->dev);
 }
 
 static struct dma_fence *lima_sched_run_job(struct drm_sched_job *job)

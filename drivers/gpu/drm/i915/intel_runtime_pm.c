@@ -308,7 +308,7 @@ static void __intel_runtime_pm_put(struct intel_runtime_pm *rpm,
 	intel_runtime_pm_release(rpm, wakelock);
 
 	pm_runtime_mark_last_busy(kdev);
-	pm_runtime_put_autosuspend(kdev);
+	__pm_runtime_put_autosuspend(kdev);
 }
 
 /**
@@ -419,7 +419,7 @@ void intel_runtime_pm_enable(struct intel_runtime_pm *rpm)
 	 * We drop that here and will reacquire it during unloading in
 	 * intel_power_domains_fini().
 	 */
-	pm_runtime_put_autosuspend(kdev);
+	__pm_runtime_put_autosuspend(kdev);
 }
 
 void intel_runtime_pm_disable(struct intel_runtime_pm *rpm)

@@ -414,7 +414,7 @@ static int panel_edp_unprepare(struct drm_panel *panel)
 		return 0;
 
 	pm_runtime_mark_last_busy(panel->dev);
-	ret = pm_runtime_put_autosuspend(panel->dev);
+	ret = __pm_runtime_put_autosuspend(panel->dev);
 	if (ret < 0)
 		return ret;
 	p->prepared = false;
@@ -534,7 +534,7 @@ static int panel_edp_prepare(struct drm_panel *panel)
 
 	ret = pm_runtime_get_sync(panel->dev);
 	if (ret < 0) {
-		pm_runtime_put_autosuspend(panel->dev);
+		__pm_runtime_put_autosuspend(panel->dev);
 		return ret;
 	}
 
@@ -618,7 +618,7 @@ static int panel_edp_get_modes(struct drm_panel *panel,
 		}
 
 		pm_runtime_mark_last_busy(panel->dev);
-		pm_runtime_put_autosuspend(panel->dev);
+		__pm_runtime_put_autosuspend(panel->dev);
 	}
 
 	if (has_hard_coded_modes)
@@ -823,7 +823,7 @@ static int generic_edp_panel_probe(struct device *dev, struct panel_edp *panel)
 	ret = 0;
 exit:
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	return ret;
 }
@@ -917,7 +917,7 @@ static int panel_edp_probe(struct device *dev, const struct panel_desc *desc,
 		pm_runtime_get_sync(dev);
 		err = drm_panel_dp_aux_backlight(&panel->base, panel->aux);
 		pm_runtime_mark_last_busy(dev);
-		pm_runtime_put_autosuspend(dev);
+		__pm_runtime_put_autosuspend(dev);
 		if (err)
 			goto err_finished_pm_runtime;
 	}

@@ -325,7 +325,7 @@ static int panel_simple_unprepare(struct drm_panel *panel)
 		return 0;
 
 	pm_runtime_mark_last_busy(panel->dev);
-	ret = pm_runtime_put_autosuspend(panel->dev);
+	ret = __pm_runtime_put_autosuspend(panel->dev);
 	if (ret < 0)
 		return ret;
 	p->prepared = false;
@@ -365,7 +365,7 @@ static int panel_simple_prepare(struct drm_panel *panel)
 
 	ret = pm_runtime_get_sync(panel->dev);
 	if (ret < 0) {
-		pm_runtime_put_autosuspend(panel->dev);
+		__pm_runtime_put_autosuspend(panel->dev);
 		return ret;
 	}
 
@@ -406,7 +406,7 @@ static int panel_simple_get_modes(struct drm_panel *panel,
 			num += drm_add_edid_modes(connector, p->edid);
 
 		pm_runtime_mark_last_busy(panel->dev);
-		pm_runtime_put_autosuspend(panel->dev);
+		__pm_runtime_put_autosuspend(panel->dev);
 	}
 
 	/* add hard-coded panel modes */

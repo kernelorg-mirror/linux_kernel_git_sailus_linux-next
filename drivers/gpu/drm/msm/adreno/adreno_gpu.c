@@ -343,7 +343,7 @@ int adreno_get_param(struct msm_gpu *gpu, struct msm_file_private *ctx,
 
 			pm_runtime_get_sync(&gpu->pdev->dev);
 			ret = adreno_gpu->funcs->get_timestamp(gpu, value);
-			pm_runtime_put_autosuspend(&gpu->pdev->dev);
+			__pm_runtime_put_autosuspend(&gpu->pdev->dev);
 
 			return ret;
 		}

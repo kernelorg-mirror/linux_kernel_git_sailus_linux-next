@@ -420,7 +420,7 @@ static int status_show(struct seq_file *s, void *data)
 		seq_printf(s, "[0x%02x] = 0x%08x\n", reg, val);
 	}
 
-	pm_runtime_put_autosuspend(pdata->dev);
+	__pm_runtime_put_autosuspend(pdata->dev);
 
 	return 0;
 }
@@ -626,7 +626,7 @@ static ssize_t ti_sn_aux_transfer(struct drm_dp_aux *aux,
 exit:
 	mutex_unlock(&pdata->comms_mutex);
 	pm_runtime_mark_last_busy(pdata->dev);
-	pm_runtime_put_autosuspend(pdata->dev);
+	__pm_runtime_put_autosuspend(pdata->dev);
 
 	if (ret)
 		return ret;
@@ -721,7 +721,7 @@ static int ti_sn_attach_host(struct auxiliary_device *adev, struct ti_sn65dsi86 
 	/* check if continuous dsi clock is required or not */
 	pm_runtime_get_sync(dev);
 	regmap_read(pdata->regmap, SN_DPPLL_SRC_REG, &val);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 	if (!(val & DPPLL_CLK_SRC_DSICLK))
 		dsi->mode_flags |= MIPI_DSI_CLOCK_NON_CONTINUOUS;
 
@@ -1201,7 +1201,7 @@ static enum drm_connector_status ti_sn_bridge_detect(struct drm_bridge *bridge)
 
 	pm_runtime_get_sync(pdata->dev);
 	regmap_read(pdata->regmap, SN_HPD_DISABLE_REG, &val);
-	pm_runtime_put_autosuspend(pdata->dev);
+	__pm_runtime_put_autosuspend(pdata->dev);
 
 	return val & HPD_DEBOUNCED_STATE ? connector_status_connected
 					 : connector_status_disconnected;
@@ -1690,7 +1690,7 @@ static int ti_sn_bridge_gpio_get(struct gpio_chip *chip, unsigned int offset)
 	 */
 	pm_runtime_get_sync(pdata->dev);
 	ret = regmap_read(pdata->regmap, SN_GPIO_IO_REG, &val);
-	pm_runtime_put_autosuspend(pdata->dev);
+	__pm_runtime_put_autosuspend(pdata->dev);
 
 	if (ret)
 		return ret;
@@ -1741,7 +1741,7 @@ static int ti_sn_bridge_gpio_direction_input(struct gpio_chip *chip,
 	 * it off and when it comes back it will have lost all state, but
 	 * that's OK because the default is input and we're now an input.
 	 */
-	pm_runtime_put_autosuspend(pdata->dev);
+	__pm_runtime_put_autosuspend(pdata->dev);
 
 	return 0;
 }
@@ -1767,7 +1767,7 @@ static int ti_sn_bridge_gpio_direction_output(struct gpio_chip *chip,
 				 SN_GPIO_MUX_OUTPUT << shift);
 	if (ret) {
 		clear_bit(offset, pdata->gchip_output);
-		pm_runtime_put_autosuspend(pdata->dev);
+		__pm_runtime_put_autosuspend(pdata->dev);
 	}
 
 	return ret;

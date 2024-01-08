@@ -32,7 +32,7 @@ int msm_file_private_set_sysprof(struct msm_file_private *ctx,
 	/* unwind old value: */
 	switch (ctx->sysprof) {
 	case 2:
-		pm_runtime_put_autosuspend(&gpu->pdev->dev);
+		__pm_runtime_put_autosuspend(&gpu->pdev->dev);
 		fallthrough;
 	case 1:
 		refcount_dec(&gpu->sysprof_active);
