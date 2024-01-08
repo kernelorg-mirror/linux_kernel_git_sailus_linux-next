@@ -268,7 +268,7 @@ static int imx_lpcg_parse_clks_from_dt(struct platform_device *pdev,
 		goto unreg;
 
 	pm_runtime_mark_last_busy(&pdev->dev);
-	pm_runtime_put_autosuspend(&pdev->dev);
+	__pm_runtime_put_autosuspend(&pdev->dev);
 
 	return 0;
 

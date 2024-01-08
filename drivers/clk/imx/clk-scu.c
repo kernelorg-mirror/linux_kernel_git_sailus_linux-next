@@ -568,7 +568,7 @@ static int imx_clk_scu_probe(struct platform_device *pdev)
 	if (!((clk->rsrc == IMX_SC_R_A35) || (clk->rsrc == IMX_SC_R_A53) ||
 	    (clk->rsrc == IMX_SC_R_A72))) {
 		pm_runtime_mark_last_busy(&pdev->dev);
-		pm_runtime_put_autosuspend(&pdev->dev);
+		__pm_runtime_put_autosuspend(&pdev->dev);
 	}
 
 	dev_dbg(dev, "register SCU clock rsrc:%d type:%d\n", clk->rsrc,
