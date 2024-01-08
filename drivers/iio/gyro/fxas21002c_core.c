@@ -375,7 +375,7 @@ static int  fxas21002c_pm_put(struct fxas21002c_data *data)
 
 	pm_runtime_mark_last_busy(dev);
 
-	return pm_runtime_put_autosuspend(dev);
+	return __pm_runtime_put_autosuspend(dev);
 }
 
 static int fxas21002c_temp_get(struct fxas21002c_data *data, int *val)

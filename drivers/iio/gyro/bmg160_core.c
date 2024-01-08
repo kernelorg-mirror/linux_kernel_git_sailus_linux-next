@@ -314,7 +314,7 @@ static int bmg160_set_power_state(struct bmg160_data *data, bool on)
 		ret = pm_runtime_get_sync(dev);
 	else {
 		pm_runtime_mark_last_busy(dev);
-		ret = pm_runtime_put_autosuspend(dev);
+		ret = __pm_runtime_put_autosuspend(dev);
 	}
 
 	if (ret < 0) {
