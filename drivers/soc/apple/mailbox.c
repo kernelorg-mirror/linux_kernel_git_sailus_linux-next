@@ -276,7 +276,7 @@ void apple_mbox_stop(struct apple_mbox *mbox)
 	mbox->active = false;
 	disable_irq(mbox->irq_recv_not_empty);
 	pm_runtime_mark_last_busy(mbox->dev);
-	pm_runtime_put_autosuspend(mbox->dev);
+	__pm_runtime_put_autosuspend(mbox->dev);
 }
 EXPORT_SYMBOL(apple_mbox_stop);
 
