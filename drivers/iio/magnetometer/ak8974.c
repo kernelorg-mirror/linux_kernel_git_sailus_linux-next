@@ -590,7 +590,7 @@ static int ak8974_measure_channel(struct ak8974 *ak8974, unsigned long address,
 out_unlock:
 	mutex_unlock(&ak8974->lock);
 	pm_runtime_mark_last_busy(&ak8974->i2c->dev);
-	pm_runtime_put_autosuspend(&ak8974->i2c->dev);
+	__pm_runtime_put_autosuspend(&ak8974->i2c->dev);
 
 	return ret;
 }
@@ -685,7 +685,7 @@ static void ak8974_fill_buffer(struct iio_dev *indio_dev)
  out_unlock:
 	mutex_unlock(&ak8974->lock);
 	pm_runtime_mark_last_busy(&ak8974->i2c->dev);
-	pm_runtime_put_autosuspend(&ak8974->i2c->dev);
+	__pm_runtime_put_autosuspend(&ak8974->i2c->dev);
 }
 
 static irqreturn_t ak8974_handle_trigger(int irq, void *p)

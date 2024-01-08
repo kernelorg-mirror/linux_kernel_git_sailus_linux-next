@@ -268,7 +268,7 @@ static int bmc150_magn_set_power_state(struct bmc150_magn_data *data, bool on)
 		ret = pm_runtime_resume_and_get(data->dev);
 	} else {
 		pm_runtime_mark_last_busy(data->dev);
-		ret = pm_runtime_put_autosuspend(data->dev);
+		ret = __pm_runtime_put_autosuspend(data->dev);
 	}
 
 	if (ret < 0) {
