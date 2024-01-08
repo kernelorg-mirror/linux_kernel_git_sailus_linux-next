@@ -931,7 +931,7 @@ static void cs42l43_boot_work(struct work_struct *work)
 	}
 
 	pm_runtime_mark_last_busy(cs42l43->dev);
-	pm_runtime_put_autosuspend(cs42l43->dev);
+	__pm_runtime_put_autosuspend(cs42l43->dev);
 
 	return;
 
