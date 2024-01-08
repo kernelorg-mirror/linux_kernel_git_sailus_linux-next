@@ -582,7 +582,7 @@ int snd_hdac_power_down(struct hdac_device *codec)
 	struct device *dev = &codec->dev;
 
 	pm_runtime_mark_last_busy(dev);
-	return pm_runtime_put_autosuspend(dev);
+	return __pm_runtime_put_autosuspend(dev);
 }
 EXPORT_SYMBOL_GPL(snd_hdac_power_down);
 

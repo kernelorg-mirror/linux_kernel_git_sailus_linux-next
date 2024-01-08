@@ -168,7 +168,7 @@ static void tas2781_hda_playback_hook(struct device *dev, int action)
 		mutex_unlock(&tas_hda->priv->codec_lock);
 
 		pm_runtime_mark_last_busy(dev);
-		pm_runtime_put_autosuspend(dev);
+		__pm_runtime_put_autosuspend(dev);
 		break;
 	default:
 		dev_dbg(tas_hda->dev, "Playback action not supported: %d\n",
@@ -672,7 +672,7 @@ out:
 	if (fmw)
 		release_firmware(fmw);
 	pm_runtime_mark_last_busy(tas_hda->dev);
-	pm_runtime_put_autosuspend(tas_hda->dev);
+	__pm_runtime_put_autosuspend(tas_hda->dev);
 }
 
 static int tas2781_hda_bind(struct device *dev, struct device *master,
@@ -715,7 +715,7 @@ static int tas2781_hda_bind(struct device *dev, struct device *master,
 		comps->playback_hook = tas2781_hda_playback_hook;
 
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	return ret;
 }
@@ -808,7 +808,7 @@ static int tas2781_hda_i2c_probe(struct i2c_client *clt)
 	pm_runtime_get_noresume(tas_hda->dev);
 	pm_runtime_enable(tas_hda->dev);
 
-	pm_runtime_put_autosuspend(tas_hda->dev);
+	__pm_runtime_put_autosuspend(tas_hda->dev);
 
 	tas2781_reset(tas_hda->priv);
 

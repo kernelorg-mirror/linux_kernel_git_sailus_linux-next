@@ -688,7 +688,7 @@ static void cs35l41_hda_playback_hook(struct device *dev, int action)
 		 * This ensures no amps are playing back when we start putting them to sleep.
 		 */
 		pm_runtime_mark_last_busy(dev);
-		pm_runtime_put_autosuspend(dev);
+		__pm_runtime_put_autosuspend(dev);
 		break;
 	default:
 		break;
@@ -1112,7 +1112,7 @@ static void cs35l41_fw_load_work(struct work_struct *work)
 	mutex_unlock(&cs35l41->fw_mutex);
 
 	pm_runtime_mark_last_busy(cs35l41->dev);
-	pm_runtime_put_autosuspend(cs35l41->dev);
+	__pm_runtime_put_autosuspend(cs35l41->dev);
 }
 
 static int cs35l41_fw_load_ctl_put(struct snd_kcontrol *kcontrol,
@@ -1341,7 +1341,7 @@ static int cs35l41_hda_bind(struct device *dev, struct device *master, void *mas
 	unlock_system_sleep(sleep_flags);
 
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	dev_info(cs35l41->dev,
 		 "CS35L41 Bound - SSID: %s, BST: %d, VSPK: %d, CH: %c, FW EN: %d, SPKID: %d\n",
@@ -1824,7 +1824,7 @@ int cs35l41_hda_probe(struct device *dev, const char *device_name, int id, int i
 	if (ret)
 		goto err_pm;
 
-	pm_runtime_put_autosuspend(cs35l41->dev);
+	__pm_runtime_put_autosuspend(cs35l41->dev);
 
 	ret = component_add(cs35l41->dev, &cs35l41_hda_comp_ops);
 	if (ret) {
