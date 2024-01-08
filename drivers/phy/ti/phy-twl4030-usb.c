@@ -506,7 +506,7 @@ static int twl4030_phy_power_on(struct phy *phy)
 	pm_runtime_get_sync(twl->dev);
 	schedule_delayed_work(&twl->id_workaround_work, HZ);
 	pm_runtime_mark_last_busy(twl->dev);
-	pm_runtime_put_autosuspend(twl->dev);
+	__pm_runtime_put_autosuspend(twl->dev);
 
 	return 0;
 }
@@ -599,7 +599,7 @@ static irqreturn_t twl4030_usb_irq(int irq, void *_twl)
 			dev_dbg(twl->dev, "%s: cable disconnected %i\n",
 				__func__, status);
 			pm_runtime_mark_last_busy(twl->dev);
-			pm_runtime_put_autosuspend(twl->dev);
+			__pm_runtime_put_autosuspend(twl->dev);
 			twl->musb_mailbox_pending = true;
 		}
 	}
@@ -637,7 +637,7 @@ static int twl4030_phy_init(struct phy *phy)
 	twl->linkstat = MUSB_UNKNOWN;
 	schedule_delayed_work(&twl->id_workaround_work, HZ);
 	pm_runtime_mark_last_busy(twl->dev);
-	pm_runtime_put_autosuspend(twl->dev);
+	__pm_runtime_put_autosuspend(twl->dev);
 
 	return 0;
 }
@@ -782,7 +782,7 @@ static int twl4030_usb_probe(struct platform_device *pdev)
 		return err;
 
 	pm_runtime_mark_last_busy(&pdev->dev);
-	pm_runtime_put_autosuspend(twl->dev);
+	__pm_runtime_put_autosuspend(twl->dev);
 
 	dev_info(&pdev->dev, "Initialized TWL4030 USB module\n");
 	return 0;
