@@ -514,7 +514,7 @@ void serial8250_rpm_put(struct uart_8250_port *p)
 	if (!(p->capabilities & UART_CAP_RPM))
 		return;
 	pm_runtime_mark_last_busy(p->port.dev);
-	pm_runtime_put_autosuspend(p->port.dev);
+	__pm_runtime_put_autosuspend(p->port.dev);
 }
 EXPORT_SYMBOL_GPL(serial8250_rpm_put);
 
@@ -665,7 +665,7 @@ void serial8250_rpm_put_tx(struct uart_8250_port *p)
 	if (!rpm_active)
 		return;
 	pm_runtime_mark_last_busy(p->port.dev);
-	pm_runtime_put_autosuspend(p->port.dev);
+	__pm_runtime_put_autosuspend(p->port.dev);
 }
 EXPORT_SYMBOL_GPL(serial8250_rpm_put_tx);
 

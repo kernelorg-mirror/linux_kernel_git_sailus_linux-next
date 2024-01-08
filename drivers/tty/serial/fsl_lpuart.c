@@ -830,7 +830,7 @@ lpuart_uart_pm(struct uart_port *port, unsigned int state, unsigned int oldstate
 	switch (state) {
 	case UART_PM_STATE_OFF:
 		pm_runtime_mark_last_busy(port->dev);
-		pm_runtime_put_autosuspend(port->dev);
+		__pm_runtime_put_autosuspend(port->dev);
 		break;
 	default:
 		pm_runtime_get_sync(port->dev);
