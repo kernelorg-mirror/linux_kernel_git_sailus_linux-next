@@ -502,7 +502,7 @@ static ssize_t bq24190_sysfs_show(struct device *dev,
 		count = sysfs_emit(buf, "%hhx\n", v);
 
 	pm_runtime_mark_last_busy(bdi->dev);
-	pm_runtime_put_autosuspend(bdi->dev);
+	__pm_runtime_put_autosuspend(bdi->dev);
 
 	return count;
 }
@@ -533,7 +533,7 @@ static ssize_t bq24190_sysfs_store(struct device *dev,
 		count = ret;
 
 	pm_runtime_mark_last_busy(bdi->dev);
-	pm_runtime_put_autosuspend(bdi->dev);
+	__pm_runtime_put_autosuspend(bdi->dev);
 
 	return count;
 }
@@ -560,7 +560,7 @@ static int bq24190_set_otg_vbus(struct bq24190_dev_info *bdi, bool enable)
 		ret = bq24190_charger_set_charge_type(bdi, &val);
 
 	pm_runtime_mark_last_busy(bdi->dev);
-	pm_runtime_put_autosuspend(bdi->dev);
+	__pm_runtime_put_autosuspend(bdi->dev);
 
 	return ret;
 }
@@ -597,7 +597,7 @@ static int bq24296_set_otg_vbus(struct bq24190_dev_info *bdi, bool enable)
 
 out:
 	pm_runtime_mark_last_busy(bdi->dev);
-	pm_runtime_put_autosuspend(bdi->dev);
+	__pm_runtime_put_autosuspend(bdi->dev);
 
 	return ret;
 }
@@ -630,7 +630,7 @@ static int bq24190_vbus_is_enabled(struct regulator_dev *dev)
 				BQ24190_REG_POC_CHG_CONFIG_SHIFT, &val);
 
 	pm_runtime_mark_last_busy(bdi->dev);
-	pm_runtime_put_autosuspend(bdi->dev);
+	__pm_runtime_put_autosuspend(bdi->dev);
 
 	if (ret)
 		return ret;
@@ -667,7 +667,7 @@ static int bq24296_vbus_is_enabled(struct regulator_dev *dev)
 				BQ24296_REG_POC_OTG_CONFIG_SHIFT, &val);
 
 	pm_runtime_mark_last_busy(bdi->dev);
-	pm_runtime_put_autosuspend(bdi->dev);
+	__pm_runtime_put_autosuspend(bdi->dev);
 
 	if (ret)
 		return ret;
@@ -1367,7 +1367,7 @@ static int bq24190_charger_get_property(struct power_supply *psy,
 	}
 
 	pm_runtime_mark_last_busy(bdi->dev);
-	pm_runtime_put_autosuspend(bdi->dev);
+	__pm_runtime_put_autosuspend(bdi->dev);
 
 	return ret;
 }
@@ -1409,7 +1409,7 @@ static int bq24190_charger_set_property(struct power_supply *psy,
 	}
 
 	pm_runtime_mark_last_busy(bdi->dev);
-	pm_runtime_put_autosuspend(bdi->dev);
+	__pm_runtime_put_autosuspend(bdi->dev);
 
 	return ret;
 }
@@ -1667,7 +1667,7 @@ static int bq24190_battery_get_property(struct power_supply *psy,
 	}
 
 	pm_runtime_mark_last_busy(bdi->dev);
-	pm_runtime_put_autosuspend(bdi->dev);
+	__pm_runtime_put_autosuspend(bdi->dev);
 
 	return ret;
 }
@@ -1698,7 +1698,7 @@ static int bq24190_battery_set_property(struct power_supply *psy,
 	}
 
 	pm_runtime_mark_last_busy(bdi->dev);
-	pm_runtime_put_autosuspend(bdi->dev);
+	__pm_runtime_put_autosuspend(bdi->dev);
 
 	return ret;
 }
@@ -1846,7 +1846,7 @@ static irqreturn_t bq24190_irq_handler_thread(int irq, void *data)
 	}
 	bq24190_check_status(bdi);
 	pm_runtime_mark_last_busy(bdi->dev);
-	pm_runtime_put_autosuspend(bdi->dev);
+	__pm_runtime_put_autosuspend(bdi->dev);
 	bdi->irq_event = false;
 
 	return IRQ_HANDLED;
@@ -2148,7 +2148,7 @@ static int bq24190_probe(struct i2c_client *client)
 	enable_irq_wake(client->irq);
 
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	return 0;
 
@@ -2235,7 +2235,7 @@ static __maybe_unused int bq24190_pm_suspend(struct device *dev)
 
 	if (error >= 0) {
 		pm_runtime_mark_last_busy(bdi->dev);
-		pm_runtime_put_autosuspend(bdi->dev);
+		__pm_runtime_put_autosuspend(bdi->dev);
 	}
 
 	return 0;
@@ -2260,7 +2260,7 @@ static __maybe_unused int bq24190_pm_resume(struct device *dev)
 
 	if (error >= 0) {
 		pm_runtime_mark_last_busy(bdi->dev);
-		pm_runtime_put_autosuspend(bdi->dev);
+		__pm_runtime_put_autosuspend(bdi->dev);
 	}
 
 	/* Things may have changed while suspended so alert upper layer */
