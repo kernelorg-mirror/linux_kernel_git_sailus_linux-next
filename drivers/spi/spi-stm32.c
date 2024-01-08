@@ -2231,7 +2231,7 @@ static int stm32_spi_probe(struct platform_device *pdev)
 	}
 
 	pm_runtime_mark_last_busy(&pdev->dev);
-	pm_runtime_put_autosuspend(&pdev->dev);
+	__pm_runtime_put_autosuspend(&pdev->dev);
 
 	dev_info(&pdev->dev, "driver initialized (%s mode)\n",
 		 STM32_SPI_HOST_MODE(spi) ? "host" : "device");
@@ -2340,7 +2340,7 @@ static int __maybe_unused stm32_spi_resume(struct device *dev)
 	spi->cfg->config(spi);
 
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	return 0;
 }

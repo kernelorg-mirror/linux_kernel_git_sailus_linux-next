@@ -266,7 +266,7 @@ static void omap2_mcspi_set_cs(struct spi_device *spi, bool enable)
 		mcspi_write_chconf0(spi, l);
 
 		pm_runtime_mark_last_busy(mcspi->dev);
-		pm_runtime_put_autosuspend(mcspi->dev);
+		__pm_runtime_put_autosuspend(mcspi->dev);
 	}
 }
 
@@ -1206,7 +1206,7 @@ static int omap2_mcspi_setup(struct spi_device *spi)
 		omap2_mcspi_cleanup(spi);
 
 	pm_runtime_mark_last_busy(mcspi->dev);
-	pm_runtime_put_autosuspend(mcspi->dev);
+	__pm_runtime_put_autosuspend(mcspi->dev);
 
 	return ret;
 }
@@ -1455,7 +1455,7 @@ static int omap2_mcspi_controller_setup(struct omap2_mcspi *mcspi)
 
 	omap2_mcspi_set_mode(ctlr);
 	pm_runtime_mark_last_busy(mcspi->dev);
-	pm_runtime_put_autosuspend(mcspi->dev);
+	__pm_runtime_put_autosuspend(mcspi->dev);
 	return 0;
 }
 

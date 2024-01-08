@@ -1684,7 +1684,7 @@ spi_imx_prepare_message(struct spi_controller *controller, struct spi_message *m
 	ret = spi_imx->devtype_data->prepare_message(spi_imx, msg);
 	if (ret) {
 		pm_runtime_mark_last_busy(spi_imx->dev);
-		pm_runtime_put_autosuspend(spi_imx->dev);
+		__pm_runtime_put_autosuspend(spi_imx->dev);
 	}
 
 	return ret;
@@ -1696,7 +1696,7 @@ spi_imx_unprepare_message(struct spi_controller *controller, struct spi_message 
 	struct spi_imx_data *spi_imx = spi_controller_get_devdata(controller);
 
 	pm_runtime_mark_last_busy(spi_imx->dev);
-	pm_runtime_put_autosuspend(spi_imx->dev);
+	__pm_runtime_put_autosuspend(spi_imx->dev);
 	return 0;
 }
 
@@ -1870,7 +1870,7 @@ static int spi_imx_probe(struct platform_device *pdev)
 	}
 
 	pm_runtime_mark_last_busy(spi_imx->dev);
-	pm_runtime_put_autosuspend(spi_imx->dev);
+	__pm_runtime_put_autosuspend(spi_imx->dev);
 
 	return ret;
 

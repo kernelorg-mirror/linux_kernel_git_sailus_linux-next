@@ -159,7 +159,7 @@ static int ti_qspi_setup(struct spi_device *spi)
 	}
 
 	pm_runtime_mark_last_busy(qspi->dev);
-	ret = pm_runtime_put_autosuspend(qspi->dev);
+	ret = __pm_runtime_put_autosuspend(qspi->dev);
 	if (ret < 0) {
 		dev_err(qspi->dev, "pm_runtime_put_autosuspend() failed\n");
 		return ret;
@@ -196,7 +196,7 @@ static void ti_qspi_setup_clk(struct ti_qspi *qspi, u32 speed_hz)
 	}
 
 	pm_runtime_mark_last_busy(qspi->dev);
-	pm_runtime_put_autosuspend(qspi->dev);
+	__pm_runtime_put_autosuspend(qspi->dev);
 }
 
 static void ti_qspi_restore_ctx(struct ti_qspi *qspi)

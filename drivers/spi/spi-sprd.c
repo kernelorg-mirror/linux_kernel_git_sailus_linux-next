@@ -983,7 +983,7 @@ static int sprd_spi_probe(struct platform_device *pdev)
 		goto err_rpm_put;
 
 	pm_runtime_mark_last_busy(&pdev->dev);
-	pm_runtime_put_autosuspend(&pdev->dev);
+	__pm_runtime_put_autosuspend(&pdev->dev);
 
 	return 0;
 

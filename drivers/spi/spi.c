@@ -1701,7 +1701,7 @@ static void spi_idle_runtime_pm(struct spi_controller *ctlr)
 {
 	if (ctlr->auto_runtime_pm) {
 		pm_runtime_mark_last_busy(ctlr->dev.parent);
-		pm_runtime_put_autosuspend(ctlr->dev.parent);
+		__pm_runtime_put_autosuspend(ctlr->dev.parent);
 	}
 }
 
@@ -3874,7 +3874,7 @@ static int spi_set_cs_timing(struct spi_device *spi)
 
 			status = spi->controller->set_cs_timing(spi);
 			pm_runtime_mark_last_busy(parent);
-			pm_runtime_put_autosuspend(parent);
+			__pm_runtime_put_autosuspend(parent);
 		} else {
 			status = spi->controller->set_cs_timing(spi);
 		}
@@ -4003,7 +4003,7 @@ int spi_setup(struct spi_device *spi)
 
 		spi_set_cs(spi, false, true);
 		pm_runtime_mark_last_busy(spi->controller->dev.parent);
-		pm_runtime_put_autosuspend(spi->controller->dev.parent);
+		__pm_runtime_put_autosuspend(spi->controller->dev.parent);
 	} else {
 		spi_set_cs(spi, false, true);
 	}

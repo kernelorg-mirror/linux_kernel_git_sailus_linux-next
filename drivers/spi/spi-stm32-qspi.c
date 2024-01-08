@@ -469,7 +469,7 @@ static int stm32_qspi_poll_status(struct spi_mem *mem, const struct spi_mem_op *
 	mutex_unlock(&qspi->lock);
 
 	pm_runtime_mark_last_busy(qspi->dev);
-	pm_runtime_put_autosuspend(qspi->dev);
+	__pm_runtime_put_autosuspend(qspi->dev);
 
 	return ret;
 }
@@ -493,7 +493,7 @@ static int stm32_qspi_exec_op(struct spi_mem *mem, const struct spi_mem_op *op)
 	mutex_unlock(&qspi->lock);
 
 	pm_runtime_mark_last_busy(qspi->dev);
-	pm_runtime_put_autosuspend(qspi->dev);
+	__pm_runtime_put_autosuspend(qspi->dev);
 
 	return ret;
 }
@@ -549,7 +549,7 @@ static ssize_t stm32_qspi_dirmap_read(struct spi_mem_dirmap_desc *desc,
 	mutex_unlock(&qspi->lock);
 
 	pm_runtime_mark_last_busy(qspi->dev);
-	pm_runtime_put_autosuspend(qspi->dev);
+	__pm_runtime_put_autosuspend(qspi->dev);
 
 	return ret ?: len;
 }
@@ -633,7 +633,7 @@ end_of_transfer:
 	spi_finalize_current_message(ctrl);
 
 	pm_runtime_mark_last_busy(qspi->dev);
-	pm_runtime_put_autosuspend(qspi->dev);
+	__pm_runtime_put_autosuspend(qspi->dev);
 
 	return ret;
 }
@@ -692,7 +692,7 @@ static int stm32_qspi_setup(struct spi_device *spi)
 	mutex_unlock(&qspi->lock);
 
 	pm_runtime_mark_last_busy(qspi->dev);
-	pm_runtime_put_autosuspend(qspi->dev);
+	__pm_runtime_put_autosuspend(qspi->dev);
 
 	return 0;
 }
@@ -866,7 +866,7 @@ static int stm32_qspi_probe(struct platform_device *pdev)
 		goto err_pm_runtime_free;
 
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	return 0;
 
@@ -946,7 +946,7 @@ static int __maybe_unused stm32_qspi_resume(struct device *dev)
 	writel_relaxed(qspi->dcr_reg, qspi->io_base + QSPI_DCR);
 
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	return 0;
 }
