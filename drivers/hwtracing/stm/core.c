@@ -660,7 +660,7 @@ static ssize_t stm_char_write(struct file *file, const char __user *buf,
 	count = stm_write(stm, &stmf->output, 0, kbuf, count);
 
 	pm_runtime_mark_last_busy(&stm->dev);
-	pm_runtime_put_autosuspend(&stm->dev);
+	__pm_runtime_put_autosuspend(&stm->dev);
 	kfree(kbuf);
 
 	return count;
@@ -680,7 +680,7 @@ static void stm_mmap_close(struct vm_area_struct *vma)
 	struct stm_device *stm = stmf->stm;
 
 	pm_runtime_mark_last_busy(&stm->dev);
-	pm_runtime_put_autosuspend(&stm->dev);
+	__pm_runtime_put_autosuspend(&stm->dev);
 }
 
 static const struct vm_operations_struct stm_mmap_vmops = {
@@ -1083,7 +1083,7 @@ static int __stm_source_link_drop(struct stm_source_device *src,
 	stm_output_free(link, &src->output);
 	list_del_init(&src->link_entry);
 	pm_runtime_mark_last_busy(&link->dev);
-	pm_runtime_put_autosuspend(&link->dev);
+	__pm_runtime_put_autosuspend(&link->dev);
 	/* matches stm_find_device() from stm_source_link_store() */
 	stm_put_device(link);
 	rcu_assign_pointer(src->link, NULL);
@@ -1181,7 +1181,7 @@ static ssize_t stm_source_link_store(struct device *dev,
 
 	err = stm_source_link_add(src, link);
 	if (err) {
-		pm_runtime_put_autosuspend(&link->dev);
+		__pm_runtime_put_autosuspend(&link->dev);
 		/* matches the stm_find_device() above */
 		stm_put_device(link);
 	}
