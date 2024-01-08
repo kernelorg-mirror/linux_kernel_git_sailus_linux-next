@@ -109,7 +109,7 @@ static int mpl115_read_raw(struct iio_dev *indio_dev,
 		if (ret < 0)
 			return ret;
 		pm_runtime_mark_last_busy(data->dev);
-		pm_runtime_put_autosuspend(data->dev);
+		__pm_runtime_put_autosuspend(data->dev);
 
 		return IIO_VAL_INT_PLUS_MICRO;
 	case IIO_CHAN_INFO_RAW:
@@ -119,7 +119,7 @@ static int mpl115_read_raw(struct iio_dev *indio_dev,
 		if (ret < 0)
 			return ret;
 		pm_runtime_mark_last_busy(data->dev);
-		pm_runtime_put_autosuspend(data->dev);
+		__pm_runtime_put_autosuspend(data->dev);
 		*val = ret >> 6;
 
 		return IIO_VAL_INT;

@@ -267,7 +267,7 @@ static int icp10100_get_measures(struct icp10100_state *st,
 
 	pm_runtime_mark_last_busy(&st->client->dev);
 error_measure:
-	pm_runtime_put_autosuspend(&st->client->dev);
+	__pm_runtime_put_autosuspend(&st->client->dev);
 	return ret;
 }
 

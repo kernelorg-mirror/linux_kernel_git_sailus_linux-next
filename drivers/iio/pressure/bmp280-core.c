@@ -532,7 +532,7 @@ static int bmp280_read_raw(struct iio_dev *indio_dev,
 
 	mutex_unlock(&data->lock);
 	pm_runtime_mark_last_busy(data->dev);
-	pm_runtime_put_autosuspend(data->dev);
+	__pm_runtime_put_autosuspend(data->dev);
 
 	return ret;
 }
@@ -695,7 +695,7 @@ static int bmp280_write_raw(struct iio_dev *indio_dev,
 		}
 		mutex_unlock(&data->lock);
 		pm_runtime_mark_last_busy(data->dev);
-		pm_runtime_put_autosuspend(data->dev);
+		__pm_runtime_put_autosuspend(data->dev);
 		break;
 	case IIO_CHAN_INFO_SAMP_FREQ:
 		pm_runtime_get_sync(data->dev);
@@ -703,7 +703,7 @@ static int bmp280_write_raw(struct iio_dev *indio_dev,
 		ret = bmp280_write_sampling_frequency(data, val, val2);
 		mutex_unlock(&data->lock);
 		pm_runtime_mark_last_busy(data->dev);
-		pm_runtime_put_autosuspend(data->dev);
+		__pm_runtime_put_autosuspend(data->dev);
 		break;
 	case IIO_CHAN_INFO_LOW_PASS_FILTER_3DB_FREQUENCY:
 		pm_runtime_get_sync(data->dev);
@@ -711,7 +711,7 @@ static int bmp280_write_raw(struct iio_dev *indio_dev,
 		ret = bmp280_write_iir_filter_coeffs(data, val);
 		mutex_unlock(&data->lock);
 		pm_runtime_mark_last_busy(data->dev);
-		pm_runtime_put_autosuspend(data->dev);
+		__pm_runtime_put_autosuspend(data->dev);
 		break;
 	default:
 		return -EINVAL;
@@ -1516,7 +1516,7 @@ exit:
 	data->chip_info->chip_config(data);
 	mutex_unlock(&data->lock);
 	pm_runtime_mark_last_busy(data->dev);
-	pm_runtime_put_autosuspend(data->dev);
+	__pm_runtime_put_autosuspend(data->dev);
 	return ret;
 }
 
@@ -1580,7 +1580,7 @@ exit:
 	data->chip_info->chip_config(data);
 	mutex_unlock(&data->lock);
 	pm_runtime_mark_last_busy(data->dev);
-	pm_runtime_put_autosuspend(data->dev);
+	__pm_runtime_put_autosuspend(data->dev);
 	return ret;
 }
 
