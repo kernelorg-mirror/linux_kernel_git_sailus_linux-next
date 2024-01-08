@@ -107,7 +107,7 @@ static int musb_regdump_show(struct seq_file *s, void *unused)
 	}
 
 	pm_runtime_mark_last_busy(musb->controller);
-	pm_runtime_put_autosuspend(musb->controller);
+	__pm_runtime_put_autosuspend(musb->controller);
 	return 0;
 }
 DEFINE_SHOW_ATTRIBUTE(musb_regdump);
@@ -120,7 +120,7 @@ static int musb_test_mode_show(struct seq_file *s, void *unused)
 	pm_runtime_get_sync(musb->controller);
 	test = musb_readb(musb->mregs, MUSB_TESTMODE);
 	pm_runtime_mark_last_busy(musb->controller);
-	pm_runtime_put_autosuspend(musb->controller);
+	__pm_runtime_put_autosuspend(musb->controller);
 
 	if (test == (MUSB_TEST_FORCE_HOST | MUSB_TEST_FORCE_FS))
 		seq_printf(s, "force host full-speed\n");
@@ -217,7 +217,7 @@ static ssize_t musb_test_mode_write(struct file *file,
 
 ret:
 	pm_runtime_mark_last_busy(musb->controller);
-	pm_runtime_put_autosuspend(musb->controller);
+	__pm_runtime_put_autosuspend(musb->controller);
 	return count;
 }
 
@@ -244,7 +244,7 @@ static int musb_softconnect_show(struct seq_file *s, void *unused)
 		connect = reg & MUSB_DEVCTL_SESSION ? 1 : 0;
 
 		pm_runtime_mark_last_busy(musb->controller);
-		pm_runtime_put_autosuspend(musb->controller);
+		__pm_runtime_put_autosuspend(musb->controller);
 		break;
 	default:
 		connect = -1;
@@ -305,7 +305,7 @@ static ssize_t musb_softconnect_write(struct file *file,
 	}
 
 	pm_runtime_mark_last_busy(musb->controller);
-	pm_runtime_put_autosuspend(musb->controller);
+	__pm_runtime_put_autosuspend(musb->controller);
 	return count;
 }
 

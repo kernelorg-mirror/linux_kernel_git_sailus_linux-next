@@ -1948,7 +1948,7 @@ static void cdnsp_gadget_exit(struct cdns *cdns)
 
 	devm_free_irq(pdev->dev, cdns->dev_irq, pdev);
 	pm_runtime_mark_last_busy(cdns->dev);
-	pm_runtime_put_autosuspend(cdns->dev);
+	__pm_runtime_put_autosuspend(cdns->dev);
 	usb_del_gadget_udc(&pdev->gadget);
 	cdnsp_gadget_free_endpoints(pdev);
 	cdnsp_mem_cleanup(pdev);

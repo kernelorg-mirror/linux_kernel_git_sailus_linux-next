@@ -317,7 +317,7 @@ static int __maybe_unused dwc3_imx8mp_resume(struct dwc3_imx8mp *dwc3_imx,
 		dwc3_imx->wakeup_pending = false;
 		if (dwc->current_dr_role == DWC3_GCTL_PRTCAP_DEVICE) {
 			pm_runtime_mark_last_busy(dwc->dev);
-			pm_runtime_put_autosuspend(dwc->dev);
+			__pm_runtime_put_autosuspend(dwc->dev);
 		} else {
 			/*
 			 * Add wait for xhci switch from suspend

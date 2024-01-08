@@ -233,7 +233,7 @@ static void __dwc3_set_mode(struct work_struct *work)
 
 out:
 	pm_runtime_mark_last_busy(dwc->dev);
-	pm_runtime_put_autosuspend(dwc->dev);
+	__pm_runtime_put_autosuspend(dwc->dev);
 	mutex_unlock(&dwc->mutex);
 }
 

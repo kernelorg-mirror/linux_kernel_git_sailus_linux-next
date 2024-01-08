@@ -2421,7 +2421,7 @@ int cdns2_gadget_resume(struct cdns2_device *pdev, bool hibernated)
 void cdns2_gadget_remove(struct cdns2_device *pdev)
 {
 	pm_runtime_mark_last_busy(pdev->dev);
-	pm_runtime_put_autosuspend(pdev->dev);
+	__pm_runtime_put_autosuspend(pdev->dev);
 
 	usb_del_gadget(&pdev->gadget);
 	cdns2_free_all_eps(pdev);

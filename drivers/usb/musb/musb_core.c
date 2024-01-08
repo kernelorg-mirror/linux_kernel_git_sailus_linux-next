@@ -2031,7 +2031,7 @@ static void musb_pm_runtime_check_session(struct musb *musb)
 			break;
 		trace_musb_state(musb, devctl, "Allow PM on possible host mode disconnect");
 		pm_runtime_mark_last_busy(musb->controller);
-		pm_runtime_put_autosuspend(musb->controller);
+		__pm_runtime_put_autosuspend(musb->controller);
 		musb->session = false;
 		return;
 	default:
@@ -2063,7 +2063,7 @@ static void musb_pm_runtime_check_session(struct musb *musb)
 	} else {
 		trace_musb_state(musb, devctl, "Allow PM with no session");
 		pm_runtime_mark_last_busy(musb->controller);
-		pm_runtime_put_autosuspend(musb->controller);
+		__pm_runtime_put_autosuspend(musb->controller);
 	}
 
 	musb->session = s;
@@ -2090,7 +2090,7 @@ static void musb_irq_work(struct work_struct *data)
 	}
 
 	pm_runtime_mark_last_busy(musb->controller);
-	pm_runtime_put_autosuspend(musb->controller);
+	__pm_runtime_put_autosuspend(musb->controller);
 }
 
 static void musb_recover_from_babble(struct musb *musb)
@@ -2564,7 +2564,7 @@ musb_init_controller(struct device *dev, int nIrq, void __iomem *ctrl)
 
 	musb->is_initialized = 1;
 	pm_runtime_mark_last_busy(musb->controller);
-	pm_runtime_put_autosuspend(musb->controller);
+	__pm_runtime_put_autosuspend(musb->controller);
 
 	return 0;
 
@@ -2887,7 +2887,7 @@ static int musb_resume(struct device *dev)
 	spin_unlock_irqrestore(&musb->lock, flags);
 
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	return 0;
 }

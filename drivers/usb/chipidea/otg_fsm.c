@@ -631,7 +631,7 @@ int ci_otg_fsm_work(struct ci_hdrc *ci)
 			}
 		} else if (ci->fsm.otg->state == OTG_STATE_A_HOST) {
 			pm_runtime_mark_last_busy(ci->dev);
-			pm_runtime_put_autosuspend(ci->dev);
+			__pm_runtime_put_autosuspend(ci->dev);
 			return 0;
 		}
 	}
