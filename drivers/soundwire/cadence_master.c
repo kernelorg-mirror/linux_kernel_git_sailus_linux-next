@@ -486,7 +486,7 @@ unlock:
 	 * also result in Slave devices suspending.
 	 */
 	pm_runtime_mark_last_busy(bus->dev);
-	pm_runtime_put_autosuspend(bus->dev);
+	__pm_runtime_put_autosuspend(bus->dev);
 
 	return 0;
 }
