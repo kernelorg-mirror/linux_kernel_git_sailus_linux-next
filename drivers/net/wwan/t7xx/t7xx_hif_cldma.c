@@ -252,7 +252,7 @@ static void t7xx_cldma_rx_done(struct work_struct *work)
 	t7xx_cldma_hw_irq_en_txrx(&md_ctrl->hw_info, queue->index, MTK_RX);
 	t7xx_cldma_hw_irq_en_eq(&md_ctrl->hw_info, queue->index, MTK_RX);
 	pm_runtime_mark_last_busy(md_ctrl->dev);
-	pm_runtime_put_autosuspend(md_ctrl->dev);
+	__pm_runtime_put_autosuspend(md_ctrl->dev);
 }
 
 static int t7xx_cldma_gpd_tx_collect(struct cldma_queue *queue)
@@ -364,7 +364,7 @@ static void t7xx_cldma_tx_done(struct work_struct *work)
 	spin_unlock_irqrestore(&md_ctrl->cldma_lock, flags);
 
 	pm_runtime_mark_last_busy(md_ctrl->dev);
-	pm_runtime_put_autosuspend(md_ctrl->dev);
+	__pm_runtime_put_autosuspend(md_ctrl->dev);
 }
 
 static void t7xx_cldma_ring_free(struct cldma_ctrl *md_ctrl,
@@ -989,7 +989,7 @@ int t7xx_cldma_send_skb(struct cldma_ctrl *md_ctrl, int qno, struct sk_buff *skb
 allow_sleep:
 	t7xx_pci_enable_sleep(md_ctrl->t7xx_dev);
 	pm_runtime_mark_last_busy(md_ctrl->dev);
-	pm_runtime_put_autosuspend(md_ctrl->dev);
+	__pm_runtime_put_autosuspend(md_ctrl->dev);
 	return ret;
 }
 

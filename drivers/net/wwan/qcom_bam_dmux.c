@@ -163,7 +163,7 @@ static void bam_dmux_tx_done(struct bam_dmux_skb_dma *skb_dma)
 	unsigned long flags;
 
 	pm_runtime_mark_last_busy(dmux->dev);
-	pm_runtime_put_autosuspend(dmux->dev);
+	__pm_runtime_put_autosuspend(dmux->dev);
 
 	if (skb_dma->addr)
 		bam_dmux_skb_dma_unmap(skb_dma, DMA_TO_DEVICE);
@@ -398,7 +398,7 @@ static void bam_dmux_tx_wakeup_work(struct work_struct *work)
 
 out:
 	pm_runtime_mark_last_busy(dmux->dev);
-	pm_runtime_put_autosuspend(dmux->dev);
+	__pm_runtime_put_autosuspend(dmux->dev);
 }
 
 static const struct net_device_ops bam_dmux_ops = {
