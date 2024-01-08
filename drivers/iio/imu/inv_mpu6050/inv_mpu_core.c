@@ -680,12 +680,12 @@ static int inv_mpu6050_read_channel_data(struct iio_dev *indio_dev,
 	}
 
 	pm_runtime_mark_last_busy(pdev);
-	pm_runtime_put_autosuspend(pdev);
+	__pm_runtime_put_autosuspend(pdev);
 
 	return ret;
 
 error_power_off:
-	pm_runtime_put_autosuspend(pdev);
+	__pm_runtime_put_autosuspend(pdev);
 	return result;
 }
 
@@ -885,7 +885,7 @@ static int inv_mpu6050_write_raw(struct iio_dev *indio_dev,
 	}
 
 	pm_runtime_mark_last_busy(pdev);
-	pm_runtime_put_autosuspend(pdev);
+	__pm_runtime_put_autosuspend(pdev);
 error_write_raw_unlock:
 	mutex_unlock(&st->lock);
 	iio_device_release_direct_mode(indio_dev);
@@ -991,7 +991,7 @@ inv_mpu6050_fifo_rate_store(struct device *dev, struct device_attribute *attr,
 
 	pm_runtime_mark_last_busy(pdev);
 fifo_rate_fail_power_off:
-	pm_runtime_put_autosuspend(pdev);
+	__pm_runtime_put_autosuspend(pdev);
 fifo_rate_fail_unlock:
 	mutex_unlock(&st->lock);
 	if (result)

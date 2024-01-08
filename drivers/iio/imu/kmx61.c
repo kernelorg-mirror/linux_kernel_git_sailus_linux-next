@@ -753,7 +753,7 @@ static int kmx61_set_power_state(struct kmx61_data *data, bool on, u8 device)
 		ret = pm_runtime_resume_and_get(&data->client->dev);
 	} else {
 		pm_runtime_mark_last_busy(&data->client->dev);
-		ret = pm_runtime_put_autosuspend(&data->client->dev);
+		ret = __pm_runtime_put_autosuspend(&data->client->dev);
 	}
 	if (ret < 0) {
 		dev_err(&data->client->dev,

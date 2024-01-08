@@ -38,7 +38,7 @@ static int inv_icm42600_temp_read(struct inv_icm42600_state *st, int16_t *temp)
 exit:
 	mutex_unlock(&st->lock);
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	return ret;
 }

@@ -191,7 +191,7 @@ static int inv_icm42600_gyro_read_sensor(struct inv_icm42600_state *st,
 exit:
 	mutex_unlock(&st->lock);
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 	return ret;
 }
 
@@ -260,7 +260,7 @@ static int inv_icm42600_gyro_write_scale(struct inv_icm42600_state *st,
 
 	mutex_unlock(&st->lock);
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	return ret;
 }
@@ -354,7 +354,7 @@ static int inv_icm42600_gyro_write_odr(struct iio_dev *indio_dev,
 out_unlock:
 	mutex_unlock(&st->lock);
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 
 	return ret;
 }
@@ -406,7 +406,7 @@ static int inv_icm42600_gyro_read_offset(struct inv_icm42600_state *st,
 
 	mutex_unlock(&st->lock);
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 	if (ret)
 		return ret;
 
@@ -543,7 +543,7 @@ static int inv_icm42600_gyro_write_offset(struct inv_icm42600_state *st,
 out_unlock:
 	mutex_unlock(&st->lock);
 	pm_runtime_mark_last_busy(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 	return ret;
 }
 
