@@ -318,7 +318,7 @@ err_ipc:
 		avs_dsp_enable_d0ix(adev);
 err_d0ix:
 		pm_runtime_mark_last_busy(adev->dev);
-		pm_runtime_put_autosuspend(adev->dev);
+		__pm_runtime_put_autosuspend(adev->dev);
 	}
 
 	return ret;
@@ -345,7 +345,7 @@ static int disable_logs(struct avs_dev *adev, u32 resource_mask)
 	if (!adev->logged_resources) {
 		avs_dsp_enable_d0ix(adev);
 		pm_runtime_mark_last_busy(adev->dev);
-		pm_runtime_put_autosuspend(adev->dev);
+		__pm_runtime_put_autosuspend(adev->dev);
 	}
 
 	return ret;

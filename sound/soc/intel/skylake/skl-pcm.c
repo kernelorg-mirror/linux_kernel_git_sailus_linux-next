@@ -1423,7 +1423,7 @@ static int skl_platform_soc_probe(struct snd_soc_component *component)
 		}
 	}
 	pm_runtime_mark_last_busy(component->dev);
-	pm_runtime_put_autosuspend(component->dev);
+	__pm_runtime_put_autosuspend(component->dev);
 
 	return 0;
 }

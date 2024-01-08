@@ -22,7 +22,7 @@ static ssize_t fw_version_show(struct device *dev,
 	ret = catpt_ipc_get_fw_version(cdev, &version);
 
 	pm_runtime_mark_last_busy(cdev->dev);
-	pm_runtime_put_autosuspend(cdev->dev);
+	__pm_runtime_put_autosuspend(cdev->dev);
 
 	if (ret)
 		return CATPT_IPC_ERROR(ret);

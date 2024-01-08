@@ -674,7 +674,7 @@ static int catpt_dai_pcm_new(struct snd_soc_pcm_runtime *rtm,
 	ret = catpt_ipc_set_device_format(cdev, &devfmt);
 
 	pm_runtime_mark_last_busy(cdev->dev);
-	pm_runtime_put_autosuspend(cdev->dev);
+	__pm_runtime_put_autosuspend(cdev->dev);
 
 	if (ret)
 		return CATPT_IPC_ERROR(ret);
@@ -872,7 +872,7 @@ static int catpt_mixer_volume_get(struct snd_kcontrol *kcontrol,
 	}
 
 	pm_runtime_mark_last_busy(cdev->dev);
-	pm_runtime_put_autosuspend(cdev->dev);
+	__pm_runtime_put_autosuspend(cdev->dev);
 
 	return 0;
 }
@@ -893,7 +893,7 @@ static int catpt_mixer_volume_put(struct snd_kcontrol *kcontrol,
 			       ucontrol->value.integer.value);
 
 	pm_runtime_mark_last_busy(cdev->dev);
-	pm_runtime_put_autosuspend(cdev->dev);
+	__pm_runtime_put_autosuspend(cdev->dev);
 
 	return ret;
 }
@@ -928,7 +928,7 @@ static int catpt_stream_volume_get(struct snd_kcontrol *kcontrol,
 	}
 
 	pm_runtime_mark_last_busy(cdev->dev);
-	pm_runtime_put_autosuspend(cdev->dev);
+	__pm_runtime_put_autosuspend(cdev->dev);
 
 	return 0;
 }
@@ -959,7 +959,7 @@ static int catpt_stream_volume_put(struct snd_kcontrol *kcontrol,
 			       ucontrol->value.integer.value);
 
 	pm_runtime_mark_last_busy(cdev->dev);
-	pm_runtime_put_autosuspend(cdev->dev);
+	__pm_runtime_put_autosuspend(cdev->dev);
 
 	if (ret)
 		return ret;
@@ -1036,7 +1036,7 @@ static int catpt_loopback_switch_put(struct snd_kcontrol *kcontrol,
 	ret = catpt_ipc_mute_loopback(cdev, stream->info.stream_hw_id, mute);
 
 	pm_runtime_mark_last_busy(cdev->dev);
-	pm_runtime_put_autosuspend(cdev->dev);
+	__pm_runtime_put_autosuspend(cdev->dev);
 
 	if (ret)
 		return CATPT_IPC_ERROR(ret);
