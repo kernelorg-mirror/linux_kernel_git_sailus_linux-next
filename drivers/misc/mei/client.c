@@ -1014,7 +1014,7 @@ int mei_cl_disconnect(struct mei_cl *cl)
 
 	cl_dbg(dev, cl, "rpm: autosuspend\n");
 	pm_runtime_mark_last_busy(dev->dev);
-	pm_runtime_put_autosuspend(dev->dev);
+	__pm_runtime_put_autosuspend(dev->dev);
 
 	return rets;
 }
@@ -1190,7 +1190,7 @@ int mei_cl_connect(struct mei_cl *cl, struct mei_me_client *me_cl,
 out:
 	cl_dbg(dev, cl, "rpm: autosuspend\n");
 	pm_runtime_mark_last_busy(dev->dev);
-	pm_runtime_put_autosuspend(dev->dev);
+	__pm_runtime_put_autosuspend(dev->dev);
 
 	mei_io_cb_free(cb);
 
@@ -1577,7 +1577,7 @@ int mei_cl_notify_request(struct mei_cl *cl,
 out:
 	cl_dbg(dev, cl, "rpm: autosuspend\n");
 	pm_runtime_mark_last_busy(dev->dev);
-	pm_runtime_put_autosuspend(dev->dev);
+	__pm_runtime_put_autosuspend(dev->dev);
 
 	mei_io_cb_free(cb);
 	return rets;
@@ -1725,7 +1725,7 @@ int mei_cl_read_start(struct mei_cl *cl, size_t length, const struct file *fp)
 out:
 	cl_dbg(dev, cl, "rpm: autosuspend\n");
 	pm_runtime_mark_last_busy(dev->dev);
-	pm_runtime_put_autosuspend(dev->dev);
+	__pm_runtime_put_autosuspend(dev->dev);
 nortpm:
 	if (rets)
 		mei_io_cb_free(cb);
@@ -2115,7 +2115,7 @@ out:
 err:
 	cl_dbg(dev, cl, "rpm: autosuspend\n");
 	pm_runtime_mark_last_busy(dev->dev);
-	pm_runtime_put_autosuspend(dev->dev);
+	__pm_runtime_put_autosuspend(dev->dev);
 free:
 	mei_io_cb_free(cb);
 
@@ -2389,7 +2389,7 @@ out:
 
 	cl_dbg(dev, cl, "rpm: autosuspend\n");
 	pm_runtime_mark_last_busy(dev->dev);
-	pm_runtime_put_autosuspend(dev->dev);
+	__pm_runtime_put_autosuspend(dev->dev);
 
 	mei_io_cb_free(cb);
 	return rets;
@@ -2467,7 +2467,7 @@ int mei_cl_dma_unmap(struct mei_cl *cl, const struct file *fp)
 out:
 	cl_dbg(dev, cl, "rpm: autosuspend\n");
 	pm_runtime_mark_last_busy(dev->dev);
-	pm_runtime_put_autosuspend(dev->dev);
+	__pm_runtime_put_autosuspend(dev->dev);
 
 	mei_io_cb_free(cb);
 	return rets;
