@@ -828,7 +828,7 @@ omap_i2c_xfer_common(struct i2c_adapter *adap, struct i2c_msg msgs[], int num,
 
 out:
 	pm_runtime_mark_last_busy(omap->dev);
-	pm_runtime_put_autosuspend(omap->dev);
+	__pm_runtime_put_autosuspend(omap->dev);
 	return r;
 }
 
@@ -1503,7 +1503,7 @@ omap_i2c_probe(struct platform_device *pdev)
 		 major, minor, omap->speed);
 
 	pm_runtime_mark_last_busy(omap->dev);
-	pm_runtime_put_autosuspend(omap->dev);
+	__pm_runtime_put_autosuspend(omap->dev);
 
 	return 0;
 

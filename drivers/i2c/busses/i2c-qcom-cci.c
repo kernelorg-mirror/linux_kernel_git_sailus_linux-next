@@ -452,7 +452,7 @@ static int cci_xfer(struct i2c_adapter *adap, struct i2c_msg msgs[], int num)
 
 err:
 	pm_runtime_mark_last_busy(cci->dev);
-	pm_runtime_put_autosuspend(cci->dev);
+	__pm_runtime_put_autosuspend(cci->dev);
 
 	return ret;
 }

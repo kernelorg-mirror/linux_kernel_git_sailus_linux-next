@@ -1135,7 +1135,7 @@ static int img_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msgs,
 	}
 
 	pm_runtime_mark_last_busy(adap->dev.parent);
-	pm_runtime_put_autosuspend(adap->dev.parent);
+	__pm_runtime_put_autosuspend(adap->dev.parent);
 
 	return i2c->msg_status ? i2c->msg_status : num;
 }
@@ -1169,7 +1169,7 @@ static int img_i2c_init(struct img_i2c *i2c)
 			 (rev >> 24) & 0xff, (rev >> 16) & 0xff,
 			 (rev >> 8) & 0xff, rev & 0xff);
 		pm_runtime_mark_last_busy(i2c->adap.dev.parent);
-		pm_runtime_put_autosuspend(i2c->adap.dev.parent);
+		__pm_runtime_put_autosuspend(i2c->adap.dev.parent);
 		return -EINVAL;
 	}
 
@@ -1321,7 +1321,7 @@ static int img_i2c_init(struct img_i2c *i2c)
 	ret = img_i2c_reset_bus(i2c);
 
 	pm_runtime_mark_last_busy(i2c->adap.dev.parent);
-	pm_runtime_put_autosuspend(i2c->adap.dev.parent);
+	__pm_runtime_put_autosuspend(i2c->adap.dev.parent);
 
 	return ret;
 }

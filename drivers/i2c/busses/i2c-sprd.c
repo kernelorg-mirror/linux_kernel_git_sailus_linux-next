@@ -303,7 +303,7 @@ static int sprd_i2c_master_xfer(struct i2c_adapter *i2c_adap,
 
 err_msg:
 	pm_runtime_mark_last_busy(i2c_dev->dev);
-	pm_runtime_put_autosuspend(i2c_dev->dev);
+	__pm_runtime_put_autosuspend(i2c_dev->dev);
 
 	return ret < 0 ? ret : im;
 }
@@ -560,7 +560,7 @@ static int sprd_i2c_probe(struct platform_device *pdev)
 	}
 
 	pm_runtime_mark_last_busy(i2c_dev->dev);
-	pm_runtime_put_autosuspend(i2c_dev->dev);
+	__pm_runtime_put_autosuspend(i2c_dev->dev);
 	return 0;
 
 err_rpm_put:

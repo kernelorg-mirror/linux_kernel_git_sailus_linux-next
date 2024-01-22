@@ -923,7 +923,7 @@ out:
 #endif
 
 	pm_runtime_mark_last_busy(id->dev);
-	pm_runtime_put_autosuspend(id->dev);
+	__pm_runtime_put_autosuspend(id->dev);
 	return ret;
 }
 

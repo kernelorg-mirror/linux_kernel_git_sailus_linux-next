@@ -1111,7 +1111,7 @@ static int qup_i2c_xfer(struct i2c_adapter *adap,
 out:
 
 	pm_runtime_mark_last_busy(qup->dev);
-	pm_runtime_put_autosuspend(qup->dev);
+	__pm_runtime_put_autosuspend(qup->dev);
 
 	return ret;
 }
@@ -1596,7 +1596,7 @@ static int qup_i2c_xfer_v2(struct i2c_adapter *adap,
 		ret = num;
 out:
 	pm_runtime_mark_last_busy(qup->dev);
-	pm_runtime_put_autosuspend(qup->dev);
+	__pm_runtime_put_autosuspend(qup->dev);
 
 	return ret;
 }

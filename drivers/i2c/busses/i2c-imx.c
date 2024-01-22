@@ -1335,7 +1335,7 @@ static int i2c_imx_xfer(struct i2c_adapter *adapter,
 	result = i2c_imx_xfer_common(adapter, msgs, num, false);
 
 	pm_runtime_mark_last_busy(i2c_imx->adapter.dev.parent);
-	pm_runtime_put_autosuspend(i2c_imx->adapter.dev.parent);
+	__pm_runtime_put_autosuspend(i2c_imx->adapter.dev.parent);
 
 	return result;
 }
@@ -1539,7 +1539,7 @@ static int i2c_imx_probe(struct platform_device *pdev)
 		goto clk_notifier_unregister;
 
 	pm_runtime_mark_last_busy(&pdev->dev);
-	pm_runtime_put_autosuspend(&pdev->dev);
+	__pm_runtime_put_autosuspend(&pdev->dev);
 
 	dev_dbg(&i2c_imx->adapter.dev, "claimed irq %d\n", irq);
 	dev_dbg(&i2c_imx->adapter.dev, "device resources: %pR\n", res);

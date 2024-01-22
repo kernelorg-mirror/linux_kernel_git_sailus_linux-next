@@ -360,7 +360,7 @@ static int amd_mp2_pci_probe(struct pci_dev *pci_dev,
 
 	pm_runtime_set_autosuspend_delay(&pci_dev->dev, 1000);
 	pm_runtime_use_autosuspend(&pci_dev->dev);
-	pm_runtime_put_autosuspend(&pci_dev->dev);
+	__pm_runtime_put_autosuspend(&pci_dev->dev);
 	pm_runtime_allow(&pci_dev->dev);
 
 	privdata->probed = true;

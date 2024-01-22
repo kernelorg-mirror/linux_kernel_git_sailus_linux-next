@@ -374,7 +374,7 @@ static int hix5hd2_i2c_xfer(struct i2c_adapter *adap,
 
 out:
 	pm_runtime_mark_last_busy(priv->dev);
-	pm_runtime_put_autosuspend(priv->dev);
+	__pm_runtime_put_autosuspend(priv->dev);
 	return ret;
 }
 

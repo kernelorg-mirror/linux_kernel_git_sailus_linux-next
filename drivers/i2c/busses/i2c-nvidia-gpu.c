@@ -218,7 +218,7 @@ exit:
 			dev_err(i2cd->dev, "i2c stop failed %d\n", status2);
 	}
 	pm_runtime_mark_last_busy(i2cd->dev);
-	pm_runtime_put_autosuspend(i2cd->dev);
+	__pm_runtime_put_autosuspend(i2cd->dev);
 	return status;
 }
 
@@ -319,7 +319,7 @@ static int gpu_i2c_probe(struct pci_dev *pdev, const struct pci_device_id *id)
 
 	pm_runtime_set_autosuspend_delay(dev, 3000);
 	pm_runtime_use_autosuspend(dev);
-	pm_runtime_put_autosuspend(dev);
+	__pm_runtime_put_autosuspend(dev);
 	pm_runtime_allow(dev);
 
 	return 0;
