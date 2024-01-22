@@ -1547,7 +1547,7 @@ static int svc_i3c_master_disable_hotjoin(struct i3c_master_controller *m)
 		svc_i3c_master_disable_interrupts(master);
 
 	pm_runtime_mark_last_busy(master->dev);
-	pm_runtime_put_autosuspend(master->dev);
+	__pm_runtime_put_autosuspend(master->dev);
 
 	return 0;
 }
