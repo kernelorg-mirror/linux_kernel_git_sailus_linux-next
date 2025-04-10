@@ -96,7 +96,6 @@ static int stm32_dac_set_enable_state(struct iio_dev *indio_dev, int ch,
 		udelay(1);
 
 	if (!enable) {
-		pm_runtime_mark_last_busy(dev);
 		pm_runtime_put_autosuspend(dev);
 	}
 
@@ -104,7 +103,6 @@ static int stm32_dac_set_enable_state(struct iio_dev *indio_dev, int ch,
 
 err_put_pm:
 	if (enable) {
-		pm_runtime_mark_last_busy(dev);
 		pm_runtime_put_autosuspend(dev);
 	}
 
@@ -349,7 +347,6 @@ static int stm32_dac_probe(struct platform_device *pdev)
 	if (ret)
 		goto err_pm_put;
 
-	pm_runtime_mark_last_busy(dev);
 	pm_runtime_put_autosuspend(dev);
 
 	return 0;
