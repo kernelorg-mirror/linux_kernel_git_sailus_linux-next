@@ -664,7 +664,6 @@ static int svc_i3c_master_set_speed(struct i3c_master_controller *m,
 	}
 
 rpm_out:
-	pm_runtime_mark_last_busy(master->dev);
 	pm_runtime_put_autosuspend(master->dev);
 
 	return ret;
@@ -779,7 +778,6 @@ static int svc_i3c_master_bus_init(struct i3c_master_controller *m)
 		goto rpm_out;
 
 rpm_out:
-	pm_runtime_mark_last_busy(master->dev);
 	pm_runtime_put_autosuspend(master->dev);
 
 	return ret;
@@ -801,7 +799,6 @@ static void svc_i3c_master_bus_cleanup(struct i3c_master_controller *m)
 	/* Disable master */
 	writel(0, master->regs + SVC_I3C_MCONFIG);
 
-	pm_runtime_mark_last_busy(master->dev);
 	pm_runtime_put_autosuspend(master->dev);
 }
 
@@ -1207,7 +1204,6 @@ static int svc_i3c_master_do_daa(struct i3c_master_controller *m)
 		dev_err(master->dev, "Cannot handle such a list of devices");
 
 rpm_out:
-	pm_runtime_mark_last_busy(master->dev);
 	pm_runtime_put_autosuspend(master->dev);
 
 	return ret;
@@ -1511,7 +1507,6 @@ static void svc_i3c_master_enqueue_xfer(struct svc_i3c_master *master,
 	}
 	spin_unlock_irqrestore(&master->xferqueue.lock, flags);
 
-	pm_runtime_mark_last_busy(master->dev);
 	pm_runtime_put_autosuspend(master->dev);
 }
 
@@ -1801,7 +1796,6 @@ static int svc_i3c_master_disable_ibi(struct i3c_dev_desc *dev)
 
 	ret = i3c_master_disec_locked(m, dev->info.dyn_addr, I3C_CCC_EVENT_SIR);
 
-	pm_runtime_mark_last_busy(master->dev);
 	pm_runtime_put_autosuspend(master->dev);
 
 	return ret;
@@ -1834,7 +1828,6 @@ static int svc_i3c_master_disable_hotjoin(struct i3c_master_controller *m)
 	if (!master->enabled_events)
 		svc_i3c_master_disable_interrupts(master);
 
-	pm_runtime_mark_last_busy(master->dev);
 	pm_runtime_put_autosuspend(master->dev);
 
 	return 0;
@@ -1954,7 +1947,6 @@ static int svc_i3c_master_probe(struct platform_device *pdev)
 	if (ret)
 		goto rpm_disable;
 
-	pm_runtime_mark_last_busy(&pdev->dev);
 	pm_runtime_put_autosuspend(&pdev->dev);
 
 	return 0;
