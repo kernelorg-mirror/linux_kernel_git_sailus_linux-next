@@ -1833,7 +1833,6 @@ static int sdw_handle_slave_alerts(struct sdw_slave *slave)
 		dev_warn(&slave->dev, "Reached MAX_RETRY on alert read\n");
 
 io_err:
-	pm_runtime_mark_last_busy(&slave->dev);
 	pm_runtime_put_autosuspend(&slave->dev);
 
 	return ret;
