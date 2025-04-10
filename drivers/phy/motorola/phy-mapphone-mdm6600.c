@@ -248,7 +248,6 @@ static irqreturn_t phy_mdm6600_wakeirq_thread(int irq, void *data)
 	}
 
 	/* Just wake-up and kick the autosuspend timer */
-	pm_runtime_mark_last_busy(ddata->dev);
 	pm_runtime_put_autosuspend(ddata->dev);
 
 	return IRQ_HANDLED;
@@ -616,7 +615,6 @@ static int phy_mdm6600_probe(struct platform_device *pdev)
 		error = PTR_ERR(ddata->phy_provider);
 
 idle:
-	pm_runtime_mark_last_busy(ddata->dev);
 	pm_runtime_put_autosuspend(ddata->dev);
 
 cleanup:
