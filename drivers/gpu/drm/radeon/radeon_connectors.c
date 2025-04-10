@@ -876,7 +876,6 @@ radeon_lvds_detect(struct drm_connector *connector, bool force)
 	radeon_connector_update_scratch_regs(connector, ret);
 
 	if (!drm_kms_helper_is_poll_worker()) {
-		pm_runtime_mark_last_busy(connector->dev->dev);
 		pm_runtime_put_autosuspend(connector->dev->dev);
 	}
 
@@ -1067,7 +1066,6 @@ radeon_vga_detect(struct drm_connector *connector, bool force)
 
 out:
 	if (!drm_kms_helper_is_poll_worker()) {
-		pm_runtime_mark_last_busy(connector->dev->dev);
 		pm_runtime_put_autosuspend(connector->dev->dev);
 	}
 
@@ -1155,7 +1153,6 @@ radeon_tv_detect(struct drm_connector *connector, bool force)
 	radeon_connector_update_scratch_regs(connector, ret);
 
 	if (!drm_kms_helper_is_poll_worker()) {
-		pm_runtime_mark_last_busy(connector->dev->dev);
 		pm_runtime_put_autosuspend(connector->dev->dev);
 	}
 
@@ -1403,7 +1400,6 @@ out:
 
 exit:
 	if (!drm_kms_helper_is_poll_worker()) {
-		pm_runtime_mark_last_busy(connector->dev->dev);
 		pm_runtime_put_autosuspend(connector->dev->dev);
 	}
 
@@ -1715,7 +1711,6 @@ radeon_dp_detect(struct drm_connector *connector, bool force)
 
 out:
 	if (!drm_kms_helper_is_poll_worker()) {
-		pm_runtime_mark_last_busy(connector->dev->dev);
 		pm_runtime_put_autosuspend(connector->dev->dev);
 	}
 
