@@ -1092,7 +1092,6 @@ static void trf7970a_switch_rf_off(struct trf7970a *trf)
 	trf->aborting = false;
 	trf->state = TRF7970A_ST_RF_OFF;
 
-	pm_runtime_mark_last_busy(trf->dev);
 	pm_runtime_put_autosuspend(trf->dev);
 }
 
