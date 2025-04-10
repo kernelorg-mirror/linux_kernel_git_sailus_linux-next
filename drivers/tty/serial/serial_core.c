@@ -159,7 +159,6 @@ static void __uart_start(struct uart_state *state)
 	 */
 	if (!pm_runtime_enabled(port->dev) || pm_runtime_active(&port_dev->dev))
 		port->ops->start_tx(port);
-	pm_runtime_mark_last_busy(&port_dev->dev);
 	pm_runtime_put_autosuspend(&port_dev->dev);
 }
 

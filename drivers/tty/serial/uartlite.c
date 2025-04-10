@@ -422,7 +422,6 @@ static void ulite_pm(struct uart_port *port, unsigned int state,
 		if (ret < 0)
 			dev_err(port->dev, "Failed to enable clocks\n");
 	} else {
-		pm_runtime_mark_last_busy(port->dev);
 		pm_runtime_put_autosuspend(port->dev);
 	}
 }
@@ -882,7 +881,6 @@ of_err:
 
 	ret = ulite_assign(&pdev->dev, id, res->start, irq, pdata);
 
-	pm_runtime_mark_last_busy(&pdev->dev);
 	pm_runtime_put_autosuspend(&pdev->dev);
 
 	return ret;

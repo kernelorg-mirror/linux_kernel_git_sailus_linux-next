@@ -207,7 +207,6 @@ static void omap8250_set_mctrl(struct uart_port *port, unsigned int mctrl)
 
 	__omap8250_set_mctrl(port, mctrl);
 
-	pm_runtime_mark_last_busy(port->dev);
 	pm_runtime_put_autosuspend(port->dev);
 }
 
@@ -515,7 +514,6 @@ static void omap_8250_set_termios(struct uart_port *port,
 	omap8250_restore_regs(up);
 
 	uart_port_unlock_irq(&up->port);
-	pm_runtime_mark_last_busy(port->dev);
 	pm_runtime_put_autosuspend(port->dev);
 
 	/* calculate wakeup latency constraint */
@@ -553,7 +551,6 @@ static void omap_8250_pm(struct uart_port *port, unsigned int state,
 
 	uart_port_unlock_irq(port);
 
-	pm_runtime_mark_last_busy(port->dev);
 	pm_runtime_put_autosuspend(port->dev);
 }
 
@@ -772,7 +769,6 @@ static int omap_8250_startup(struct uart_port *port)
 
 	enable_irq(up->port.irq);
 
-	pm_runtime_mark_last_busy(port->dev);
 	pm_runtime_put_autosuspend(port->dev);
 	return 0;
 }
@@ -810,7 +806,6 @@ static void omap_8250_shutdown(struct uart_port *port)
 		serial_out(up, UART_LCR, up->lcr & ~UART_LCR_SBC);
 	serial_out(up, UART_FCR, UART_FCR_CLEAR_RCVR | UART_FCR_CLEAR_XMIT);
 
-	pm_runtime_mark_last_busy(port->dev);
 	pm_runtime_put_autosuspend(port->dev);
 }
 
@@ -826,7 +821,6 @@ static void omap_8250_throttle(struct uart_port *port)
 	priv->throttled = true;
 	uart_port_unlock_irqrestore(port, flags);
 
-	pm_runtime_mark_last_busy(port->dev);
 	pm_runtime_put_autosuspend(port->dev);
 }
 
@@ -847,7 +841,6 @@ static void omap_8250_unthrottle(struct uart_port *port)
 	serial_out(up, UART_IER, up->ier);
 	uart_port_unlock_irqrestore(port, flags);
 
-	pm_runtime_mark_last_busy(port->dev);
 	pm_runtime_put_autosuspend(port->dev);
 }
 
@@ -1593,7 +1586,6 @@ static int omap8250_probe(struct platform_device *pdev)
 		goto err;
 	}
 	priv->line = ret;
-	pm_runtime_mark_last_busy(&pdev->dev);
 	pm_runtime_put_autosuspend(&pdev->dev);
 	return 0;
 err:
@@ -1681,7 +1673,6 @@ static int omap8250_resume(struct device *dev)
 
 	serial8250_resume_port(priv->line);
 	/* Paired with pm_runtime_resume_and_get() in omap8250_suspend() */
-	pm_runtime_mark_last_busy(dev);
 	pm_runtime_put_autosuspend(dev);
 
 	return 0;
