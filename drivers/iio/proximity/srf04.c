@@ -118,7 +118,6 @@ static int srf04_read(struct srf04_data *data)
 	gpiod_set_value(data->gpiod_trig, 0);
 
 	if (data->gpiod_power) {
-		pm_runtime_mark_last_busy(data->dev);
 		pm_runtime_put_autosuspend(data->dev);
 	}
 
