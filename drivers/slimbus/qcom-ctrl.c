@@ -695,7 +695,6 @@ static int qcom_slim_resume(struct device *dev)
 		dev_dbg(dev, "system resume");
 		ret = qcom_slim_runtime_resume(dev);
 		if (!ret) {
-			pm_runtime_mark_last_busy(dev);
 			pm_request_autosuspend(dev);
 		}
 		return ret;

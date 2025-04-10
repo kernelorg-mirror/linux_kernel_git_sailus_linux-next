@@ -504,7 +504,6 @@ int slim_device_report_present(struct slim_controller *ctrl,
 	ret = slim_device_alloc_laddr(sbdev, true);
 
 slimbus_not_active:
-	pm_runtime_mark_last_busy(ctrl->dev);
 	pm_runtime_put_autosuspend(ctrl->dev);
 	return ret;
 }
