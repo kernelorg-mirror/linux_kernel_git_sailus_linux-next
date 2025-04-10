@@ -200,7 +200,6 @@ static ssize_t offline_store(struct device *dev,
 out_unlock:
 	mutex_unlock(&tb->lock);
 out_rpm:
-	pm_runtime_mark_last_busy(&usb4->dev);
 	pm_runtime_put_autosuspend(&usb4->dev);
 
 	return ret ? ret : count;
@@ -242,7 +241,6 @@ static ssize_t rescan_store(struct device *dev,
 out_unlock:
 	mutex_unlock(&tb->lock);
 out_rpm:
-	pm_runtime_mark_last_busy(&usb4->dev);
 	pm_runtime_put_autosuspend(&usb4->dev);
 
 	return ret ? ret : count;

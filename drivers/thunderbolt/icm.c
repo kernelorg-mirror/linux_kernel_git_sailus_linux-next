@@ -367,7 +367,6 @@ static void icm_veto_end(struct tb *tb)
 	if (icm->veto) {
 		icm->veto = false;
 		/* Allow the domain suspend now */
-		pm_runtime_mark_last_busy(&tb->dev);
 		pm_runtime_put_autosuspend(&tb->dev);
 	}
 }
@@ -721,7 +720,6 @@ static void add_xdomain(struct tb_switch *sw, u64 route,
 	tb_xdomain_add(xd);
 
 out:
-	pm_runtime_mark_last_busy(&sw->dev);
 	pm_runtime_put_autosuspend(&sw->dev);
 }
 
@@ -883,7 +881,6 @@ icm_fr_device_connected(struct tb *tb, const struct icm_pkg_header *hdr)
 			tb_switch_put(sw);
 	}
 
-	pm_runtime_mark_last_busy(&parent_sw->dev);
 	pm_runtime_put_autosuspend(&parent_sw->dev);
 
 	tb_switch_put(parent_sw);
@@ -917,7 +914,6 @@ icm_fr_device_disconnected(struct tb *tb, const struct icm_pkg_header *hdr)
 
 	remove_switch(sw);
 
-	pm_runtime_mark_last_busy(sw->dev.parent);
 	pm_runtime_put_autosuspend(sw->dev.parent);
 
 	tb_switch_put(sw);
@@ -1315,7 +1311,6 @@ __icm_tr_device_connected(struct tb *tb, const struct icm_pkg_header *hdr,
 			tb_switch_put(sw);
 	}
 
-	pm_runtime_mark_last_busy(&parent_sw->dev);
 	pm_runtime_put_autosuspend(&parent_sw->dev);
 
 	tb_switch_put(parent_sw);
@@ -1346,7 +1341,6 @@ icm_tr_device_disconnected(struct tb *tb, const struct icm_pkg_header *hdr)
 
 	remove_switch(sw);
 
-	pm_runtime_mark_last_busy(sw->dev.parent);
 	pm_runtime_put_autosuspend(sw->dev.parent);
 
 	tb_switch_put(sw);
@@ -2078,7 +2072,6 @@ static void remove_unplugged_switch(struct tb_switch *sw)
 	bus_for_each_dev(&tb_bus_type, &sw->dev, NULL, complete_rpm);
 	tb_switch_remove(sw);
 
-	pm_runtime_mark_last_busy(parent);
 	pm_runtime_put_autosuspend(parent);
 
 	put_device(parent);

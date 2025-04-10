@@ -262,7 +262,6 @@ static ssize_t regs_write(struct tb_switch *sw, struct tb_port *port,
 	mutex_unlock(&tb->lock);
 
 out:
-	pm_runtime_mark_last_busy(&sw->dev);
 	pm_runtime_put_autosuspend(&sw->dev);
 	free_page((unsigned long)buf);
 
@@ -403,7 +402,6 @@ static ssize_t port_sb_regs_write(struct file *file, const char __user *user_buf
 
 	mutex_unlock(&tb->lock);
 out:
-	pm_runtime_mark_last_busy(&sw->dev);
 	pm_runtime_put_autosuspend(&sw->dev);
 	free_page((unsigned long)buf);
 
@@ -436,7 +434,6 @@ static ssize_t retimer_sb_regs_write(struct file *file,
 
 	mutex_unlock(&tb->lock);
 out:
-	pm_runtime_mark_last_busy(&rt->dev);
 	pm_runtime_put_autosuspend(&rt->dev);
 	free_page((unsigned long)buf);
 
@@ -1304,7 +1301,6 @@ static int margining_run_write(void *data, u64 val)
 out_unlock:
 	mutex_unlock(&tb->lock);
 out_rpm_put:
-	pm_runtime_mark_last_busy(dev);
 	pm_runtime_put_autosuspend(dev);
 
 	return ret;
@@ -1923,7 +1919,6 @@ static ssize_t counters_write(struct file *file, const char __user *user_buf,
 	mutex_unlock(&tb->lock);
 
 out:
-	pm_runtime_mark_last_busy(&sw->dev);
 	pm_runtime_put_autosuspend(&sw->dev);
 	free_page((unsigned long)buf);
 
@@ -2118,7 +2113,6 @@ static int port_regs_show(struct seq_file *s, void *not_used)
 out_unlock:
 	mutex_unlock(&tb->lock);
 out_rpm_put:
-	pm_runtime_mark_last_busy(&sw->dev);
 	pm_runtime_put_autosuspend(&sw->dev);
 
 	return ret;
@@ -2222,7 +2216,6 @@ static int switch_regs_show(struct seq_file *s, void *not_used)
 out_unlock:
 	mutex_unlock(&tb->lock);
 out_rpm_put:
-	pm_runtime_mark_last_busy(&sw->dev);
 	pm_runtime_put_autosuspend(&sw->dev);
 
 	return ret;
@@ -2283,7 +2276,6 @@ static int path_show(struct seq_file *s, void *not_used)
 out_unlock:
 	mutex_unlock(&tb->lock);
 out_rpm_put:
-	pm_runtime_mark_last_busy(&sw->dev);
 	pm_runtime_put_autosuspend(&sw->dev);
 
 	return ret;
@@ -2337,7 +2329,6 @@ static int counters_show(struct seq_file *s, void *not_used)
 	mutex_unlock(&tb->lock);
 
 out:
-	pm_runtime_mark_last_busy(&sw->dev);
 	pm_runtime_put_autosuspend(&sw->dev);
 
 	return ret;
@@ -2391,7 +2382,6 @@ static int port_sb_regs_show(struct seq_file *s, void *not_used)
 
 	mutex_unlock(&tb->lock);
 out_rpm_put:
-	pm_runtime_mark_last_busy(&sw->dev);
 	pm_runtime_put_autosuspend(&sw->dev);
 
 	return ret;
@@ -2506,7 +2496,6 @@ static int retimer_sb_regs_show(struct seq_file *s, void *not_used)
 
 	mutex_unlock(&tb->lock);
 out_rpm_put:
-	pm_runtime_mark_last_busy(&rt->dev);
 	pm_runtime_put_autosuspend(&rt->dev);
 
 	return ret;

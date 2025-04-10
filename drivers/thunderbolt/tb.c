@@ -1271,7 +1271,6 @@ static void tb_scan_switch(struct tb_switch *sw)
 	tb_switch_for_each_port(sw, port)
 		tb_scan_port(port);
 
-	pm_runtime_mark_last_busy(&sw->dev);
 	pm_runtime_put_autosuspend(&sw->dev);
 }
 
@@ -1415,7 +1414,6 @@ static void tb_scan_port(struct tb_port *port)
 
 out_rpm_put:
 	if (port->usb4) {
-		pm_runtime_mark_last_busy(&port->usb4->dev);
 		pm_runtime_put_autosuspend(&port->usb4->dev);
 	}
 }
@@ -1740,9 +1738,7 @@ static void tb_deactivate_and_free_tunnel(struct tb_tunnel *tunnel)
 		 */
 		tb_configure_sym(tb, src_port, dst_port, true);
 		/* Now we can allow the domain to runtime suspend again */
-		pm_runtime_mark_last_busy(&dst_port->sw->dev);
 		pm_runtime_put_autosuspend(&dst_port->sw->dev);
-		pm_runtime_mark_last_busy(&src_port->sw->dev);
 		pm_runtime_put_autosuspend(&src_port->sw->dev);
 		fallthrough;
 
@@ -2046,9 +2042,7 @@ err_detach_group:
 err_dealloc_dp:
 	tb_switch_dealloc_dp_resource(in->sw, in);
 err_rpm_put:
-	pm_runtime_mark_last_busy(&out->sw->dev);
 	pm_runtime_put_autosuspend(&out->sw->dev);
-	pm_runtime_mark_last_busy(&in->sw->dev);
 	pm_runtime_put_autosuspend(&in->sw->dev);
 }
 
@@ -2508,7 +2502,6 @@ static void tb_handle_hotplug(struct work_struct *work)
 		}
 	}
 
-	pm_runtime_mark_last_busy(&sw->dev);
 	pm_runtime_put_autosuspend(&sw->dev);
 
 put_sw:
@@ -2516,7 +2509,6 @@ put_sw:
 out:
 	mutex_unlock(&tb->lock);
 
-	pm_runtime_mark_last_busy(&tb->dev);
 	pm_runtime_put_autosuspend(&tb->dev);
 
 	kfree(ev);
@@ -2843,7 +2835,6 @@ put_sw:
 unlock:
 	mutex_unlock(&tb->lock);
 
-	pm_runtime_mark_last_busy(&tb->dev);
 	pm_runtime_put_autosuspend(&tb->dev);
 
 	kfree(ev);

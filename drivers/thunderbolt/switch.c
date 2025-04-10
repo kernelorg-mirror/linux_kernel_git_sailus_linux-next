@@ -318,7 +318,6 @@ static int nvm_read(void *priv, unsigned int offset, void *val, size_t bytes)
 	mutex_unlock(&sw->tb->lock);
 
 out:
-	pm_runtime_mark_last_busy(&sw->dev);
 	pm_runtime_put_autosuspend(&sw->dev);
 
 	return ret;
@@ -1846,7 +1845,6 @@ static ssize_t authorized_store(struct device *dev,
 
 	pm_runtime_get_sync(&sw->dev);
 	ret = tb_switch_set_authorized(sw, val);
-	pm_runtime_mark_last_busy(&sw->dev);
 	pm_runtime_put_autosuspend(&sw->dev);
 
 	return ret ? ret : count;
@@ -2078,7 +2076,6 @@ static ssize_t nvm_authenticate_sysfs(struct device *dev, const char *buf,
 exit_unlock:
 	mutex_unlock(&sw->tb->lock);
 exit_rpm:
-	pm_runtime_mark_last_busy(&sw->dev);
 	pm_runtime_put_autosuspend(&sw->dev);
 
 	return ret;
@@ -3351,7 +3348,6 @@ int tb_switch_add(struct tb_switch *sw)
 	if (sw->rpm) {
 		pm_runtime_set_autosuspend_delay(&sw->dev, TB_AUTOSUSPEND_DELAY);
 		pm_runtime_use_autosuspend(&sw->dev);
-		pm_runtime_mark_last_busy(&sw->dev);
 		pm_runtime_enable(&sw->dev);
 		pm_request_autosuspend(&sw->dev);
 	}
