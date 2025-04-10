@@ -227,7 +227,6 @@ static int mma8452_set_runtime_pm_state(struct i2c_client *client, bool on)
 	if (on) {
 		ret = pm_runtime_resume_and_get(&client->dev);
 	} else {
-		pm_runtime_mark_last_busy(&client->dev);
 		ret = pm_runtime_put_autosuspend(&client->dev);
 	}
 
