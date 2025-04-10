@@ -608,7 +608,6 @@ static void bam_free_chan(struct dma_chan *chan)
 	}
 
 err:
-	pm_runtime_mark_last_busy(bdev->dev);
 	pm_runtime_put_autosuspend(bdev->dev);
 }
 
@@ -784,7 +783,6 @@ static int bam_pause(struct dma_chan *chan)
 	writel_relaxed(1, bam_addr(bdev, bchan->id, BAM_P_HALT));
 	bchan->paused = 1;
 	spin_unlock_irqrestore(&bchan->vc.lock, flag);
-	pm_runtime_mark_last_busy(bdev->dev);
 	pm_runtime_put_autosuspend(bdev->dev);
 
 	return 0;
@@ -810,7 +808,6 @@ static int bam_resume(struct dma_chan *chan)
 	writel_relaxed(0, bam_addr(bdev, bchan->id, BAM_P_HALT));
 	bchan->paused = 0;
 	spin_unlock_irqrestore(&bchan->vc.lock, flag);
-	pm_runtime_mark_last_busy(bdev->dev);
 	pm_runtime_put_autosuspend(bdev->dev);
 
 	return 0;
@@ -927,7 +924,6 @@ static irqreturn_t bam_dma_irq(int irq, void *data)
 		writel_relaxed(clr_mask, bam_addr(bdev, 0, BAM_IRQ_CLR));
 	}
 
-	pm_runtime_mark_last_busy(bdev->dev);
 	pm_runtime_put_autosuspend(bdev->dev);
 
 	return IRQ_HANDLED;
@@ -1102,7 +1098,6 @@ static void bam_start_dma(struct bam_chan *bchan)
 	writel_relaxed(bchan->tail * sizeof(struct bam_desc_hw),
 			bam_addr(bdev, bchan->id, BAM_P_EVNT_REG));
 
-	pm_runtime_mark_last_busy(bdev->dev);
 	pm_runtime_put_autosuspend(bdev->dev);
 }
 

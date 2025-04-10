@@ -150,7 +150,6 @@ int hidma_mgmt_setup(struct hidma_mgmt_dev *mgmtdev)
 	val |= mgmtdev->chreset_timeout_cycles & HIDMA_CHRESET_TIMEOUT_MASK;
 	writel(val, mgmtdev->virtaddr + HIDMA_CHRESET_TIMEOUT_OFFSET);
 
-	pm_runtime_mark_last_busy(&mgmtdev->pdev->dev);
 	pm_runtime_put_autosuspend(&mgmtdev->pdev->dev);
 	return 0;
 }
@@ -305,7 +304,6 @@ static int hidma_mgmt_probe(struct platform_device *pdev)
 		 &res->start, mgmtdev->dma_channels);
 
 	platform_set_drvdata(pdev, mgmtdev);
-	pm_runtime_mark_last_busy(&pdev->dev);
 	pm_runtime_put_autosuspend(&pdev->dev);
 	return 0;
 out:
