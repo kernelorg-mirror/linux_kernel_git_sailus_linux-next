@@ -646,7 +646,6 @@ static int tsl2583_set_pm_runtime_busy(struct tsl2583_chip *chip, bool on)
 	if (on) {
 		ret = pm_runtime_resume_and_get(&chip->client->dev);
 	} else {
-		pm_runtime_mark_last_busy(&chip->client->dev);
 		ret = pm_runtime_put_autosuspend(&chip->client->dev);
 	}
 

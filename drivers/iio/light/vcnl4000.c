@@ -581,7 +581,6 @@ static int vcnl4000_set_pm_runtime_state(struct vcnl4000_data *data, bool on)
 	if (on) {
 		ret = pm_runtime_resume_and_get(dev);
 	} else {
-		pm_runtime_mark_last_busy(dev);
 		ret = pm_runtime_put_autosuspend(dev);
 	}
 
