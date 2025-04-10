@@ -85,7 +85,6 @@ static inline void gbphy_runtime_put_autosuspend(struct gbphy_device *gbphy_dev)
 {
 	struct device *dev = &gbphy_dev->dev;
 
-	pm_runtime_mark_last_busy(dev);
 	pm_runtime_put_autosuspend(dev);
 }
 
