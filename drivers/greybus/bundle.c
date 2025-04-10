@@ -155,7 +155,6 @@ static int gb_bundle_resume(struct device *dev)
 
 static int gb_bundle_idle(struct device *dev)
 {
-	pm_runtime_mark_last_busy(dev);
 	pm_request_autosuspend(dev);
 
 	return 0;
