@@ -916,13 +916,11 @@ int etnaviv_gpu_init(struct etnaviv_gpu *gpu)
 	etnaviv_gpu_hw_init(gpu);
 	mutex_unlock(&gpu->lock);
 
-	pm_runtime_mark_last_busy(gpu->dev);
 	pm_runtime_put_autosuspend(gpu->dev);
 
 	return 0;
 
 fail:
-	pm_runtime_mark_last_busy(gpu->dev);
 pm_put:
 	pm_runtime_put_autosuspend(gpu->dev);
 
@@ -1109,7 +1107,6 @@ int etnaviv_gpu_debugfs(struct etnaviv_gpu *gpu, struct seq_file *m)
 
 	ret = 0;
 
-	pm_runtime_mark_last_busy(gpu->dev);
 pm_put:
 	pm_runtime_put_autosuspend(gpu->dev);
 
@@ -1509,7 +1506,6 @@ void etnaviv_gpu_recover_hang(struct etnaviv_gem_submit *submit)
 	etnaviv_gpu_hw_init(gpu);
 
 	mutex_unlock(&gpu->lock);
-	pm_runtime_mark_last_busy(gpu->dev);
 pm_put:
 	pm_runtime_put_autosuspend(gpu->dev);
 }
