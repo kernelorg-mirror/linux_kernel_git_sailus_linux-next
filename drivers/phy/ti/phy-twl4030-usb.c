@@ -505,7 +505,6 @@ static int twl4030_phy_power_on(struct phy *phy)
 	dev_dbg(twl->dev, "%s\n", __func__);
 	pm_runtime_get_sync(twl->dev);
 	schedule_delayed_work(&twl->id_workaround_work, HZ);
-	pm_runtime_mark_last_busy(twl->dev);
 	pm_runtime_put_autosuspend(twl->dev);
 
 	return 0;
@@ -598,7 +597,6 @@ static irqreturn_t twl4030_usb_irq(int irq, void *_twl)
 		if (atomic_add_unless(&twl->connected, -1, 0)) {
 			dev_dbg(twl->dev, "%s: cable disconnected %i\n",
 				__func__, status);
-			pm_runtime_mark_last_busy(twl->dev);
 			pm_runtime_put_autosuspend(twl->dev);
 			twl->musb_mailbox_pending = true;
 		}
@@ -636,7 +634,6 @@ static int twl4030_phy_init(struct phy *phy)
 	pm_runtime_get_sync(twl->dev);
 	twl->linkstat = MUSB_UNKNOWN;
 	schedule_delayed_work(&twl->id_workaround_work, HZ);
-	pm_runtime_mark_last_busy(twl->dev);
 	pm_runtime_put_autosuspend(twl->dev);
 
 	return 0;
